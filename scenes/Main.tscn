@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3]
+[gd_scene load_steps=9 format=3]
 
 [ext_resource type="Script" path="res://scripts/Main.cs" id="1"]
 [ext_resource type="Script" path="res://scripts/DesktopOverlay.cs" id="2"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://scripts/DoorView.cs" id="5"]
 [ext_resource type="Script" path="res://scripts/BubbleView.cs" id="6"]
 [ext_resource type="Script" path="res://scripts/QuizPanel.cs" id="7"]
+[ext_resource type="Script" path="res://scripts/HordeDirector.cs" id="8"]
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1")
@@ -22,6 +23,9 @@ script = ExtResource("4")
 
 [node name="Door" type="Node3D" parent="Stage"]
 script = ExtResource("5")
+
+[node name="Horde" type="Node3D" parent="Stage"]
+script = ExtResource("8")
 
 [node name="Ui" type="CanvasLayer" parent="."]
 

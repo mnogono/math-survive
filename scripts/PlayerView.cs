@@ -19,6 +19,9 @@ public partial class PlayerView : Node3D
     /// <summary>Макушка (физические px окна).</summary>
     public Vector2 HeadTopPx { get; private set; }
 
+    /// <summary>Конец ружья (мировые координаты Stage).</summary>
+    public Vector3 MuzzleWorld => Position + new Vector3(Radius + GunLength - 0.04f, Height * 0.6f, 0.1f);
+
     public override void _Ready()
     {
         AddChild(new MeshInstance3D

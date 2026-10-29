@@ -12,6 +12,7 @@ public partial class Main : Node3D
     private GameSession _session = null!;
     private BubbleView _bubble = null!;
     private QuizPanel _quiz = null!;
+    private HordeDirector _horde = null!;
     private static string SectionDir => PacksRoot.Path + "/math/test";
 
     public override void _Ready()
@@ -22,6 +23,7 @@ public partial class Main : Node3D
         var door = GetNode<DoorView>("Stage/Door");
         _bubble = GetNode<BubbleView>("Ui/Bubble");
         _quiz = GetNode<QuizPanel>("Ui/Quiz");
+        _horde = GetNode<HordeDirector>("Stage/Horde");
 
         _session = new GameSession(BuildConfig(), LoadPack(SectionDir), new Random());
         _session.ModeChanged += OnModeChanged;
@@ -32,6 +34,8 @@ public partial class Main : Node3D
         door.Place(stage, ToVector(Placement.DoorFeet(window.X, window.Y, scale)));
         _bubble.PlaceAbove(player.HeadTopPx);
         _quiz.PlaceAbove(player.HeadTopPx);
+        _horde.Setup(_session, stage, player);
+        _session.HordeStarted += _horde.Begin;
 
         door.Clicked += () => GetTree().Quit();
         _bubble.Clicked += () => _session.OpenQuiz(DebugArgs.Current.QuestionId);
@@ -47,6 +51,8 @@ public partial class Main : Node3D
         ApplyMode(_session.Mode);
         if (DebugArgs.Current.OpenQuiz)
             _session.OpenQuiz(DebugArgs.Current.QuestionId);
+        if (DebugArgs.Current.HordeNow)
+            _session.ForceHordeNow();
     }
 
     public override void _Process(double delta)
@@ -73,6 +79,9 @@ public partial class Main : Node3D
             _quiz.ShowQuiz(_session.CurrentQuiz!, SectionDir, _session.Pause.Available, _session.Config.PauseDuration);
         else if (mode != GameMode.Feedback)
             _quiz.HideQuiz();
+        // После поражения зомби стоят у персонажа до новой игры.
+        if (mode == GameMode.Idle)
+            _horde.Clear();
         Engine.MaxFps = mode is GameMode.Horde or GameMode.HordeSummary
             ? _session.Config.ActiveMaxFps
             : _session.Config.IdleMaxFps;
