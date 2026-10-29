@@ -1,0 +1,190 @@
+[
+  {
+    "id": "test-L1-01",
+    "level": 1,
+    "prompt": "Вычислите:",
+    "correct": 2,
+    "prompt_svg": "svg/test-L1-01-q.svg",
+    "options": [
+      {
+        "svg": "svg/test-L1-01-a0.svg"
+      },
+      {
+        "svg": "svg/test-L1-01-a1.svg"
+      },
+      {
+        "svg": "svg/test-L1-01-a2.svg"
+      },
+      {
+        "svg": "svg/test-L1-01-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "test-L1-02",
+    "level": 1,
+    "prompt": "Вычислите:",
+    "correct": 1,
+    "prompt_svg": "svg/test-L1-02-q.svg",
+    "options": [
+      {
+        "svg": "svg/test-L1-02-a0.svg"
+      },
+      {
+        "svg": "svg/test-L1-02-a1.svg"
+      },
+      {
+        "svg": "svg/test-L1-02-a2.svg"
+      },
+      {
+        "svg": "svg/test-L1-02-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "test-L1-03",
+    "level": 1,
+    "prompt": "Вычислите:",
+    "correct": 2,
+    "prompt_svg": "svg/test-L1-03-q.svg",
+    "options": [
+      {
+        "svg": "svg/test-L1-03-a0.svg"
+      },
+      {
+        "svg": "svg/test-L1-03-a1.svg"
+      },
+      {
+        "svg": "svg/test-L1-03-a2.svg"
+      },
+      {
+        "svg": "svg/test-L1-03-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "test-L2-01",
+    "level": 2,
+    "prompt": "Найдите производную функции:",
+    "correct": 1,
+    "prompt_svg": "svg/test-L2-01-q.svg",
+    "options": [
+      {
+        "svg": "svg/test-L2-01-a0.svg"
+      },
+      {
+        "svg": "svg/test-L2-01-a1.svg"
+      },
+      {
+        "svg": "svg/test-L2-01-a2.svg"
+      },
+      {
+        "svg": "svg/test-L2-01-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "test-L2-02",
+    "level": 2,
+    "prompt": "Найдите производную (α — постоянная):",
+    "correct": 2,
+    "prompt_svg": "svg/test-L2-02-q.svg",
+    "options": [
+      {
+        "svg": "svg/test-L2-02-a0.svg"
+      },
+      {
+        "svg": "svg/test-L2-02-a1.svg"
+      },
+      {
+        "svg": "svg/test-L2-02-a2.svg"
+      },
+      {
+        "svg": "svg/test-L2-02-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "test-L2-03",
+    "level": 2,
+    "prompt": "Вычислите определённый интеграл:",
+    "correct": 3,
+    "prompt_svg": "svg/test-L2-03-q.svg",
+    "options": [
+      {
+        "svg": "svg/test-L2-03-a0.svg"
+      },
+      {
+        "svg": "svg/test-L2-03-a1.svg"
+      },
+      {
+        "svg": "svg/test-L2-03-a2.svg"
+      },
+      {
+        "svg": "svg/test-L2-03-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "test-L3-01",
+    "level": 3,
+    "prompt": "Найдите неопределённый интеграл:",
+    "correct": 2,
+    "prompt_svg": "svg/test-L3-01-q.svg",
+    "options": [
+      {
+        "svg": "svg/test-L3-01-a0.svg"
+      },
+      {
+        "svg": "svg/test-L3-01-a1.svg"
+      },
+      {
+        "svg": "svg/test-L3-01-a2.svg"
+      },
+      {
+        "svg": "svg/test-L3-01-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "test-L3-02",
+    "level": 3,
+    "prompt": "Найдите сумму:",
+    "correct": 0,
+    "prompt_svg": "svg/test-L3-02-q.svg",
+    "options": [
+      {
+        "svg": "svg/test-L3-02-a0.svg"
+      },
+      {
+        "svg": "svg/test-L3-02-a1.svg"
+      },
+      {
+        "svg": "svg/test-L3-02-a2.svg"
+      },
+      {
+        "svg": "svg/test-L3-02-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "test-L3-03",
+    "level": 3,
+    "prompt": "Два поезда одновременно выходят навстречу друг другу из городов A и B, расстояние между которыми равно 480 км. Скорость первого поезда 70 км/ч, скорость второго 90 км/ч. Оба поезда идут без остановок и с постоянной скоростью по одной прямой железной дороге. Через сколько часов после отправления поезда встретятся?",
+    "correct": 3,
+    "options": [
+      {
+        "text": "2 часа"
+      },
+      {
+        "text": "4 часа"
+      },
+      {
+        "text": "6 часов"
+      },
+      {
+        "text": "3 часа"
+      }
+    ]
+  }
+]

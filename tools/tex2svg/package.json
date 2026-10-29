@@ -1,0 +1,10 @@
+{
+  "name": "tex2svg",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "LaTeX -> SVG question pack builder for Math Survive",
+  "dependencies": {
+    "mathjax-full": "^3.2.2"
+  }
+}

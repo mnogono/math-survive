@@ -1,0 +1,20 @@
+[
+  {"id":"test-L1-01","level":1,"prompt":"Вычислите:","prompt_tex":"\\frac{3}{4}+\\frac{1}{6}",
+   "options":[{"tex":"\\frac{4}{10}"},{"tex":"\\frac{5}{6}"},{"tex":"\\frac{11}{12}"},{"tex":"\\frac{13}{12}"}],"correct":2},
+  {"id":"test-L1-02","level":1,"prompt":"Вычислите:","prompt_tex":"\\left(\\frac{2}{3}\\right)^{-2}",
+   "options":[{"tex":"\\frac{4}{9}"},{"tex":"\\frac{9}{4}"},{"tex":"-\\frac{4}{9}"},{"tex":"\\frac{3}{2}"}],"correct":1},
+  {"id":"test-L1-03","level":1,"prompt":"Вычислите:","prompt_tex":"\\sqrt[3]{27}",
+   "options":[{"tex":"9"},{"tex":"6"},{"tex":"3"},{"tex":"\\frac{1}{3}"}],"correct":2},
+  {"id":"test-L2-01","level":2,"prompt":"Найдите производную функции:","prompt_tex":"f(x)=3x^{4}-\\frac{2}{x}",
+   "options":[{"tex":"12x^{3}-\\frac{2}{x^{2}}"},{"tex":"12x^{3}+\\frac{2}{x^{2}}"},{"tex":"12x^{3}+\\frac{2}{x}"},{"tex":"3x^{3}+\\frac{2}{x^{2}}"}],"correct":1},
+  {"id":"test-L2-02","level":2,"prompt":"Найдите производную (α — постоянная):","prompt_tex":"\\frac{d}{dx}\\sin(\\alpha x)",
+   "options":[{"tex":"\\cos(\\alpha x)"},{"tex":"-\\alpha\\cos(\\alpha x)"},{"tex":"\\alpha\\cos(\\alpha x)"},{"tex":"\\alpha\\sin(\\alpha x)"}],"correct":2},
+  {"id":"test-L2-03","level":2,"prompt":"Вычислите определённый интеграл:","prompt_tex":"\\int_{0}^{\\pi}\\sin x\\,dx",
+   "options":[{"tex":"0"},{"tex":"1"},{"tex":"-2"},{"tex":"2"}],"correct":3},
+  {"id":"test-L3-01","level":3,"prompt":"Найдите неопределённый интеграл:","prompt_tex":"\\int\\left(3x^{2}+\\cos x\\right)dx",
+   "options":[{"tex":"x^{3}-\\sin x+C"},{"tex":"6x-\\sin x+C"},{"tex":"x^{3}+\\sin x+C"},{"tex":"x^{3}+\\cos x+C"}],"correct":2},
+  {"id":"test-L3-02","level":3,"prompt":"Найдите сумму:","prompt_tex":"\\sum_{k=1}^{n}k",
+   "options":[{"tex":"\\frac{n(n+1)}{2}"},{"tex":"\\frac{n(n-1)}{2}"},{"tex":"\\frac{n^{2}}{2}"},{"tex":"n(n+1)"}],"correct":0},
+  {"id":"test-L3-03","level":3,"prompt":"Два поезда одновременно выходят навстречу друг другу из городов A и B, расстояние между которыми равно 480 км. Скорость первого поезда 70 км/ч, скорость второго 90 км/ч. Оба поезда идут без остановок и с постоянной скоростью по одной прямой железной дороге. Через сколько часов после отправления поезда встретятся?",
+   "options":[{"text":"2 часа"},{"text":"4 часа"},{"text":"6 часов"},{"text":"3 часа"}],"correct":3}
+]
