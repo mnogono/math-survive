@@ -13,6 +13,8 @@ public partial class Main : Node3D
     private BubbleView _bubble = null!;
     private QuizPanel _quiz = null!;
     private HordeDirector _horde = null!;
+    private SummaryToast _toast = null!;
+    private StatsPanel _stats = null!;
     private static string SectionDir => PacksRoot.Path + "/math/test";
 
     public override void _Ready()
@@ -24,6 +26,8 @@ public partial class Main : Node3D
         _bubble = GetNode<BubbleView>("Ui/Bubble");
         _quiz = GetNode<QuizPanel>("Ui/Quiz");
         _horde = GetNode<HordeDirector>("Stage/Horde");
+        _toast = GetNode<SummaryToast>("Ui/Toast");
+        _stats = GetNode<StatsPanel>("Ui/Stats");
 
         _session = new GameSession(BuildConfig(), LoadPack(SectionDir), new Random());
         _session.ModeChanged += OnModeChanged;
@@ -34,9 +38,12 @@ public partial class Main : Node3D
         door.Place(stage, ToVector(Placement.DoorFeet(window.X, window.Y, scale)));
         _bubble.PlaceAbove(player.HeadTopPx);
         _quiz.PlaceAbove(player.HeadTopPx);
+        _toast.PlaceAbove(player.HeadTopPx);
+        _stats.PlaceAbove(player.HeadTopPx);
         _horde.Setup(_session, stage, player);
         _session.HordeStarted += _horde.Begin;
 
+        _stats.NewRunClicked += () => _session.StartNewRun();
         door.Clicked += () => GetTree().Quit();
         _bubble.Clicked += () => _session.OpenQuiz(DebugArgs.Current.QuestionId);
         _quiz.OptionChosen += OnOptionChosen;
@@ -47,6 +54,7 @@ public partial class Main : Node3D
         overlay.RegisterHitArea(() => player.ScreenRect);
         overlay.RegisterHitArea(() => _bubble.Visible ? _bubble.ScreenRect : null);
         overlay.RegisterHitArea(() => _quiz.Visible ? _quiz.ScreenRect : null);
+        overlay.RegisterHitArea(() => _stats.Visible ? _stats.ScreenRect : null);
 
         ApplyMode(_session.Mode);
         if (DebugArgs.Current.OpenQuiz)
@@ -79,6 +87,14 @@ public partial class Main : Node3D
             _quiz.ShowQuiz(_session.CurrentQuiz!, SectionDir, _session.Pause.Available, _session.Config.PauseDuration);
         else if (mode != GameMode.Feedback)
             _quiz.HideQuiz();
+        if (mode == GameMode.HordeSummary)
+            _toast.ShowFor($"Орда {_session.CurrentHorde!.Number} отбита, убито {_session.LastHordeKills}");
+        else
+            _toast.HideToast();
+        if (mode == GameMode.GameOver)
+            _stats.ShowStats(_session.Run, _session.Lifetime, _session.Combat.Ammo, _session.Pack.Section.Title);
+        else
+            _stats.HideStats();
         // После поражения зомби стоят у персонажа до новой игры.
         if (mode == GameMode.Idle)
             _horde.Clear();

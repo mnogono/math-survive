@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3]
+[gd_scene load_steps=11 format=3]
 
 [ext_resource type="Script" path="res://scripts/Main.cs" id="1"]
 [ext_resource type="Script" path="res://scripts/DesktopOverlay.cs" id="2"]
@@ -8,6 +8,8 @@
 [ext_resource type="Script" path="res://scripts/BubbleView.cs" id="6"]
 [ext_resource type="Script" path="res://scripts/QuizPanel.cs" id="7"]
 [ext_resource type="Script" path="res://scripts/HordeDirector.cs" id="8"]
+[ext_resource type="Script" path="res://scripts/SummaryToast.cs" id="9"]
+[ext_resource type="Script" path="res://scripts/StatsPanel.cs" id="10"]
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1")
@@ -39,3 +41,15 @@ visible = false
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("7")
+
+[node name="Toast" type="PanelContainer" parent="Ui"]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("9")
+
+[node name="Stats" type="PanelContainer" parent="Ui"]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("10")
