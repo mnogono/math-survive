@@ -14,3 +14,7 @@ project/assembly_name="MathSurvive"
 
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+
+[autoload]
+
+DebugCapture="*res://scripts/DebugCapture.cs"
