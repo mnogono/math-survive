@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3]
+[gd_scene load_steps=8 format=3]
 
 [ext_resource type="Script" path="res://scripts/Main.cs" id="1"]
 [ext_resource type="Script" path="res://scripts/DesktopOverlay.cs" id="2"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://scripts/PlayerView.cs" id="4"]
 [ext_resource type="Script" path="res://scripts/DoorView.cs" id="5"]
 [ext_resource type="Script" path="res://scripts/BubbleView.cs" id="6"]
+[ext_resource type="Script" path="res://scripts/QuizPanel.cs" id="7"]
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1")
@@ -28,3 +29,9 @@ script = ExtResource("5")
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("6")
+
+[node name="Quiz" type="PanelContainer" parent="Ui"]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("7")

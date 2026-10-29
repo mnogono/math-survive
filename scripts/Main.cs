@@ -11,6 +11,8 @@ public partial class Main : Node3D
 {
     private GameSession _session = null!;
     private BubbleView _bubble = null!;
+    private QuizPanel _quiz = null!;
+    private static string SectionDir => PacksRoot.Path + "/math/test";
 
     public override void _Ready()
     {
@@ -19,8 +21,9 @@ public partial class Main : Node3D
         var player = GetNode<PlayerView>("Stage/Player");
         var door = GetNode<DoorView>("Stage/Door");
         _bubble = GetNode<BubbleView>("Ui/Bubble");
+        _quiz = GetNode<QuizPanel>("Ui/Quiz");
 
-        _session = new GameSession(BuildConfig(), LoadPack(PacksRoot.Path + "/math/test"), new Random());
+        _session = new GameSession(BuildConfig(), LoadPack(SectionDir), new Random());
         _session.ModeChanged += OnModeChanged;
 
         var window = GetWindow().Size;
@@ -28,15 +31,22 @@ public partial class Main : Node3D
         player.Place(stage, ToVector(Placement.PlayerFeet(window.X, window.Y, scale)));
         door.Place(stage, ToVector(Placement.DoorFeet(window.X, window.Y, scale)));
         _bubble.PlaceAbove(player.HeadTopPx);
+        _quiz.PlaceAbove(player.HeadTopPx);
 
         door.Clicked += () => GetTree().Quit();
         _bubble.Clicked += () => _session.OpenQuiz(DebugArgs.Current.QuestionId);
+        _quiz.OptionChosen += OnOptionChosen;
+        _quiz.CollapseClicked += () => _session.CollapseQuiz();
+        _quiz.PauseClicked += () => _session.StartPause(DateTime.UtcNow);
 
         overlay.RegisterHitArea(() => door.ScreenRect);
         overlay.RegisterHitArea(() => player.ScreenRect);
         overlay.RegisterHitArea(() => _bubble.Visible ? _bubble.ScreenRect : null);
+        overlay.RegisterHitArea(() => _quiz.Visible ? _quiz.ScreenRect : null);
 
         ApplyMode(_session.Mode);
+        if (DebugArgs.Current.OpenQuiz)
+            _session.OpenQuiz(DebugArgs.Current.QuestionId);
     }
 
     public override void _Process(double delta)
@@ -48,9 +58,21 @@ public partial class Main : Node3D
         ApplyMode(mode);
     }
 
+    private void OnOptionChosen(int displayIndex)
+    {
+        if (_session.Answer(displayIndex) is { } result)
+            _quiz.ShowFeedback(result);
+    }
+
     private void ApplyMode(GameMode mode)
     {
         _bubble.Visible = mode == GameMode.Idle;
+        // Квиз виден в QuizOpen и Feedback; любой другой режим его прячет: свернули (Idle), пауза (Paused),
+        // конец обратной связи (Feedback → Idle), орда (Horde — ModeChanged приходит раньше HordeStarted).
+        if (mode == GameMode.QuizOpen)
+            _quiz.ShowQuiz(_session.CurrentQuiz!, SectionDir, _session.Pause.Available, _session.Config.PauseDuration);
+        else if (mode != GameMode.Feedback)
+            _quiz.HideQuiz();
         Engine.MaxFps = mode is GameMode.Horde or GameMode.HordeSummary
             ? _session.Config.ActiveMaxFps
             : _session.Config.IdleMaxFps;
