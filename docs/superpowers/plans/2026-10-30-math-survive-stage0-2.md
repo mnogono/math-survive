@@ -76,7 +76,7 @@ math-survive/
 
 - [x] **Step 1:** Установить .NET SDK 8: `winget install Microsoft.DotNet.SDK.8` — с согласия пользователя.
 - [x] **Step 2:** Проверить: `dotnet --list-sdks` → строка `8.0.x`.
-- [ ] **Step 3:** Создать worktree: `git -c core.longpaths=true worktree add -b stage0-2 C:/wt/math-survive-s02 master`, затем в нём `git config core.longpaths true`.
+- [x] **Step 3:** Создать worktree: `git -c core.longpaths=true worktree add -b stage0-2 C:/wt/math-survive-s02 master`, затем в нём `git config core.longpaths true`.
 
 ---
 
@@ -420,3 +420,5 @@ math-survive/
 - 2026-10-30 — план составлен (координатор). Спека согласована пользователем.
 - 2026-10-30 — выполнено: Task 0 шаги 1–2 — .NET SDK 8.0.427 установлен (winget, с согласия пользователя), `C:\Program Files\dotnet`. В уже открытых оболочках `dotnet` может отсутствовать в PATH — вызывать по полному пути.
 - 2026-10-30 — рецензия плана независимым агентом: 17 замечаний, исправлены: клики насквозь без `WindowSetMousePassthrough` (Win32 `WS_EX_TRANSPARENT` по курсору, запасной — многоугольник видимых элементов); масштаб по `ScreenGetDpi/96` вместо `ScreenGetScale`; орда ≈ 1 мин (`ZombieSpeedPx = 40`, `ZombieSpawnIntervalSec = 8`); game over по спеке (зомби у персонажа и 0 патронов; спека уточнена); свернуть квиз — кнопка «▾» (спека уточнена); полный `DebugArgs` + автозагрузка `DebugCapture`; `OpenQuiz(forcedId)`, `ForceHordeNow`, `ModeChanged`; уровни тестового пакета; `StartAmmo = 10000` в тесте точности; порядок поиска уровня в `QuestionPicker`; интерфейс `QuizPanel` (`sectionDir`, пауза, переименование `Show*`, скрытие на орду, вызов `LoadSvgFromString` у экземпляра); `config_version=5`, `EnableDynamicLoading`, GL Compatibility, ключи окна, `IsWindowTransparencyAvailable`; `currentColor` и проверка `grep -l`; `.gdignore` и `PacksRoot`; `low_processor_mode` и мигание таймером; автоскрытая панель; тесты вне `MathSurvive.sln`.
+- 2026-10-30 — выполнено: Task 0 шаг 3 — worktree `C:\wt\math-survive-s02`, ветка `stage0-2` от `cb0d3cf`. Журнал SDD: `C:\wt\math-survive-s02\.superpowers\sdd�6-10-30-math-survive-stage0-2\progress.md`. Отметки хода ведутся в этом файле в основной копии (master); в конце `stage0-2` перебазировать на master и влить fast-forward.
+- 2026-10-30 — начато: Task 1 (исполнитель sonnet, worktree `C:\wt\math-survive-s02`, ветка `stage0-2`).
