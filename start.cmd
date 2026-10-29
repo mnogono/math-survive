@@ -11,4 +11,11 @@ if not exist "%GODOT%" (
   exit /b 1
 )
 
+set "PATH=%ProgramFiles%\dotnet;%PATH%"
+dotnet build MathSurvive.sln -nologo -v:quiet
+if errorlevel 1 (
+  echo ОШИБКА СБОРКИ: игра не запущена
+  exit /b 1
+)
+
 start "" "%GODOT%" --path "%~dp0." %*

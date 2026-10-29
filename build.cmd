@@ -24,8 +24,12 @@ echo === Тесты логики ===
 
 :export
 echo === Экспорт в build\MathSurvive.exe ===
-if exist build rmdir /s /q build
-mkdir build
+rem Каталог build целиком не удаляем: рядом с exe лежат пользовательские settings.ini и save.json.
+if not exist build mkdir build
+if exist build\MathSurvive.exe del /q build\MathSurvive.exe
+if exist build\MathSurvive.pck del /q build\MathSurvive.pck
+if exist build\data_MathSurvive_windows_x86_64 rmdir /s /q build\data_MathSurvive_windows_x86_64
+if exist build\packs rmdir /s /q build\packs
 "%GODOT_CON%" --headless --path . --export-release "Windows Desktop" build/MathSurvive.exe || goto :fail
 if not exist build\MathSurvive.exe goto :fail
 

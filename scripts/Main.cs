@@ -10,6 +10,7 @@ namespace MathSurvive.Game;
 public partial class Main : Node3D
 {
     private GameSession _session = null!;
+    private bool _started;
     private BubbleView _bubble = null!;
     private QuizPanel _quiz = null!;
     private HordeDirector _horde = null!;
@@ -29,7 +30,18 @@ public partial class Main : Node3D
         _toast = GetNode<SummaryToast>("Ui/Toast");
         _stats = GetNode<StatsPanel>("Ui/Stats");
 
-        _session = new GameSession(BuildConfig(), LoadPack(SectionDir), new Random());
+        try
+        {
+            _session = new GameSession(BuildConfig(), LoadPack(SectionDir), new Random());
+        }
+        catch (Exception e)
+        {
+            // Окно оверлея уже полноэкранное, поверх всех и прозрачное для кликов: без выхода его не закрыть.
+            GD.PushError($"Не удалось загрузить пакет вопросов: {e}");
+            OS.Alert($"Не удалось загрузить пакет вопросов.\n\n{e.Message}\n\nКаталог пакетов: {PacksRoot.Path}", "Math Survive");
+            GetTree().Quit();
+            return;
+        }
         _session.ModeChanged += OnModeChanged;
 
         var window = GetWindow().Size;
@@ -61,10 +73,15 @@ public partial class Main : Node3D
             _session.OpenQuiz(DebugArgs.Current.QuestionId);
         if (DebugArgs.Current.HordeNow)
             _session.ForceHordeNow();
+        _started = true;
     }
 
     public override void _Process(double delta)
-        => _session.Tick(TimeSpan.FromSeconds(delta), DateTime.UtcNow);
+    {
+        if (!_started)
+            return;
+        _session.Tick(TimeSpan.FromSeconds(Math.Min(delta, _session.Config.MaxFrameDeltaSec)), DateTime.UtcNow);
+    }
 
     private void OnModeChanged(GameMode mode)
     {

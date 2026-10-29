@@ -23,6 +23,8 @@ public sealed record GameConfig
     public double ZombieSpeedPx { get; init; } = 40;
     public double ZombieSpawnIntervalSec { get; init; } = 8;
     public double FireIntervalSec { get; init; } = 0.8;
+    /// <summary>Потолок кадровой дельты, с: сон, гибернация и остановки отладчика не должны сдвигать часы игры и зомби.</summary>
+    public double MaxFrameDeltaSec { get; init; } = 0.25;
     public int IdleMaxFps { get; init; } = 15;
     public int ActiveMaxFps { get; init; } = 60;
 

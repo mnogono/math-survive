@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Godot;
 using MathSurvive.Core;
@@ -81,6 +82,9 @@ public partial class HordeDirector : Node3D
 
     public override void _Process(double delta)
     {
+        if (_session == null)
+            return;
+        delta = Math.Min(delta, _session.Config.MaxFrameDeltaSec);
         UpdateFlash(delta);
         if (!_active)
             return;
