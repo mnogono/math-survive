@@ -9,13 +9,18 @@ public enum OptionsLayout { Grid2x2, Column }
 public static class QuizLayout
 {
     private const int MaxGridTextLength = 24;
+    private const int MaxGridPromptLength = 120;
 
     /// <summary>
-    /// <see cref="OptionsLayout.Grid2x2"/>, если у всех вариантов ширина ≤ <paramref name="maxGridCellWidth"/>
-    /// и текст ≤ 24 символов; иначе <see cref="OptionsLayout.Column"/>. Для SVG-варианта textLength = 0.
+    /// <see cref="OptionsLayout.Grid2x2"/>, если условие ≤ 120 символов, а у всех вариантов ширина
+    /// ≤ <paramref name="maxGridCellWidth"/> и текст ≤ 24 символов; иначе <see cref="OptionsLayout.Column"/>
+    /// (длинная задача — облачко выше, варианты столбиком). Для SVG-варианта textLength = 0.
     /// </summary>
-    public static OptionsLayout Choose(IReadOnlyList<(int width, int textLength)> options, int maxGridCellWidth)
+    public static OptionsLayout Choose(IReadOnlyList<(int width, int textLength)> options, int maxGridCellWidth,
+        int promptLength)
     {
+        if (promptLength > MaxGridPromptLength)
+            return OptionsLayout.Column;
         foreach (var (width, textLength) in options)
         {
             if (width > maxGridCellWidth || textLength > MaxGridTextLength)

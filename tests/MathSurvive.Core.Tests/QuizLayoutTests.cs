@@ -10,22 +10,32 @@ public class QuizLayoutTests
     [Fact]
     public void Narrow_svg_options_go_to_grid()
         => Assert.Equal(OptionsLayout.Grid2x2,
-            QuizLayout.Choose(new[] { (120, 0), (120, 0), (120, 0), (120, 0) }, 160));
+            QuizLayout.Choose(new[] { (120, 0), (120, 0), (120, 0), (120, 0) }, 160, 0));
 
     [Fact]
     public void One_wide_option_switches_to_column()
         => Assert.Equal(OptionsLayout.Column,
-            QuizLayout.Choose(new[] { (120, 0), (300, 0), (120, 0), (120, 0) }, 160));
+            QuizLayout.Choose(new[] { (120, 0), (300, 0), (120, 0), (120, 0) }, 160, 0));
 
     [Fact]
     public void Long_text_option_switches_to_column()
         => Assert.Equal(OptionsLayout.Column,
-            QuizLayout.Choose(new[] { (120, 0), (120, 40), (120, 0), (120, 0) }, 160));
+            QuizLayout.Choose(new[] { (120, 0), (120, 40), (120, 0), (120, 0) }, 160, 0));
 
     [Fact]
     public void Text_of_24_chars_stays_in_grid()
         => Assert.Equal(OptionsLayout.Grid2x2,
-            QuizLayout.Choose(new[] { (120, 24), (120, 6), (120, 6), (120, 6) }, 160));
+            QuizLayout.Choose(new[] { (120, 24), (120, 6), (120, 6), (120, 6) }, 160, 0));
+
+    [Fact]
+    public void Long_prompt_switches_to_column()
+        => Assert.Equal(OptionsLayout.Column,
+            QuizLayout.Choose(new[] { (120, 6), (120, 6), (120, 6), (120, 6) }, 160, 121));
+
+    [Fact]
+    public void Prompt_of_120_chars_stays_in_grid()
+        => Assert.Equal(OptionsLayout.Grid2x2,
+            QuizLayout.Choose(new[] { (120, 6), (120, 6), (120, 6), (120, 6) }, 160, 120));
 
     [Fact]
     public void Clamp_moves_panel_inside_window_with_margin()

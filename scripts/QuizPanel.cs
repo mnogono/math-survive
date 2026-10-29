@@ -167,7 +167,7 @@ public partial class QuizPanel : PanelContainer
             _grid.AddChild(button);
         }
 
-        var layout = QuizLayout.Choose(measures, Mathf.RoundToInt(GridCellWidth * UiScale.Value));
+        var layout = QuizLayout.Choose(measures, Mathf.RoundToInt(GridCellWidth * UiScale.Value), _prompt.Text.Length);
         _grid.Columns = layout == OptionsLayout.Grid2x2 ? 2 : 1;
         _grid.SizeFlagsHorizontal = layout == OptionsLayout.Grid2x2 ? SizeFlags.ShrinkCenter : SizeFlags.Fill;
         // Все варианты одного размера; в столбике кнопки ещё и растягиваются на ширину облачка.
@@ -179,7 +179,7 @@ public partial class QuizPanel : PanelContainer
                 button.SizeFlagsHorizontal = SizeFlags.ExpandFill;
         }
 
-        _pause.Text = $"⏸ Пауза {pauseDuration.TotalMinutes} мин";
+        _pause.Text = $"Пауза {pauseDuration.TotalMinutes} мин"; // без «⏸»: в шрифте его нет, fallback даёт цветной emoji
         _pause.Disabled = !pauseAvailable;
         _collapse.Disabled = false;
 
