@@ -12,6 +12,8 @@ public partial class DebugCapture : Node
             return;
 
         await ToSignal(GetTree().CreateTimer(sec), SceneTreeTimer.SignalName.Timeout);
+        // В режиме экономии кадр статичной сцены не перерисовывается — кадра можно ждать бесконечно.
+        OS.LowProcessorUsageMode = false;
         await ToSignal(RenderingServer.Singleton, RenderingServer.SignalName.FramePostDraw);
 
         if (args.ShotPath is { } path)

@@ -1,6 +1,30 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=7 format=3]
 
 [ext_resource type="Script" path="res://scripts/Main.cs" id="1"]
+[ext_resource type="Script" path="res://scripts/DesktopOverlay.cs" id="2"]
+[ext_resource type="Script" path="res://scripts/Stage.cs" id="3"]
+[ext_resource type="Script" path="res://scripts/PlayerView.cs" id="4"]
+[ext_resource type="Script" path="res://scripts/DoorView.cs" id="5"]
+[ext_resource type="Script" path="res://scripts/BubbleView.cs" id="6"]
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1")
+
+[node name="DesktopOverlay" type="Node" parent="."]
+script = ExtResource("2")
+
+[node name="Stage" type="Node3D" parent="."]
+script = ExtResource("3")
+
+[node name="Player" type="Node3D" parent="Stage"]
+script = ExtResource("4")
+
+[node name="Door" type="Node3D" parent="Stage"]
+script = ExtResource("5")
+
+[node name="Ui" type="CanvasLayer" parent="."]
+
+[node name="Bubble" type="Control" parent="Ui"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("6")

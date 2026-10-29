@@ -7,6 +7,7 @@ public static class UiScale
 {
     private static float? _value;
 
-    public static float Value =>
-        _value ??= DisplayServer.ScreenGetDpi(DisplayServer.GetPrimaryScreen()) / 96f;
+    public static float Value => _value ??= FromDpi(DisplayServer.ScreenGetDpi(DisplayServer.GetPrimaryScreen()));
+
+    private static float FromDpi(int dpi) => dpi > 0 ? dpi / 96f : 1f;
 }

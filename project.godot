@@ -5,6 +5,15 @@ config_version=5
 config/name="Math Survive"
 run/main_scene="res://scenes/Main.tscn"
 config/features=PackedStringArray("4.7", "C#", "GL Compatibility")
+run/low_processor_mode=true
+
+[display]
+
+window/size/borderless=true
+window/size/always_on_top=true
+window/size/transparent=true
+window/per_pixel_transparency/allowed=true
+window/stretch/mode="disabled"
 
 [dotnet]
 
@@ -14,6 +23,7 @@ project/assembly_name="MathSurvive"
 
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+viewport/transparent_background=true
 
 [autoload]
 
