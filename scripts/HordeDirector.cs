@@ -19,6 +19,7 @@ public partial class HordeDirector : Node3D
     private const double FlashSec = 0.08;
 
     private readonly List<ZombieView> _zombies = new();
+    private readonly Random _random = new();
     private GameSession _session = null!;
     private Stage _stage = null!;
     private MeshInstance3D _flash = null!;
@@ -100,12 +101,16 @@ public partial class HordeDirector : Node3D
         _spawnCooldown -= delta;
         if (_toSpawn == 0 || _spawnCooldown > 0)
             return;
-        var zombie = new ZombieView();
-        AddChild(zombie);
-        zombie.Place(_stage, _spawnX, _feetY);
-        _zombies.Add(zombie);
-        _toSpawn--;
-        _spawnCooldown = _session.Config.ZombieSpawnIntervalSec;
+        var scale = UiScale.Value;
+        foreach (var offset in HordePlanner.SpawnGroupOffsets(_toSpawn, _random))
+        {
+            var zombie = new ZombieView();
+            AddChild(zombie);
+            zombie.Place(_stage, _spawnX + (float)offset * scale, _feetY);
+            _zombies.Add(zombie);
+            _toSpawn--;
+        }
+        _spawnCooldown = HordePlanner.NextGroupDelaySec(_random);
     }
 
     private void Walk(float delta)
