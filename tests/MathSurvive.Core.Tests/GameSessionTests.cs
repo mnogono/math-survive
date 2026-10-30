@@ -232,6 +232,19 @@ public class GameSessionTests
     }
 
     [Fact]
+    public void Forced_horde_is_unavailable_after_it_starts()
+    {
+        var s = Session();
+        Assert.True(s.CanForceHordeNow);
+
+        s.OpenQuiz();
+        Assert.True(s.CanForceHordeNow);
+
+        s.ForceHordeNow();
+        Assert.False(s.CanForceHordeNow);
+    }
+
+    [Fact]
     public void Fire_spends_ammo_and_records_shots()
     {
         var s = Session(GameConfig.Default with { StartAmmo = 2 });

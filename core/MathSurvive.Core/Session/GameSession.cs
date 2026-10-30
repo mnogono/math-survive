@@ -34,6 +34,7 @@ public sealed class GameSession
     public GameConfig Config { get; }
     public QuestionPack Pack { get; }
     public GameMode Mode { get; private set; } = GameMode.Idle;
+    public bool CanForceHordeNow => Mode is GameMode.Idle or GameMode.QuizOpen;
     public QuizView? CurrentQuiz { get; private set; }
     public AnswerResult? LastAnswer { get; private set; }
     public HordeInfo? CurrentHorde { get; private set; }
@@ -180,10 +181,10 @@ public sealed class GameSession
         SetMode(GameMode.Idle);
     }
 
-    /// <summary>Отладка: в Idle/QuizOpen сразу начать орду.</summary>
+    /// <summary>В Idle/QuizOpen сразу начать орду.</summary>
     public void ForceHordeNow()
     {
-        if (Mode != GameMode.Idle && Mode != GameMode.QuizOpen) return;
+        if (!CanForceHordeNow) return;
         StartHorde();
     }
 

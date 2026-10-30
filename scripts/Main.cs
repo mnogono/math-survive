@@ -54,6 +54,9 @@ public partial class Main : Node3D
         _stats.PlaceAbove(player.HeadTopPx);
         _horde.Setup(_session, stage, player);
         _session.HordeStarted += _horde.Begin;
+        var tray = new TrayController();
+        AddChild(tray);
+        tray.Setup(_session);
 
         _stats.NewRunClicked += () => _session.StartNewRun();
         door.Clicked += () => GetTree().Quit();
