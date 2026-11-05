@@ -12,22 +12,26 @@
 
 ## Global Constraints
 
-- Core не зависит от Godot; все правила выбора вопросов и смены режимов проверяются через `dotnet test`.
+- Core не зависит от Godot; все правила выбора вопросов, смены режимов и формата пакетов проверяются через `dotnet test`.
 - Ровно четыре новых раздела: `arithmetic`, `algebra`, `geometry`, `analysis`; случайный режим не имеет собственного пакета.
 - По 100 вопросов на раздел: 40 уровня 1, 35 уровня 2, 25 уровня 3; четыре варианта, zero-based `correct`.
 - Порядок случайного режима: `arithmetic → algebra → geometry → analysis → arithmetic`.
 - У иконок символы `?`, `+ −`, `x²`, `△`, `∫`; персонаж использует существующий clip `walk`.
-- Не добавлять внешние банки вопросов и новые runtime-зависимости; не менять боевой баланс и формат формул.
-- Сохранить существующий `math/test` и проходящие тесты одиночного пакета.
+- Допускаются оригинальные, заимствованные и адаптированные задания из общедоступных материалов, включая ЕГЭ разных лет. Каждое заимствованное или адаптированное задание вручную проверяется на математическую правильность, однозначность и время решения не более 5–10 минут.
+- В вопросах сохраняются только итоговые условие, варианты, правильный ответ и необходимые SVG. Не добавлять source/provenance/license metadata в JSON, не вести реестр источников и не изменять `packs/SOURCES.md`.
+- Условие может сочетать `prompt`, `prompt_tex` и необязательный `prompt_image` с относительным путём `images/<question-id>.svg`. Рисунки должны быть читаемыми; для геометрии обязательны однозначные подписи и все необходимые данные. Не создавать числовые клоны.
+- Не добавлять новые runtime-зависимости; не менять боевой баланс и существующий формат TeX-формул.
+- Сохранить существующий `math/test`, девять его вопросов и проходящие тесты одиночного пакета.
 - Не включать в коммиты текущие unrelated-изменения из рабочего дерева, кроме файлов `PlayerView.cs`, `HordeDirector.cs`, `ModelVisual.cs`, если задача действительно меняет их поверх существующей работы.
 
 ## Review Focus
 
 - Сворачивание, орда и повторный клик не должны продвигать случайный цикл: тесты в Tasks 1–2.
 - Смена неотвеченного вопроса не должна менять статистику/бой и не должна сбрасывать сложность других разделов: тесты в Task 2.
-- После ходьбы квиз, hit areas, линия огня и остановка зомби должны использовать новую позицию: тесты layout в Tasks 3–4 и ручной сценарий Task 9.
-- Математически эквивалентные варианты и вопросы-клоны могут пройти JSON-схему: нормализованные проверки и аудит контента в Tasks 5–8.
-- Узкое окно и длинная подпись «Математический анализ» не должны сдвигать иконки за экран или делать их неоднозначными для клика: тесты `RoomLayout` и визуальная проверка в Tasks 3, 9.
+- После ходьбы квиз, hit areas, линия огня и остановка зомби должны использовать новую позицию: тесты layout в Tasks 3–4 и ручной сценарий Task 10.
+- `prompt_image` не должен заменять или скрывать текст и TeX-формулу: модель, загрузчик, генератор и визуальная проверка в Task 5; существование всех SVG в Tasks 5–9.
+- Математически эквивалентные варианты и вопросы-клоны могут пройти JSON-схему: нормализованные проверки и аудит контента в Tasks 6–9. Для заимствованных и адаптированных заданий обязательна ручная математическая проверка и оценка времени 5–10 минут.
+- Узкое окно и длинная подпись «Математический анализ» не должны сдвигать иконки за экран или делать их неоднозначными для клика: тесты `RoomLayout` и визуальная проверка в Tasks 3, 10.
 
 ---
 
@@ -233,22 +237,85 @@ git add scripts\PlayerView.cs scripts\Main.cs scripts\HordeDirector.cs scripts\S
 git commit -m "Игра: выбор раздела с анимацией ходьбы"
 ```
 
-### Task 5: Пакет «Арифметика»
+### Task 5: Рисунки условия в формате пакета и интерфейсе
+
+**Files:**
+- Modify: `core/MathSurvive.Core/Questions/Question.cs`
+- Modify: `core/MathSurvive.Core/Questions/PackLoader.cs`
+- Modify: `scripts/QuizPanel.cs`
+- Modify: `tools/tex2svg/build-pack.mjs`
+- Modify: `tests/MathSurvive.Core.Tests/PackLoaderTests.cs`
+- Modify: `tests/MathSurvive.Core.Tests/BuiltPackTests.cs`
+- Modify: `packs-src/math/test/questions.src.json`
+- Create: `packs-src/math/test/images/test-L3-03.svg`
+- Modify: `packs/math/test/questions.json` и `packs/math/test/svg/*.svg` через генератор
+- Create: `packs/math/test/images/test-L3-03.svg` через генератор
+
+**Interfaces:**
+- Produces Core: `Question.PromptImage : string?`, соответствующее JSON-полю `prompt_image`.
+- Preserve: `Prompt`, `PromptSvg`, варианты и `PackLoader.Parse(string sectionJson, string questionsJson)`.
+- Produces source format: `prompt_image: "images/<question-id>.svg"`; путь относителен к корню пакета и в исходнике, и в производном JSON.
+- Produces UI: `QuizPanel` отображает `Prompt`, `PromptSvg` и `PromptImage` вместе, если одновременно заданы все три.
+
+- [ ] **Step 1: Написать failing-тесты модели и загрузчика**
+
+В `PackLoaderTests` проверить: вопрос только с `prompt_image`; сочетание `prompt`, `prompt_svg` и `prompt_image` без потери любого поля; отсутствие всех трёх частей условия по-прежнему вызывает `PackFormatException`. Для `prompt_image` проверить отклонение абсолютного пути, `..`, пути вне `images/`, пустой строки и расширения не `.svg`; валидный путь `images/geometry-L1-001.svg` сохраняется без нормализации в другое поле.
+
+- [ ] **Step 2: Запустить тесты и подтвердить красный результат**
+
+Run: `dotnet test tests\MathSurvive.Core.Tests --filter PackLoaderTests -nologo -v:minimal`
+Expected: FAIL по отсутствующему `PromptImage` и новым проверкам.
+
+- [ ] **Step 3: Расширить модель и `PackLoader`**
+
+Добавить в `Question` последний необязательный параметр `string? PromptImage = null` с учётом `SnakeCaseLower`, чтобы существующие вызовы конструктора не требовали изменений. Условие считать заданным, если присутствует хотя бы одно из `Prompt`, `PromptSvg`, `PromptImage`; разрешить любое их сочетание. Добавить в `PackLoader` проверку относительного SVG-пути `prompt_image` без файлового ввода-вывода: `/` как разделитель, префикс `images/`, отсутствие абсолютного пути и сегментов `..`. Оставить Core независимым от Godot.
+
+- [ ] **Step 4: Научить генератор копировать рисунки**
+
+В `build-pack.mjs` оставить преобразование `prompt_tex` → `prompt_svg` и `tex` → `svg` без изменений. Для `prompt_image` проверить тот же относительный путь и существование исходного файла относительно `path.dirname(srcPath)`, создать `<outDir>/images`, удалить устаревшие `.svg` в нём и скопировать файл в тот же относительный путь; в `questions.json` сохранить `prompt_image` без обработки MathJax. Не удалять исходные изображения.
+
+В `test-L3-03` добавить несложную схему встречного движения `images/test-L3-03.svg` и `prompt_tex` с обозначением расстояния, чтобы вопрос одновременно содержал текст, формулу и рисунок. Сохранить девять вопросов `math/test` и прежний правильный ответ.
+
+Run: `cd tools\tex2svg && npm ci && node build-pack.mjs ..\..\packs-src\math\test\questions.src.json ..\..\packs\math\test`
+
+- [ ] **Step 5: Добавить рисунок в `QuizPanel`**
+
+Создать отдельный `TextureRect` после формулы и перед вариантами. Загружать `PromptImage` через `SvgTextures.LoadUi(sectionDir + "/" + question.PromptImage, ...)`, показывать узел только при наличии пути и очищать текстуру при следующем вопросе. Ограничить рисунок областью не шире `PromptMaxWidth` и не выше 320 логических px, сохраняя пропорции и видимость всех подписей; не применять к нему обрезку. Учесть `CustomMinimumSize` в существующих `MinimumSizeChanged`, `ScrollContainer` и `Relayout`, чтобы текст, формула, рисунок и варианты не перекрывались.
+
+- [ ] **Step 6: Проверить файлы, тесты и реальный кадр**
+
+В `BuiltPackTests` выделить проверку всех SVG ссылок: `PromptSvg`, `PromptImage` и каждый `Option.Svg` разрешать через `Path.Combine(packDir, relativePath)` и требовать `File.Exists`; добавить отдельную проверку несуществующего `prompt_image` и сохранить ожидание девяти вопросов `math/test`.
+
+Run: `dotnet build MathSurvive.sln -nologo -v:minimal && dotnet test tests\MathSurvive.Core.Tests -nologo -v:minimal`
+Expected: PASS; все скопированные и сгенерированные SVG существуют.
+
+Run: `start.cmd -- --open-quiz --question=test-L3-03 --quit-after=3 --shot=quiz-image.png`
+Expected: текст, формула и схема читаемы одновременно, рисунок не обрезан, варианты доступны, облачко остаётся в окне; удалить `quiz-image.png` после просмотра.
+
+- [ ] **Step 7: Commit**
+
+```cmd
+git add core\MathSurvive.Core\Questions\Question.cs core\MathSurvive.Core\Questions\PackLoader.cs scripts\QuizPanel.cs tools\tex2svg\build-pack.mjs tests\MathSurvive.Core.Tests\PackLoaderTests.cs tests\MathSurvive.Core.Tests\BuiltPackTests.cs packs-src\math\test packs\math\test
+git commit -m "Вопросы: SVG-рисунки в условиях"
+```
+
+### Task 6: Пакет «Арифметика»
 
 **Files:**
 - Create: `packs-src/math/arithmetic/questions.src.json`
+- Create: `packs-src/math/arithmetic/images/*.svg` при наличии рисунков
 - Create: `packs/math/arithmetic/section.json`
-- Create: `packs/math/arithmetic/questions.json` и `packs/math/arithmetic/svg/*.svg` через генератор
+- Create: `packs/math/arithmetic/questions.json`, `svg/*.svg` и `images/*.svg` через генератор
 - Modify: `tests/MathSurvive.Core.Tests/BuiltPackTests.cs`
 - Modify: `scripts/SvgGallery.cs`
 
 **Interfaces:**
-- Consumes: `node build-pack.mjs <src.json> <outDir>` без изменения генератора.
+- Consumes: генератор и `prompt_image` из Task 5.
 - Produces: пакет `arithmetic`, 100 вопросов, уровни 40/35/25.
 
 - [ ] **Step 1: Обобщить pack-тест и добавить красный `InlineData`**
 
-Создать `AssertPack(string id, int count, int l1, int l2, int l3)`; проверять схему, количество, распределение и уникальные ID внутри пакета. По исходному `questions.src.json` нормализовать whitespace в `text`/`tex` и требовать четыре разных варианта; в производном пакете проверять существование SVG. Сохранить отдельный тест девяти вопросов `math/test`; добавить вызов для `arithmetic, 100, 40, 35, 25`.
+Создать `AssertPack(string id, int count, int l1, int l2, int l3)`; проверять схему, количество, распределение и уникальные ID внутри пакета. По исходному `questions.src.json` нормализовать whitespace в `text`/`tex` и требовать четыре разных варианта; в производном пакете проверять существование SVG формул, вариантов и `prompt_image`. Сохранить отдельный тест девяти вопросов `math/test`; добавить вызов для `arithmetic, 100, 40, 35, 25`.
 
 - [ ] **Step 2: Подтвердить отсутствие пакета красным тестом**
 
@@ -257,14 +324,14 @@ Expected: FAIL для `arithmetic`.
 
 - [ ] **Step 3: Составить и сгенерировать 100 вопросов**
 
-Использовать ID `arithmetic-L<level>-NNN`, темы и ограничения сложности из Spec. Распределить вопросы по всем перечисленным темам, не создавать числовые клоны одного шаблона. Создать `section.json` с `{"id":"arithmetic","title":"Арифметика","levels":3}`. Обобщить `SvgGallery`: перечислять все существующие разделы `packs/math` и группировать строки по разделу и вопросу, сохранив работу с `math/test`.
+Использовать ID `arithmetic-L<level>-NNN`, темы и ограничения сложности из Spec. Допускаются оригинальные, заимствованные и адаптированные общедоступные задания, включая ЕГЭ; сохранять только итоговое содержимое и нужные SVG, без сведений об источнике. Распределить вопросы по всем перечисленным темам, не создавать числовые клоны одного шаблона. Создать `section.json` с `{"id":"arithmetic","title":"Арифметика","levels":3}`. Обобщить `SvgGallery`: перечислять `svg/` и `images/` всех существующих разделов `packs/math` и группировать строки по разделу и вопросу, сохранив работу с `math/test`.
 
 Run: `cd tools\tex2svg && npm ci && node build-pack.mjs ..\..\packs-src\math\arithmetic\questions.src.json ..\..\packs\math\arithmetic`
 
 - [ ] **Step 4: Проверить пакет и аудит ответов**
 
 Run из корня: `dotnet test tests\MathSurvive.Core.Tests --filter BuiltPackTests -nologo -v:minimal`
-Expected: PASS. Дополнительно проверить правильность `correct` для всех 100 вопросов и просмотреть SVG всех формул в обобщённой `SvgGallery.tscn`; исправить эквивалентные варианты и неоднозначные условия до commit.
+Expected: PASS. Проверить правильность `correct` для всех 100 вопросов и просмотреть формулы и рисунки в обобщённой `SvgGallery.tscn`; исправить эквивалентные варианты и неоднозначные условия до commit. Каждое заимствованное или адаптированное задание вручную решить и подтвердить однозначность и время не более 5–10 минут.
 
 - [ ] **Step 5: Commit**
 
@@ -273,15 +340,15 @@ git add packs-src\math\arithmetic packs\math\arithmetic tests\MathSurvive.Core.T
 git commit -m "Вопросы: 100 задач по арифметике"
 ```
 
-### Task 6: Пакет «Алгебра»
+### Task 7: Пакет «Алгебра»
 
 **Files:**
-- Create: `packs-src/math/algebra/questions.src.json`
-- Create: `packs/math/algebra/section.json`, `questions.json`, `svg/*.svg`
+- Create: `packs-src/math/algebra/questions.src.json` и `images/*.svg` при наличии рисунков
+- Create: `packs/math/algebra/section.json`, `questions.json`, `svg/*.svg` и `images/*.svg` через генератор
 - Modify: `tests/MathSurvive.Core.Tests/BuiltPackTests.cs`
 
 **Interfaces:**
-- Consumes: `AssertPack` из Task 5.
+- Consumes: `AssertPack` из Task 6.
 - Produces: пакет `algebra`, 100 вопросов, уровни 40/35/25.
 
 - [ ] **Step 1: Добавить красный вызов `AssertPack("algebra", 100, 40, 35, 25)` и запустить `BuiltPackTests`**
@@ -290,12 +357,12 @@ Expected: FAIL только из-за отсутствующего нового 
 
 - [ ] **Step 2: Составить 100 вопросов по алгебре**
 
-ID `algebra-L<level>-NNN`; охватить все темы Spec, включая несложные текстовые задачи и графики по свойствам без обязательных изображений. Проверить отсутствие клонов и эквивалентных вариантов.
+ID `algebra-L<level>-NNN`; охватить все темы Spec, включая несложные текстовые задачи и графики. Использовать оригинальные, заимствованные или адаптированные общедоступные задания без метаданных источника. Для условий, где график необходим или улучшает наглядность, добавить `prompt_image` и читаемый SVG с подписями осей и нужными значениями. Проверить отсутствие клонов и эквивалентных вариантов.
 
 - [ ] **Step 3: Сгенерировать SVG и прогнать тесты**
 
 Run: `node tools\tex2svg\build-pack.mjs packs-src\math\algebra\questions.src.json packs\math\algebra` после `npm ci` в `tools\tex2svg`; затем `dotnet test tests\MathSurvive.Core.Tests --filter BuiltPackTests`.
-Expected: PASS; вручную проверить все `correct` и рендеринг формул.
+Expected: PASS; вручную проверить все `correct`, рендеринг формул и читаемость рисунков. Заимствованные и адаптированные задания вручную решить и проверить ограничение 5–10 минут.
 
 - [ ] **Step 4: Commit**
 
@@ -304,15 +371,15 @@ git add packs-src\math\algebra packs\math\algebra tests\MathSurvive.Core.Tests\B
 git commit -m "Вопросы: 100 задач по алгебре"
 ```
 
-### Task 7: Пакет «Геометрия»
+### Task 8: Пакет «Геометрия»
 
 **Files:**
-- Create: `packs-src/math/geometry/questions.src.json`
-- Create: `packs/math/geometry/section.json`, `questions.json`, `svg/*.svg`
+- Create: `packs-src/math/geometry/questions.src.json` и `images/*.svg` для задач с рисунками
+- Create: `packs/math/geometry/section.json`, `questions.json`, `svg/*.svg` и `images/*.svg` через генератор
 - Modify: `tests/MathSurvive.Core.Tests/BuiltPackTests.cs`
 
 **Interfaces:**
-- Consumes: `AssertPack` из Task 5.
+- Consumes: `AssertPack` из Task 6.
 - Produces: пакет `geometry`, 100 вопросов, уровни 40/35/25.
 
 - [ ] **Step 1: Добавить красный вызов `AssertPack("geometry", 100, 40, 35, 25)` и запустить `BuiltPackTests`**
@@ -321,11 +388,11 @@ Expected: FAIL только из-за отсутствующего нового 
 
 - [ ] **Step 2: Составить 100 вопросов по геометрии**
 
-ID `geometry-L<level>-NNN`; условия должны содержать все числовые данные и обозначения, необходимые без рисунка. Не использовать неоднозначные «найдите остальные элементы» или доказательства без одного ясного ответа.
+ID `geometry-L<level>-NNN`; допускаются задачи по тексту и по рисунку из оригинальных или общедоступных материалов, включая адаптированные задания ЕГЭ. Все числовые данные, обозначения и единицы измерения должны быть в тексте или на рисунке. Подписи вершин, точек, углов и величин обязаны однозначно соответствовать условию; рисунок не заменяет отсутствующие данные. Не использовать неоднозначные «найдите остальные элементы», доказательства без одного ясного ответа или числовые клоны.
 
 - [ ] **Step 3: Сгенерировать, протестировать и проверить математику/рендеринг**
 
-Run генератор для `geometry`, затем `BuiltPackTests`. Expected: PASS; вручную проверить все `correct`, единицы измерения и SVG.
+Run генератор для `geometry`, затем `BuiltPackTests`. Expected: PASS; вручную проверить все `correct`, единицы измерения, соответствие каждого рисунка условию, отсутствие перекрытий и читаемость подписей в реальном размере квиза. Все заимствованные и адаптированные задания вручную решить и проверить ограничение 5–10 минут.
 
 - [ ] **Step 4: Commit**
 
@@ -334,15 +401,15 @@ git add packs-src\math\geometry packs\math\geometry tests\MathSurvive.Core.Tests
 git commit -m "Вопросы: 100 задач по геометрии"
 ```
 
-### Task 8: Пакет «Математический анализ»
+### Task 9: Пакет «Математический анализ»
 
 **Files:**
-- Create: `packs-src/math/analysis/questions.src.json`
-- Create: `packs/math/analysis/section.json`, `questions.json`, `svg/*.svg`
+- Create: `packs-src/math/analysis/questions.src.json` и `images/*.svg` при наличии рисунков
+- Create: `packs/math/analysis/section.json`, `questions.json`, `svg/*.svg` и `images/*.svg` через генератор
 - Modify: `tests/MathSurvive.Core.Tests/BuiltPackTests.cs`
 
 **Interfaces:**
-- Consumes: `AssertPack` из Task 5.
+- Consumes: `AssertPack` из Task 6.
 - Produces: пакет `analysis`, 100 вопросов, уровни 40/35/25.
 
 - [ ] **Step 1: Добавить красный вызов `AssertPack("analysis", 100, 40, 35, 25)` и запустить `BuiltPackTests`**
@@ -351,11 +418,11 @@ Expected: FAIL только из-за отсутствующего нового 
 
 - [ ] **Step 2: Составить 100 вопросов по математическому анализу**
 
-ID `analysis-L<level>-NNN`; охватить пределы, производные, касательные, экстремумы и интегралы из Spec. Не выходить за несложные элементарные функции и аккуратные вычисления.
+ID `analysis-L<level>-NNN`; охватить пределы, производные, касательные, экстремумы и интегралы из Spec. Использовать оригинальные, заимствованные или адаптированные общедоступные задания без метаданных источника; для графиков функций и площадей допускаются читаемые `prompt_image`. Не выходить за несложные элементарные функции и аккуратные вычисления, не создавать числовые клоны.
 
 - [ ] **Step 3: Сгенерировать, протестировать и проверить математику/рендеринг**
 
-Run генератор для `analysis`. Добавить в `BuiltPackTests` тест `All_pack_question_ids_are_unique_across_sections`, который загружает `test` и четыре новых пакета и сравнивает общее число ID с размером `HashSet`. Затем запустить полный `dotnet test tests\MathSurvive.Core.Tests`. Expected: PASS; вручную проверить все `correct`, области определения, константу интегрирования и SVG.
+Run генератор для `analysis`. Добавить в `BuiltPackTests` тест `All_pack_question_ids_are_unique_across_sections`, который загружает `test` и четыре новых пакета и сравнивает общее число ID с размером `HashSet`. Затем запустить полный `dotnet test tests\MathSurvive.Core.Tests`. Expected: PASS; вручную проверить все `correct`, области определения, константу интегрирования, формулы и рисунки. Заимствованные и адаптированные задания вручную решить и проверить ограничение 5–10 минут.
 
 - [ ] **Step 4: Commit**
 
@@ -364,24 +431,23 @@ git add packs-src\math\analysis packs\math\analysis tests\MathSurvive.Core.Tests
 git commit -m "Вопросы: 100 задач по математическому анализу"
 ```
 
-### Task 9: Документация и end-to-end проверка
+### Task 10: Документация и end-to-end проверка
 
 **Files:**
 - Modify: `AGENTS.md`
-- Modify: `packs/SOURCES.md`
 - Modify: `docs/superpowers/plans/2026-10-30-quiz-sections-room.md` (отметки выполненных шагов)
 
 **Interfaces:**
-- Consumes: весь функционал Tasks 1–8.
+- Consumes: весь функционал Tasks 1–9.
 
 - [ ] **Step 1: Обновить проектные инструкции**
 
-В `AGENTS.md` заменить описание одного текущего пакета на четыре раздела и random-цикл, добавить комнату/выбор в архитектуру и команды генерации для любого `<section>`. В `packs/SOURCES.md` указать, что все четыре пакета оригинальные и составлены для проекта, внешние наборы не используются.
+В `AGENTS.md` заменить описание одного текущего пакета на четыре раздела и random-цикл, добавить комнату/выбор в архитектуру и команды генерации для любого `<section>`. Описать совместимые `prompt`, `prompt_tex`, `prompt_image`, относительные пути `images/*.svg`, копирование рисунков генератором и проверку существования всех SVG. Не добавлять метаданные или реестр источников и не изменять `packs/SOURCES.md`.
 
 - [ ] **Step 2: Прогнать полный build и экспорт**
 
 Run: `build.cmd`
-Expected: solution собирается, все тесты PASS, `build\MathSurvive.exe` создан, четыре пакета скопированы в `build\packs\math`; пользовательские файлы в `build` не удалены.
+Expected: solution собирается, все тесты PASS, `build\MathSurvive.exe` создан, четыре пакета со всеми `svg/` и `images/` скопированы в `build\packs\math`; пользовательские файлы в `build` не удалены.
 
 - [ ] **Step 3: Проверить реальные сценарии**
 
@@ -390,7 +456,8 @@ Expected: solution собирается, все тесты PASS, `build\MathSurv
 - random даёт новые вопросы строго в порядке четырёх разделов, сворачивание и орда не сдвигают порядок;
 - смена неотвеченного вопроса не добавляет ответ в статистику; после game over видны русские названия разделов;
 - Bubble/Quiz остаются над персонажем, клики мимо иконок проходят насквозь, зомби останавливаются у новой позиции;
-- при системном масштабе 150% иконки и длинная подпись остаются доступными; раскладка 1024×700 дополнительно проверена unit-тестом в Task 3.
+- вопрос `test-L3-03` одновременно показывает текст, формулу и рисунок; вопросы геометрии с `prompt_image` имеют читаемые подписи, не обрезаются и при необходимости прокручиваются;
+- при системном масштабе 150% иконки, длинная подпись и рисунки остаются доступными; раскладка 1024×700 дополнительно проверена unit-тестом в Task 3.
 
 - [ ] **Step 4: Проверить итоговый diff и отсутствие мусора**
 
@@ -400,6 +467,6 @@ Expected: только запланированные изменения; нет
 - [ ] **Step 5: Commit**
 
 ```cmd
-git add AGENTS.md packs\SOURCES.md docs\superpowers\plans\2026-10-30-quiz-sections-room.md
+git add AGENTS.md docs\superpowers\plans\2026-10-30-quiz-sections-room.md
 git commit -m "Документация: разделы и комната выбора"
 ```
