@@ -132,6 +132,7 @@
   Result: коммит `bec6962` (`Орда: low-poly персонажи и анимации боя`) создан и отправлен; `origin/stage0-2` обновлён.
   Next: переключиться на `master`, слить `stage0-2`, повторить проверки и отправить `master`.
 
-- [ ] **Step 4: Слить в `master` и отправить**
+- [x] **Step 4: Слить в `master` и отправить**
   Run: `git checkout master && git pull --ff-only origin master && git merge stage0-2 && dotnet test tests/MathSurvive.Core.Tests -nologo -v:minimal && git push origin master`
-  Expected: слияние успешно, тесты на результате зелёные, `master` и `origin/master` указывают на один коммит.
+  Result: `master` обновлён fast-forward до `e086117` и отправлен; сборка на объединённом результате успешна, 0 ошибок и 0 предупреждений, 65/65 тестов пройдено.
+  Next: проверить чистый статус и совпадение локальных и удалённых указателей.
