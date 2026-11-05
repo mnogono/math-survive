@@ -127,9 +127,10 @@
   Note: из Git Bash всю команду `cmd.exe /c` нужно заключать в кавычки, иначе аргументы не доходят до `start.cmd`.
   Next: закоммитить все изменения и отправить `stage0-2`.
 
-- [ ] **Step 3: Закоммитить и отправить `stage0-2`**
+- [x] **Step 3: Закоммитить и отправить `stage0-2`**
   Run: `git add -A && git commit && git push origin stage0-2`
-  Expected: все текущие изменения сохранены, локальная и удалённая ветки синхронизированы.
+  Result: коммит `bec6962` (`Орда: low-poly персонажи и анимации боя`) создан и отправлен; `origin/stage0-2` обновлён.
+  Next: переключиться на `master`, слить `stage0-2`, повторить проверки и отправить `master`.
 
 - [ ] **Step 4: Слить в `master` и отправить**
   Run: `git checkout master && git pull --ff-only origin master && git merge stage0-2 && dotnet test tests/MathSurvive.Core.Tests -nologo -v:minimal && git push origin master`
