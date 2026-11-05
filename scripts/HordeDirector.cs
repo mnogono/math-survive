@@ -109,7 +109,7 @@ public partial class HordeDirector : Node3D
         {
             var zombie = new ZombieView
             {
-                Variant = _random.Next(1, 5),
+                Variant = _random.Next(1, ZombieView.VariantCount + 1),
                 AnimationPhase = (float)_random.NextDouble(),
                 SpeedMultiplier = Mathf.Lerp(0.85f, 1.15f, (float)_random.NextDouble()),
             };
