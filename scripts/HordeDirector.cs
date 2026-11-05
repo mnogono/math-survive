@@ -22,6 +22,7 @@ public partial class HordeDirector : Node3D
     private readonly Random _random = new();
     private GameSession _session = null!;
     private Stage _stage = null!;
+    private PlayerView _player = null!;
     private MeshInstance3D _flash = null!;
 
     private float _spawnX, _stopX, _fireLineX, _feetY, _speedPx;
@@ -33,6 +34,7 @@ public partial class HordeDirector : Node3D
     {
         _session = session;
         _stage = stage;
+        _player = player;
 
         var window = GetWindow().Size;
         var scale = UiScale.Value;
@@ -75,8 +77,9 @@ public partial class HordeDirector : Node3D
     public void Clear()
     {
         _active = false;
-        foreach (var zombie in _zombies)
-            zombie.QueueFree();
+        foreach (var child in GetChildren())
+            if (child is ZombieView zombie)
+                zombie.QueueFree();
         _zombies.Clear();
         _flash.Visible = false;
     }
@@ -104,7 +107,12 @@ public partial class HordeDirector : Node3D
         var scale = UiScale.Value;
         foreach (var offset in HordePlanner.SpawnGroupOffsets(_toSpawn, _random))
         {
-            var zombie = new ZombieView();
+            var zombie = new ZombieView
+            {
+                Variant = _random.Next(1, 5),
+                AnimationPhase = (float)_random.NextDouble(),
+                SpeedMultiplier = Mathf.Lerp(0.85f, 1.15f, (float)_random.NextDouble()),
+            };
             AddChild(zombie);
             zombie.Place(_stage, _spawnX + (float)offset * scale, _feetY);
             _zombies.Add(zombie);
@@ -119,7 +127,7 @@ public partial class HordeDirector : Node3D
         {
             if (zombie.AtPlayer)
                 continue;
-            var x = Mathf.Max(_stopX, zombie.XPx - _speedPx * delta);
+            var x = Mathf.Max(_stopX, zombie.XPx - _speedPx * zombie.SpeedMultiplier * delta);
             zombie.Place(_stage, x, _feetY);
             zombie.AtPlayer = x <= _stopX;
         }
@@ -138,12 +146,14 @@ public partial class HordeDirector : Node3D
         var outcome = _session.Fire();
         if (outcome == ShotOutcome.NoAmmo)
             return;
+        _player.PlayShot();
+        _flash.GlobalPosition = _player.MuzzleWorld + new Vector3(0.03f, 0, 0.05f);
         _flash.Visible = true;
         _flashLeft = FlashSec;
         if (outcome == ShotOutcome.Hit)
         {
             _zombies.Remove(target);
-            target.QueueFree();
+            target.Die();
             _killed++;
         }
     }

@@ -3,13 +3,17 @@ using Godot;
 
 namespace MathSurvive.Game;
 
-/// <summary>Персонаж: капсула с «ружьём» вправо; стоит ногами на заданной точке.</summary>
+/// <summary>Анимированный выживший с ружьём вправо; стоит ногами на заданной точке.</summary>
 public partial class PlayerView : Node3D
 {
     private const float Height = 0.6f;
     private const float Radius = 0.14f;
-    private const float GunLength = 0.22f;
-    private const float GunThickness = 0.06f;
+    private const float GunLength = 0.48f;
+    private const string IdleClip = "holding-both";
+    private const string ShotClip = "holding-both-shoot";
+
+    private AnimationPlayer? _animations;
+    private Node3D _muzzle = null!;
 
     public event Action? Clicked;
 
@@ -20,25 +24,26 @@ public partial class PlayerView : Node3D
     public Vector2 HeadTopPx { get; private set; }
 
     /// <summary>Конец ружья (мировые координаты Stage).</summary>
-    public Vector3 MuzzleWorld => Position + new Vector3(Radius + GunLength - 0.04f, Height * 0.6f, 0.1f);
+    public Vector3 MuzzleWorld => _muzzle.GlobalPosition;
 
     public override void _Ready()
     {
-        AddChild(new MeshInstance3D
-        {
-            Mesh = new CapsuleMesh { Height = Height, Radius = Radius, Material = Material(new Color(0.25f, 0.5f, 0.85f)) },
-            Position = new Vector3(0, Height / 2, 0),
-        });
-        AddChild(new MeshInstance3D
-        {
-            Mesh = new BoxMesh
-            {
-                Size = new Vector3(GunLength, GunThickness, GunThickness),
-                Material = Material(new Color(0.2f, 0.2f, 0.2f)),
-            },
-            Position = new Vector3(Radius + GunLength / 2 - 0.04f, Height * 0.6f, 0.1f),
-        });
+        var model = ModelVisual.Load("res://assets/models/hero.glb", Height, 90);
+        AddChild(model);
+        _animations = ModelVisual.FindAnimationPlayer(model);
+        ModelVisual.Play(_animations, IdleClip, loop: true);
+
+        var gun = ModelVisual.LoadLongest("res://assets/models/shotgun.glb", GunLength / model.Scale.X);
+        var hand = (Node3D)model.FindChild("arm-right", true, false);
+        hand.AddChild(gun);
+        gun.Position = new Vector3(-0.2f, 0, 0.12f);
+        _muzzle = new Node3D { Position = new Vector3(0, 0, GunLength / model.Scale.X / 2) };
+        gun.AddChild(_muzzle);
+        if (_animations != null)
+            _animations.AnimationFinished += OnAnimationFinished;
     }
+
+    public void PlayShot() => ModelVisual.Play(_animations, ShotClip);
 
     public void Place(Stage stage, Vector2 feetPx)
     {
@@ -57,5 +62,9 @@ public partial class PlayerView : Node3D
         Clicked?.Invoke();
     }
 
-    private static StandardMaterial3D Material(Color color) => new() { AlbedoColor = color };
+    private void OnAnimationFinished(StringName animationName)
+    {
+        if (animationName.ToString() == ShotClip)
+            ModelVisual.Play(_animations, IdleClip, loop: true);
+    }
 }
