@@ -37,6 +37,9 @@ echo === Пакеты вопросов в build\packs ===
 robocopy packs build\packs /e /xf .gdignore /njh /njs /nfl /ndl >nul
 if errorlevel 8 goto :fail
 
+echo === Лицензии сторонних ресурсов в build\THIRD_PARTY.md ===
+copy /y assets\models\SOURCES.md build\THIRD_PARTY.md >nul || goto :fail
+
 echo === Готово: build\MathSurvive.exe ===
 exit /b 0
 

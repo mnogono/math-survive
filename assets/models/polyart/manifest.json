@@ -1,0 +1,88 @@
+{
+  "rootMotion": "Original animation channels and values are preserved, including root motion; no retargeting or root-motion removal.",
+  "deathClip": "Not included in the source pack.",
+  "clipDurationsSeconds": {
+    "attack_left": 2.333333,
+    "attack_right": 2.333333,
+    "idle2": 7.366667,
+    "idle": 7.333333,
+    "idle_alert": 4.0,
+    "running": 1.933333,
+    "slowWalk": 2.833333,
+    "walk": 2.133333,
+    "walk_agressive": 2.133333,
+    "walk_limp": 2.0
+  },
+  "models": [
+    {
+      "file": "female_a.glb",
+      "sizeBytes": 2493144,
+      "meshes": 1,
+      "skins": 1,
+      "animationCount": 10
+    },
+    {
+      "file": "female_b.glb",
+      "sizeBytes": 2503836,
+      "meshes": 1,
+      "skins": 1,
+      "animationCount": 10
+    },
+    {
+      "file": "female_c.glb",
+      "sizeBytes": 2512044,
+      "meshes": 1,
+      "skins": 1,
+      "animationCount": 10
+    },
+    {
+      "file": "female_d.glb",
+      "sizeBytes": 2431116,
+      "meshes": 1,
+      "skins": 1,
+      "animationCount": 10
+    },
+    {
+      "file": "female_e.glb",
+      "sizeBytes": 2433736,
+      "meshes": 1,
+      "skins": 1,
+      "animationCount": 10
+    },
+    {
+      "file": "male_a.glb",
+      "sizeBytes": 2454016,
+      "meshes": 1,
+      "skins": 1,
+      "animationCount": 10
+    },
+    {
+      "file": "male_b.glb",
+      "sizeBytes": 2500392,
+      "meshes": 1,
+      "skins": 1,
+      "animationCount": 10
+    },
+    {
+      "file": "male_c.glb",
+      "sizeBytes": 2441216,
+      "meshes": 1,
+      "skins": 1,
+      "animationCount": 10
+    },
+    {
+      "file": "male_d.glb",
+      "sizeBytes": 2434312,
+      "meshes": 1,
+      "skins": 1,
+      "animationCount": 10
+    },
+    {
+      "file": "male_e.glb",
+      "sizeBytes": 2517672,
+      "meshes": 1,
+      "skins": 1,
+      "animationCount": 10
+    }
+  ]
+}
