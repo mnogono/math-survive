@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="240" viewBox="0 0 360 240">
+<g fill="none" stroke="#1a1a1a" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+<polygon points="40,200 180,30 320,200"/>
+<line x1="86.7" y1="143.3" x2="273.3" y2="143.3"/>
+<text x="21.5" y="215.2" font-size="22" text-anchor="middle">A</text>
+<text x="180" y="17.7" font-size="22" text-anchor="middle">B</text>
+<text x="338.5" y="215.2" font-size="22" text-anchor="middle">C</text>
+<text x="68.7" y="149" font-size="22" text-anchor="middle">D</text>
+<text x="291.3" y="149" font-size="22" text-anchor="middle">E</text>
+<text x="123.2" y="81.3" font-size="20" text-anchor="middle">4</text>
+<text x="47.8" y="182.4" font-size="20" text-anchor="middle">2</text>
+<text x="180" y="136.3" font-size="20" text-anchor="middle">6</text>
+<text x="180" y="223" font-size="20" text-anchor="middle">?</text>
+</g>
+</svg>

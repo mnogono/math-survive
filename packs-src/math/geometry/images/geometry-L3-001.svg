@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="230" viewBox="0 0 360 230">
+<g fill="none" stroke="#1a1a1a" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+<polygon points="45.7,190 180,30 314.3,190"/>
+<line x1="45.7" y1="190" x2="238.7" y2="100"/>
+<path d="M 165.9 46.9 A 22 22 0 0 0 194.1 46.9" stroke-width="2"/>
+<path d="M 222.4 107.6 A 18 18 0 0 0 250.3 113.8" stroke-width="2"/>
+<text x="27.2" y="205.1" font-size="22" text-anchor="middle">A</text>
+<text x="180" y="17.7" font-size="22" text-anchor="middle">B</text>
+<text x="332.8" y="205.1" font-size="22" text-anchor="middle">C</text>
+<text x="254.7" y="99.7" font-size="22" text-anchor="middle">D</text>
+<text x="180" y="78.7" font-size="19" text-anchor="middle">80^\circ</text>
+<text x="231.4" y="139.8" font-size="19" text-anchor="middle">?</text>
+</g>
+</svg>

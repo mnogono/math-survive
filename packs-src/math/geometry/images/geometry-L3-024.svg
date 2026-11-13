@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="240" viewBox="0 0 360 240">
+<g fill="none" stroke="#1a1a1a" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+<circle cx="180" cy="115" r="90"/>
+<line x1="50" y1="205" x2="320" y2="205"/>
+<line x1="180" y1="205" x2="264.6" y2="84.2"/>
+<circle cx="180" cy="115" r="4" fill="#1a1a1a" stroke="none"/>
+<path d="M 197.2 180.4 A 30 30 0 0 1 210 205" stroke-width="2"/>
+<text x="180" y="234.7" font-size="22" text-anchor="middle">A</text>
+<text x="280.6" y="83.9" font-size="22" text-anchor="middle">B</text>
+<text x="166" y="112.7" font-size="22" text-anchor="middle">O</text>
+<text x="275" y="188.2" font-size="19" text-anchor="middle">110^\circ</text>
+<text x="224.4" y="188.6" font-size="19" text-anchor="middle">?</text>
+</g>
+</svg>

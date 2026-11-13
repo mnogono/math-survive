@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="260" height="240" viewBox="0 0 260 240">
+<g fill="none" stroke="#1a1a1a" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+<circle cx="150" cy="120" r="94.3"/>
+<line x1="20" y1="200" x2="61.5" y2="87.4"/>
+<line x1="20" y1="200" x2="200" y2="200"/>
+<polyline points="71.8,91.2 68,101.5 57.7,97.7" stroke-width="2"/>
+<circle cx="150" cy="120" r="4" fill="#1a1a1a" stroke="none"/>
+<line x1="150" y1="120" x2="61.5" y2="87.4" stroke-dasharray="7 5" stroke-width="2"/>
+<text x="14" y="229.7" font-size="22" text-anchor="middle">M</text>
+<text x="49.5" y="79.1" font-size="22" text-anchor="middle">A</text>
+<text x="96" y="229.7" font-size="22" text-anchor="middle">B</text>
+<text x="210" y="229.7" font-size="22" text-anchor="middle">C</text>
+<text x="162" y="117.7" font-size="22" text-anchor="middle">O</text>
+<text x="28.7" y="138.7" font-size="20" text-anchor="middle">6</text>
+<text x="60" y="225" font-size="20" text-anchor="middle">4</text>
+</g>
+</svg>

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="250" viewBox="0 0 360 250">
+<g fill="none" stroke="#1a1a1a" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+<circle cx="180" cy="125" r="100"/>
+<line x1="81.4" y1="108.4" x2="191.7" y2="224.3"/>
+<line x1="116" y1="201.8" x2="150.9" y2="29.3"/>
+<circle cx="125.5" cy="154.8" r="4" fill="#1a1a1a" stroke="none"/>
+<text x="63.6" y="113.1" font-size="22" text-anchor="middle">A</text>
+<text x="193.8" y="249.9" font-size="22" text-anchor="middle">B</text>
+<text x="104.4" y="223.3" font-size="22" text-anchor="middle">C</text>
+<text x="145.7" y="19.8" font-size="22" text-anchor="middle">D</text>
+<text x="103.5" y="166.5" font-size="22" text-anchor="middle">E</text>
+<text x="103.4" y="124.2" font-size="19" text-anchor="middle">4</text>
+<text x="158.6" y="182.2" font-size="19" text-anchor="middle">6</text>
+<text x="132.7" y="184.9" font-size="19" text-anchor="middle">3</text>
+<text x="152.2" y="102.7" font-size="19" text-anchor="middle">?</text>
+</g>
+</svg>

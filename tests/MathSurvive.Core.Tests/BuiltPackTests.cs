@@ -64,10 +64,22 @@ public class BuiltPackTests
         AssertSvgFilesExist(pack, packDir);
     }
 
+    [Fact]
+    public void All_pack_question_ids_are_unique_across_sections()
+    {
+        var ids = new[] { "test", "arithmetic", "algebra", "geometry", "analysis" }
+            .SelectMany(id => LoadPack(id).Pack.Questions.Select(q => q.Id))
+            .ToList();
+
+        Assert.Equal(409, ids.Count);
+        Assert.Equal(ids.Count, ids.Distinct().Count());
+    }
+
     [Theory]
     [InlineData("arithmetic", 40, 35, 25)]
     [InlineData("algebra", 40, 35, 25)]
     [InlineData("analysis", 40, 35, 25)]
+    [InlineData("geometry", 40, 35, 25)]
     public void Section_pack_matches_source_and_distribution(string id, int l1, int l2, int l3)
     {
         var (pack, packDir) = LoadPack(id);

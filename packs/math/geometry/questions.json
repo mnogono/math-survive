@@ -1,0 +1,2015 @@
+[
+  {
+    "id": "geometry-L1-001",
+    "level": 1,
+    "prompt": "Один из смежных углов равен 65°. Найдите другой угол.",
+    "correct": 0,
+    "options": [
+      {
+        "text": "115°"
+      },
+      {
+        "text": "25°"
+      },
+      {
+        "text": "65°"
+      },
+      {
+        "text": "125°"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L1-002",
+    "level": 1,
+    "prompt": "Сумма двух вертикальных углов равна 140°. Найдите каждый из них.",
+    "correct": 1,
+    "options": [
+      {
+        "text": "140°"
+      },
+      {
+        "text": "70°"
+      },
+      {
+        "text": "110°"
+      },
+      {
+        "text": "40°"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L1-003",
+    "level": 1,
+    "prompt": "Два угла треугольника равны 50° и 60°. Найдите третий угол.",
+    "correct": 2,
+    "options": [
+      {
+        "text": "80°"
+      },
+      {
+        "text": "110°"
+      },
+      {
+        "text": "70°"
+      },
+      {
+        "text": "60°"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L1-004",
+    "level": 1,
+    "prompt": "Угол при вершине равнобедренного треугольника равен 40°. Найдите угол при основании.",
+    "correct": 3,
+    "options": [
+      {
+        "text": "40°"
+      },
+      {
+        "text": "140°"
+      },
+      {
+        "text": "50°"
+      },
+      {
+        "text": "70°"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L1-005",
+    "level": 1,
+    "prompt": "Один из острых углов прямоугольного треугольника равен 35°. Найдите другой острый угол.",
+    "correct": 0,
+    "options": [
+      {
+        "text": "55°"
+      },
+      {
+        "text": "65°"
+      },
+      {
+        "text": "145°"
+      },
+      {
+        "text": "45°"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L1-006",
+    "level": 1,
+    "prompt": "Внешний угол треугольника ABC при вершине C равен 120°, угол A равен 50°. Найдите угол B.",
+    "correct": 1,
+    "options": [
+      {
+        "text": "60°"
+      },
+      {
+        "text": "70°"
+      },
+      {
+        "text": "10°"
+      },
+      {
+        "text": "50°"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L1-007",
+    "level": 1,
+    "prompt": "Катеты прямоугольного треугольника равны 3 и 4. Найдите гипотенузу.",
+    "prompt_image": "images/geometry-L1-007.svg",
+    "correct": 2,
+    "options": [
+      {
+        "svg": "svg/geometry-L1-007-a0.svg"
+      },
+      {
+        "svg": "svg/geometry-L1-007-a1.svg"
+      },
+      {
+        "svg": "svg/geometry-L1-007-a2.svg"
+      },
+      {
+        "svg": "svg/geometry-L1-007-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L1-008",
+    "level": 1,
+    "prompt": "Гипотенуза прямоугольного треугольника равна 13, один из катетов — 5. Найдите другой катет.",
+    "correct": 3,
+    "options": [
+      {
+        "text": "8"
+      },
+      {
+        "text": "18"
+      },
+      {
+        "text": "14"
+      },
+      {
+        "text": "12"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L1-009",
+    "level": 1,
+    "prompt": "Найдите периметр квадрата со стороной 7.",
+    "correct": 0,
+    "options": [
+      {
+        "text": "28"
+      },
+      {
+        "text": "49"
+      },
+      {
+        "text": "14"
+      },
+      {
+        "text": "21"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L1-010",
+    "level": 1,
+    "prompt": "Найдите площадь прямоугольника со сторонами 6 и 9.",
+    "correct": 1,
+    "options": [
+      {
+        "text": "30"
+      },
+      {
+        "text": "54"
+      },
+      {
+        "text": "15"
+      },
+      {
+        "text": "45"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L1-011",
+    "level": 1,
+    "prompt": "Основание треугольника равно 10, высота, проведённая к нему, равна 6. Найдите площадь треугольника.",
+    "correct": 2,
+    "options": [
+      {
+        "text": "60"
+      },
+      {
+        "text": "16"
+      },
+      {
+        "text": "30"
+      },
+      {
+        "text": "15"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L1-012",
+    "level": 1,
+    "prompt": "Сторона параллелограмма равна 8, а высота, проведённая к ней, равна 5. Найдите площадь параллелограмма.",
+    "correct": 3,
+    "options": [
+      {
+        "text": "20"
+      },
+      {
+        "text": "13"
+      },
+      {
+        "text": "26"
+      },
+      {
+        "text": "40"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L1-013",
+    "level": 1,
+    "prompt": "Основания трапеции ABCD равны 4 и 10, высота BH равна 5. Найдите площадь трапеции.",
+    "prompt_image": "images/geometry-L1-013.svg",
+    "correct": 0,
+    "options": [
+      {
+        "text": "35"
+      },
+      {
+        "text": "70"
+      },
+      {
+        "text": "19"
+      },
+      {
+        "text": "50"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L1-014",
+    "level": 1,
+    "prompt": "Диагонали ромба равны 6 и 8. Найдите его площадь.",
+    "correct": 1,
+    "options": [
+      {
+        "text": "48"
+      },
+      {
+        "text": "24"
+      },
+      {
+        "text": "14"
+      },
+      {
+        "text": "28"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L1-015",
+    "level": 1,
+    "prompt": "Найдите длину окружности радиуса 5.",
+    "correct": 2,
+    "options": [
+      {
+        "svg": "svg/geometry-L1-015-a0.svg"
+      },
+      {
+        "svg": "svg/geometry-L1-015-a1.svg"
+      },
+      {
+        "svg": "svg/geometry-L1-015-a2.svg"
+      },
+      {
+        "svg": "svg/geometry-L1-015-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L1-016",
+    "level": 1,
+    "prompt": "Найдите площадь круга радиуса 3.",
+    "correct": 3,
+    "options": [
+      {
+        "svg": "svg/geometry-L1-016-a0.svg"
+      },
+      {
+        "svg": "svg/geometry-L1-016-a1.svg"
+      },
+      {
+        "svg": "svg/geometry-L1-016-a2.svg"
+      },
+      {
+        "svg": "svg/geometry-L1-016-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L1-017",
+    "level": 1,
+    "prompt": "Чему равна сумма углов выпуклого четырёхугольника?",
+    "correct": 0,
+    "options": [
+      {
+        "text": "360°"
+      },
+      {
+        "text": "180°"
+      },
+      {
+        "text": "540°"
+      },
+      {
+        "text": "720°"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L1-018",
+    "level": 1,
+    "prompt": "Чему равна сумма углов выпуклого шестиугольника?",
+    "correct": 1,
+    "options": [
+      {
+        "text": "1080°"
+      },
+      {
+        "text": "720°"
+      },
+      {
+        "text": "540°"
+      },
+      {
+        "text": "360°"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L1-019",
+    "level": 1,
+    "prompt": "Один из углов параллелограмма равен 70°. Найдите соседний с ним угол.",
+    "correct": 2,
+    "options": [
+      {
+        "text": "70°"
+      },
+      {
+        "text": "20°"
+      },
+      {
+        "text": "110°"
+      },
+      {
+        "text": "140°"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L1-020",
+    "level": 1,
+    "prompt": "Вписанный угол опирается на дугу 100°. Найдите этот угол.",
+    "correct": 3,
+    "options": [
+      {
+        "text": "100°"
+      },
+      {
+        "text": "200°"
+      },
+      {
+        "text": "25°"
+      },
+      {
+        "text": "50°"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L1-021",
+    "level": 1,
+    "prompt": "Чему равен вписанный угол, опирающийся на диаметр окружности?",
+    "correct": 0,
+    "options": [
+      {
+        "text": "90°"
+      },
+      {
+        "text": "180°"
+      },
+      {
+        "text": "45°"
+      },
+      {
+        "text": "60°"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L1-022",
+    "level": 1,
+    "prompt": "Найдите объём куба с ребром 3.",
+    "correct": 1,
+    "options": [
+      {
+        "text": "9"
+      },
+      {
+        "text": "27"
+      },
+      {
+        "text": "54"
+      },
+      {
+        "text": "18"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L1-023",
+    "level": 1,
+    "prompt": "Измерения прямоугольного параллелепипеда равны 2, 3 и 5. Найдите его объём.",
+    "correct": 2,
+    "options": [
+      {
+        "text": "10"
+      },
+      {
+        "text": "62"
+      },
+      {
+        "text": "30"
+      },
+      {
+        "text": "60"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L1-024",
+    "level": 1,
+    "prompt": "Найдите площадь поверхности куба с ребром 2.",
+    "correct": 3,
+    "options": [
+      {
+        "text": "8"
+      },
+      {
+        "text": "16"
+      },
+      {
+        "text": "12"
+      },
+      {
+        "text": "24"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L1-025",
+    "level": 1,
+    "prompt": "Найдите расстояние между точками (1; 2) и (4; 6).",
+    "correct": 0,
+    "options": [
+      {
+        "svg": "svg/geometry-L1-025-a0.svg"
+      },
+      {
+        "svg": "svg/geometry-L1-025-a1.svg"
+      },
+      {
+        "svg": "svg/geometry-L1-025-a2.svg"
+      },
+      {
+        "svg": "svg/geometry-L1-025-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L1-026",
+    "level": 1,
+    "prompt": "Найдите координаты середины отрезка с концами (2; 4) и (6; 8).",
+    "correct": 1,
+    "options": [
+      {
+        "text": "(8; 12)"
+      },
+      {
+        "text": "(4; 6)"
+      },
+      {
+        "text": "(2; 2)"
+      },
+      {
+        "text": "(3; 5)"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L1-027",
+    "level": 1,
+    "prompt": "Сторона треугольника равна 14. Найдите среднюю линию, параллельную этой стороне.",
+    "correct": 2,
+    "options": [
+      {
+        "text": "14"
+      },
+      {
+        "text": "28"
+      },
+      {
+        "text": "7"
+      },
+      {
+        "text": "3,5"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L1-028",
+    "level": 1,
+    "prompt": "Основания трапеции равны 6 и 10. Найдите её среднюю линию.",
+    "correct": 3,
+    "options": [
+      {
+        "text": "16"
+      },
+      {
+        "text": "4"
+      },
+      {
+        "text": "6"
+      },
+      {
+        "text": "8"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L1-029",
+    "level": 1,
+    "prompt": "Какой угол образует касательная к окружности с радиусом, проведённым в точку касания?",
+    "correct": 0,
+    "options": [
+      {
+        "text": "90°"
+      },
+      {
+        "text": "45°"
+      },
+      {
+        "text": "60°"
+      },
+      {
+        "text": "180°"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L1-030",
+    "level": 1,
+    "prompt": "Из каких отрезков нельзя составить треугольник?",
+    "correct": 1,
+    "options": [
+      {
+        "text": "3, 4, 6"
+      },
+      {
+        "text": "2, 3, 6"
+      },
+      {
+        "text": "5, 5, 8"
+      },
+      {
+        "text": "4, 6, 9"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L1-031",
+    "level": 1,
+    "prompt": "Чему равен каждый угол равностороннего треугольника?",
+    "correct": 2,
+    "options": [
+      {
+        "text": "90°"
+      },
+      {
+        "text": "45°"
+      },
+      {
+        "text": "60°"
+      },
+      {
+        "text": "30°"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L1-032",
+    "level": 1,
+    "prompt": "Гипотенуза прямоугольного треугольника равна 10. Найдите медиану, проведённую к гипотенузе.",
+    "correct": 3,
+    "options": [
+      {
+        "text": "10"
+      },
+      {
+        "text": "20"
+      },
+      {
+        "text": "2,5"
+      },
+      {
+        "text": "5"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L1-033",
+    "level": 1,
+    "prompt": "Найдите диагональ квадрата со стороной 4.",
+    "correct": 0,
+    "options": [
+      {
+        "svg": "svg/geometry-L1-033-a0.svg"
+      },
+      {
+        "svg": "svg/geometry-L1-033-a1.svg"
+      },
+      {
+        "svg": "svg/geometry-L1-033-a2.svg"
+      },
+      {
+        "svg": "svg/geometry-L1-033-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L1-034",
+    "level": 1,
+    "prompt": "Катеты прямоугольного треугольника равны 6 и 8, гипотенуза равна 10. Найдите синус угла, лежащего против катета 6.",
+    "correct": 1,
+    "options": [
+      {
+        "text": "0,8"
+      },
+      {
+        "text": "0,6"
+      },
+      {
+        "text": "0,75"
+      },
+      {
+        "text": "1,25"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L1-035",
+    "level": 1,
+    "prompt": "В треугольнике ABC угол C прямой, AC = 4, BC = 3. Найдите tg A.",
+    "prompt_image": "images/geometry-L1-035.svg",
+    "correct": 2,
+    "options": [
+      {
+        "svg": "svg/geometry-L1-035-a0.svg"
+      },
+      {
+        "svg": "svg/geometry-L1-035-a1.svg"
+      },
+      {
+        "svg": "svg/geometry-L1-035-a2.svg"
+      },
+      {
+        "svg": "svg/geometry-L1-035-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L1-036",
+    "level": 1,
+    "prompt": "Какой угол образуют часовая и минутная стрелки ровно в 3:00?",
+    "correct": 3,
+    "options": [
+      {
+        "text": "30°"
+      },
+      {
+        "text": "45°"
+      },
+      {
+        "text": "180°"
+      },
+      {
+        "text": "90°"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L1-037",
+    "level": 1,
+    "prompt": "Сколько диагоналей у выпуклого пятиугольника?",
+    "correct": 0,
+    "options": [
+      {
+        "text": "5"
+      },
+      {
+        "text": "10"
+      },
+      {
+        "text": "3"
+      },
+      {
+        "text": "2"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L1-038",
+    "level": 1,
+    "prompt": "Катеты прямоугольного треугольника равны 5 и 12. Найдите его площадь.",
+    "correct": 1,
+    "options": [
+      {
+        "text": "60"
+      },
+      {
+        "text": "30"
+      },
+      {
+        "text": "17"
+      },
+      {
+        "text": "65"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L1-039",
+    "level": 1,
+    "prompt": "Чему равен угол между биссектрисами двух смежных углов?",
+    "correct": 2,
+    "options": [
+      {
+        "text": "180°"
+      },
+      {
+        "text": "45°"
+      },
+      {
+        "text": "90°"
+      },
+      {
+        "text": "60°"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L1-040",
+    "level": 1,
+    "prompt": "В какой координатной четверти лежит точка A(3; −2)?",
+    "correct": 3,
+    "options": [
+      {
+        "text": "I"
+      },
+      {
+        "text": "II"
+      },
+      {
+        "text": "III"
+      },
+      {
+        "text": "IV"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L2-001",
+    "level": 2,
+    "prompt": "Две стороны треугольника равны 6 и 8, угол между ними 30°. Найдите площадь треугольника.",
+    "correct": 0,
+    "options": [
+      {
+        "svg": "svg/geometry-L2-001-a0.svg"
+      },
+      {
+        "svg": "svg/geometry-L2-001-a1.svg"
+      },
+      {
+        "svg": "svg/geometry-L2-001-a2.svg"
+      },
+      {
+        "svg": "svg/geometry-L2-001-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L2-002",
+    "level": 2,
+    "prompt": "Гипотенуза прямоугольного треугольника равна 10, один из острых углов 30°. Найдите катет, лежащий против этого угла.",
+    "correct": 1,
+    "options": [
+      {
+        "svg": "svg/geometry-L2-002-a0.svg"
+      },
+      {
+        "svg": "svg/geometry-L2-002-a1.svg"
+      },
+      {
+        "svg": "svg/geometry-L2-002-a2.svg"
+      },
+      {
+        "svg": "svg/geometry-L2-002-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L2-003",
+    "level": 2,
+    "prompt": "Найдите высоту равностороннего треугольника со стороной 6.",
+    "correct": 2,
+    "options": [
+      {
+        "svg": "svg/geometry-L2-003-a0.svg"
+      },
+      {
+        "svg": "svg/geometry-L2-003-a1.svg"
+      },
+      {
+        "svg": "svg/geometry-L2-003-a2.svg"
+      },
+      {
+        "svg": "svg/geometry-L2-003-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L2-004",
+    "level": 2,
+    "prompt": "Найдите площадь равностороннего треугольника со стороной 4.",
+    "correct": 3,
+    "options": [
+      {
+        "svg": "svg/geometry-L2-004-a0.svg"
+      },
+      {
+        "svg": "svg/geometry-L2-004-a1.svg"
+      },
+      {
+        "svg": "svg/geometry-L2-004-a2.svg"
+      },
+      {
+        "svg": "svg/geometry-L2-004-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L2-005",
+    "level": 2,
+    "prompt": "Треугольники подобны с коэффициентом 3. Площадь меньшего равна 5. Найдите площадь большего.",
+    "correct": 0,
+    "options": [
+      {
+        "text": "45"
+      },
+      {
+        "text": "15"
+      },
+      {
+        "text": "135"
+      },
+      {
+        "text": "30"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L2-006",
+    "level": 2,
+    "prompt": "Человек ростом 1,8 м стоит на расстоянии 12 м от столба с фонарём. Длина его тени 4 м. Найдите высоту фонаря.",
+    "correct": 1,
+    "options": [
+      {
+        "text": "5,4 м"
+      },
+      {
+        "text": "7,2 м"
+      },
+      {
+        "text": "6 м"
+      },
+      {
+        "text": "4,8 м"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L2-007",
+    "level": 2,
+    "prompt": "Найдите радиус окружности, описанной около квадрата со стороной 6.",
+    "correct": 2,
+    "options": [
+      {
+        "svg": "svg/geometry-L2-007-a0.svg"
+      },
+      {
+        "svg": "svg/geometry-L2-007-a1.svg"
+      },
+      {
+        "svg": "svg/geometry-L2-007-a2.svg"
+      },
+      {
+        "svg": "svg/geometry-L2-007-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L2-008",
+    "level": 2,
+    "prompt": "Катеты прямоугольного треугольника равны 6 и 8. Найдите радиус описанной около него окружности.",
+    "correct": 3,
+    "options": [
+      {
+        "text": "10"
+      },
+      {
+        "text": "7"
+      },
+      {
+        "text": "4"
+      },
+      {
+        "text": "5"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L2-009",
+    "level": 2,
+    "prompt": "Стороны треугольника равны 3, 4 и 5. Найдите радиус вписанной в него окружности.",
+    "correct": 0,
+    "options": [
+      {
+        "text": "1"
+      },
+      {
+        "text": "2"
+      },
+      {
+        "text": "2,5"
+      },
+      {
+        "text": "1,5"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L2-010",
+    "level": 2,
+    "prompt": "Четырёхугольник ABCD вписан в окружность, угол A равен 70°. Найдите угол C.",
+    "prompt_image": "images/geometry-L2-010.svg",
+    "correct": 1,
+    "options": [
+      {
+        "text": "70°"
+      },
+      {
+        "text": "110°"
+      },
+      {
+        "text": "140°"
+      },
+      {
+        "text": "20°"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L2-011",
+    "level": 2,
+    "prompt": "Из точки P к окружности с центром O и радиусом 5 проведена касательная PT длиной 12. Найдите расстояние OP.",
+    "prompt_image": "images/geometry-L2-011.svg",
+    "correct": 2,
+    "options": [
+      {
+        "svg": "svg/geometry-L2-011-a0.svg"
+      },
+      {
+        "svg": "svg/geometry-L2-011-a1.svg"
+      },
+      {
+        "svg": "svg/geometry-L2-011-a2.svg"
+      },
+      {
+        "svg": "svg/geometry-L2-011-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L2-012",
+    "level": 2,
+    "prompt": "В окружности радиуса 10 проведена хорда AB длиной 16. Найдите расстояние от центра O до хорды.",
+    "prompt_image": "images/geometry-L2-012.svg",
+    "correct": 3,
+    "options": [
+      {
+        "text": "8"
+      },
+      {
+        "text": "4"
+      },
+      {
+        "text": "12"
+      },
+      {
+        "text": "6"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L2-013",
+    "level": 2,
+    "prompt": "Запишите уравнение окружности с центром (2; −1) и радиусом 3.",
+    "correct": 0,
+    "options": [
+      {
+        "svg": "svg/geometry-L2-013-a0.svg"
+      },
+      {
+        "svg": "svg/geometry-L2-013-a1.svg"
+      },
+      {
+        "svg": "svg/geometry-L2-013-a2.svg"
+      },
+      {
+        "svg": "svg/geometry-L2-013-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L2-014",
+    "level": 2,
+    "prompt": "Найдите угловой коэффициент прямой, проходящей через точки (1; 2) и (3; 8).",
+    "correct": 1,
+    "options": [
+      {
+        "svg": "svg/geometry-L2-014-a0.svg"
+      },
+      {
+        "svg": "svg/geometry-L2-014-a1.svg"
+      },
+      {
+        "svg": "svg/geometry-L2-014-a2.svg"
+      },
+      {
+        "svg": "svg/geometry-L2-014-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L2-015",
+    "level": 2,
+    "prompt": "Найдите длину вектора a(3; 4).",
+    "correct": 2,
+    "options": [
+      {
+        "text": "7"
+      },
+      {
+        "text": "25"
+      },
+      {
+        "text": "5"
+      },
+      {
+        "text": "1"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L2-016",
+    "level": 2,
+    "prompt": "Найдите скалярное произведение векторов a(2; −1) и b(3; 4).",
+    "correct": 3,
+    "options": [
+      {
+        "text": "10"
+      },
+      {
+        "text": "−2"
+      },
+      {
+        "text": "5"
+      },
+      {
+        "text": "2"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L2-017",
+    "level": 2,
+    "prompt": "Найдите объём цилиндра с радиусом основания 2 и высотой 5.",
+    "correct": 0,
+    "options": [
+      {
+        "svg": "svg/geometry-L2-017-a0.svg"
+      },
+      {
+        "svg": "svg/geometry-L2-017-a1.svg"
+      },
+      {
+        "svg": "svg/geometry-L2-017-a2.svg"
+      },
+      {
+        "svg": "svg/geometry-L2-017-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L2-018",
+    "level": 2,
+    "prompt": "Найдите объём конуса с радиусом основания 3 и высотой 4.",
+    "correct": 1,
+    "options": [
+      {
+        "svg": "svg/geometry-L2-018-a0.svg"
+      },
+      {
+        "svg": "svg/geometry-L2-018-a1.svg"
+      },
+      {
+        "svg": "svg/geometry-L2-018-a2.svg"
+      },
+      {
+        "svg": "svg/geometry-L2-018-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L2-019",
+    "level": 2,
+    "prompt": "Найдите объём шара радиуса 3.",
+    "correct": 2,
+    "options": [
+      {
+        "svg": "svg/geometry-L2-019-a0.svg"
+      },
+      {
+        "svg": "svg/geometry-L2-019-a1.svg"
+      },
+      {
+        "svg": "svg/geometry-L2-019-a2.svg"
+      },
+      {
+        "svg": "svg/geometry-L2-019-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L2-020",
+    "level": 2,
+    "prompt": "Найдите площадь сферы радиуса 2.",
+    "correct": 3,
+    "options": [
+      {
+        "svg": "svg/geometry-L2-020-a0.svg"
+      },
+      {
+        "svg": "svg/geometry-L2-020-a1.svg"
+      },
+      {
+        "svg": "svg/geometry-L2-020-a2.svg"
+      },
+      {
+        "svg": "svg/geometry-L2-020-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L2-021",
+    "level": 2,
+    "prompt": "Найдите диагональ куба с ребром 2.",
+    "correct": 0,
+    "options": [
+      {
+        "svg": "svg/geometry-L2-021-a0.svg"
+      },
+      {
+        "svg": "svg/geometry-L2-021-a1.svg"
+      },
+      {
+        "svg": "svg/geometry-L2-021-a2.svg"
+      },
+      {
+        "svg": "svg/geometry-L2-021-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L2-022",
+    "level": 2,
+    "prompt": "Найдите площадь боковой поверхности цилиндра с радиусом основания 3 и высотой 5.",
+    "correct": 1,
+    "options": [
+      {
+        "svg": "svg/geometry-L2-022-a0.svg"
+      },
+      {
+        "svg": "svg/geometry-L2-022-a1.svg"
+      },
+      {
+        "svg": "svg/geometry-L2-022-a2.svg"
+      },
+      {
+        "svg": "svg/geometry-L2-022-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L2-023",
+    "level": 2,
+    "prompt": "Каждый внутренний угол правильного многоугольника равен 120°. Сколько у него сторон?",
+    "correct": 2,
+    "options": [
+      {
+        "text": "5"
+      },
+      {
+        "text": "8"
+      },
+      {
+        "text": "6"
+      },
+      {
+        "text": "3"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L2-024",
+    "level": 2,
+    "prompt": "Сторона ромба равна 10, одна из диагоналей равна 12. Найдите другую диагональ.",
+    "correct": 3,
+    "options": [
+      {
+        "text": "8"
+      },
+      {
+        "text": "14"
+      },
+      {
+        "text": "20"
+      },
+      {
+        "text": "16"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L2-025",
+    "level": 2,
+    "prompt": "Основания равнобедренной трапеции ABCD равны 4 и 10, боковые стороны равны 5. Найдите высоту трапеции.",
+    "prompt_image": "images/geometry-L2-025.svg",
+    "correct": 0,
+    "options": [
+      {
+        "svg": "svg/geometry-L2-025-a0.svg"
+      },
+      {
+        "svg": "svg/geometry-L2-025-a1.svg"
+      },
+      {
+        "svg": "svg/geometry-L2-025-a2.svg"
+      },
+      {
+        "svg": "svg/geometry-L2-025-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L2-026",
+    "level": 2,
+    "prompt": "Найдите площадь сектора круга радиуса 6 с центральным углом 60°.",
+    "correct": 1,
+    "options": [
+      {
+        "svg": "svg/geometry-L2-026-a0.svg"
+      },
+      {
+        "svg": "svg/geometry-L2-026-a1.svg"
+      },
+      {
+        "svg": "svg/geometry-L2-026-a2.svg"
+      },
+      {
+        "svg": "svg/geometry-L2-026-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L2-027",
+    "level": 2,
+    "prompt": "Найдите длину дуги окружности радиуса 9, если её градусная мера 40°.",
+    "correct": 2,
+    "options": [
+      {
+        "svg": "svg/geometry-L2-027-a0.svg"
+      },
+      {
+        "svg": "svg/geometry-L2-027-a1.svg"
+      },
+      {
+        "svg": "svg/geometry-L2-027-a2.svg"
+      },
+      {
+        "svg": "svg/geometry-L2-027-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L2-028",
+    "level": 2,
+    "prompt": "Угол A острый, cos A = 0,6. Найдите sin A.",
+    "correct": 3,
+    "options": [
+      {
+        "text": "0,4"
+      },
+      {
+        "text": "0,36"
+      },
+      {
+        "text": "0,64"
+      },
+      {
+        "text": "0,8"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L2-029",
+    "level": 2,
+    "prompt": "Две стороны треугольника равны 5 и 8, угол между ними 60°. Найдите третью сторону.",
+    "correct": 0,
+    "options": [
+      {
+        "svg": "svg/geometry-L2-029-a0.svg"
+      },
+      {
+        "svg": "svg/geometry-L2-029-a1.svg"
+      },
+      {
+        "svg": "svg/geometry-L2-029-a2.svg"
+      },
+      {
+        "svg": "svg/geometry-L2-029-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L2-030",
+    "level": 2,
+    "prompt": "В треугольнике сторона a = 6, противолежащий ей угол A = 30°. Найдите радиус описанной окружности.",
+    "correct": 1,
+    "options": [
+      {
+        "svg": "svg/geometry-L2-030-a0.svg"
+      },
+      {
+        "svg": "svg/geometry-L2-030-a1.svg"
+      },
+      {
+        "svg": "svg/geometry-L2-030-a2.svg"
+      },
+      {
+        "svg": "svg/geometry-L2-030-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L2-031",
+    "level": 2,
+    "prompt": "Найдите площадь треугольника с вершинами (0; 0), (4; 0) и (0; 3).",
+    "correct": 2,
+    "options": [
+      {
+        "text": "12"
+      },
+      {
+        "text": "7"
+      },
+      {
+        "text": "6"
+      },
+      {
+        "text": "5"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L2-032",
+    "level": 2,
+    "prompt": "В треугольнике ABC отрезок DE параллелен AC, D лежит на AB, E — на BC. BD = 4, DA = 2, DE = 6. Найдите AC.",
+    "prompt_image": "images/geometry-L2-032.svg",
+    "correct": 3,
+    "options": [
+      {
+        "text": "12"
+      },
+      {
+        "text": "3"
+      },
+      {
+        "text": "8"
+      },
+      {
+        "text": "9"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L2-033",
+    "level": 2,
+    "prompt": "Диагональ прямоугольника образует с его стороной угол 25°. Найдите острый угол между диагоналями прямоугольника.",
+    "correct": 0,
+    "options": [
+      {
+        "text": "50°"
+      },
+      {
+        "text": "25°"
+      },
+      {
+        "text": "65°"
+      },
+      {
+        "text": "130°"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L2-034",
+    "level": 2,
+    "prompt": "Найдите внешний угол правильного десятиугольника.",
+    "correct": 1,
+    "options": [
+      {
+        "text": "144°"
+      },
+      {
+        "text": "36°"
+      },
+      {
+        "text": "18°"
+      },
+      {
+        "text": "72°"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L2-035",
+    "level": 2,
+    "prompt": "Окружности радиусов 3 и 5 касаются внешним образом. Найдите расстояние между их центрами.",
+    "correct": 2,
+    "options": [
+      {
+        "text": "2"
+      },
+      {
+        "text": "15"
+      },
+      {
+        "text": "8"
+      },
+      {
+        "text": "4"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L3-001",
+    "level": 3,
+    "prompt": "В треугольнике ABC AB = BC, угол B равен 80°. AD — биссектриса угла A, точка D лежит на BC. Найдите угол ADC.",
+    "prompt_image": "images/geometry-L3-001.svg",
+    "correct": 3,
+    "options": [
+      {
+        "text": "75°"
+      },
+      {
+        "text": "115°"
+      },
+      {
+        "text": "125°"
+      },
+      {
+        "text": "105°"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L3-002",
+    "level": 3,
+    "prompt": "В треугольнике ABC AC = BC = 5, AB = 6. Найдите cos A.",
+    "correct": 0,
+    "options": [
+      {
+        "svg": "svg/geometry-L3-002-a0.svg"
+      },
+      {
+        "svg": "svg/geometry-L3-002-a1.svg"
+      },
+      {
+        "svg": "svg/geometry-L3-002-a2.svg"
+      },
+      {
+        "svg": "svg/geometry-L3-002-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L3-003",
+    "level": 3,
+    "prompt": "Стороны треугольника равны 5, 5 и 6. Найдите радиус описанной около него окружности.",
+    "correct": 1,
+    "options": [
+      {
+        "svg": "svg/geometry-L3-003-a0.svg"
+      },
+      {
+        "svg": "svg/geometry-L3-003-a1.svg"
+      },
+      {
+        "svg": "svg/geometry-L3-003-a2.svg"
+      },
+      {
+        "svg": "svg/geometry-L3-003-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L3-004",
+    "level": 3,
+    "prompt": "Стороны треугольника равны 5, 5 и 6. Найдите радиус вписанной в него окружности.",
+    "correct": 2,
+    "options": [
+      {
+        "text": "2"
+      },
+      {
+        "text": "3"
+      },
+      {
+        "text": "1,5"
+      },
+      {
+        "text": "1,2"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L3-005",
+    "level": 3,
+    "prompt": "В равнобедренную трапецию с основаниями 2 и 8 вписана окружность. Найдите высоту трапеции.",
+    "correct": 3,
+    "options": [
+      {
+        "svg": "svg/geometry-L3-005-a0.svg"
+      },
+      {
+        "svg": "svg/geometry-L3-005-a1.svg"
+      },
+      {
+        "svg": "svg/geometry-L3-005-a2.svg"
+      },
+      {
+        "svg": "svg/geometry-L3-005-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L3-006",
+    "level": 3,
+    "prompt": "В правильной четырёхугольной пирамиде сторона основания равна 6, а высота равна 4. Найдите объём пирамиды.",
+    "correct": 0,
+    "options": [
+      {
+        "text": "48"
+      },
+      {
+        "text": "144"
+      },
+      {
+        "text": "96"
+      },
+      {
+        "text": "24"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L3-007",
+    "level": 3,
+    "prompt": "В правильной четырёхугольной пирамиде сторона основания равна 6, а высота равна 4. Найдите площадь её боковой поверхности.",
+    "correct": 1,
+    "options": [
+      {
+        "text": "48"
+      },
+      {
+        "text": "60"
+      },
+      {
+        "text": "96"
+      },
+      {
+        "text": "120"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L3-008",
+    "level": 3,
+    "prompt": "Шар вписан в куб с ребром 6. Найдите объём шара.",
+    "correct": 2,
+    "options": [
+      {
+        "svg": "svg/geometry-L3-008-a0.svg"
+      },
+      {
+        "svg": "svg/geometry-L3-008-a1.svg"
+      },
+      {
+        "svg": "svg/geometry-L3-008-a2.svg"
+      },
+      {
+        "svg": "svg/geometry-L3-008-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L3-009",
+    "level": 3,
+    "prompt": "Образующая конуса равна 10, радиус основания равен 6. Найдите объём конуса.",
+    "correct": 3,
+    "options": [
+      {
+        "svg": "svg/geometry-L3-009-a0.svg"
+      },
+      {
+        "svg": "svg/geometry-L3-009-a1.svg"
+      },
+      {
+        "svg": "svg/geometry-L3-009-a2.svg"
+      },
+      {
+        "svg": "svg/geometry-L3-009-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L3-010",
+    "level": 3,
+    "prompt": "Найдите угол между векторами a(2; 1) и b(3; −1).",
+    "correct": 0,
+    "options": [
+      {
+        "text": "45°"
+      },
+      {
+        "text": "90°"
+      },
+      {
+        "text": "30°"
+      },
+      {
+        "text": "60°"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L3-011",
+    "level": 3,
+    "prompt": "Найдите площадь треугольника с вершинами (1; 1), (5; 2) и (3; 6).",
+    "correct": 1,
+    "options": [
+      {
+        "text": "18"
+      },
+      {
+        "text": "9"
+      },
+      {
+        "text": "12"
+      },
+      {
+        "text": "7"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L3-012",
+    "level": 3,
+    "prompt": "Найдите координаты точки пересечения медиан треугольника с вершинами (0; 0), (6; 0) и (0; 9).",
+    "correct": 2,
+    "options": [
+      {
+        "text": "(3; 4,5)"
+      },
+      {
+        "text": "(3; 3)"
+      },
+      {
+        "text": "(2; 3)"
+      },
+      {
+        "text": "(2; 4,5)"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L3-013",
+    "level": 3,
+    "prompt": "Найдите расстояние от точки (3; 4) до прямой 3x + 4y − 5 = 0.",
+    "correct": 3,
+    "options": [
+      {
+        "text": "5"
+      },
+      {
+        "text": "20"
+      },
+      {
+        "text": "3"
+      },
+      {
+        "text": "4"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L3-014",
+    "level": 3,
+    "prompt": "Из точки M к окружности проведены касательная MA = 6 и секущая, пересекающая окружность в точках B и C (MB < MC). MB = 4. Найдите MC.",
+    "prompt_image": "images/geometry-L3-014.svg",
+    "correct": 0,
+    "options": [
+      {
+        "text": "9"
+      },
+      {
+        "text": "10"
+      },
+      {
+        "text": "8"
+      },
+      {
+        "text": "12"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L3-015",
+    "level": 3,
+    "prompt": "Хорды AB и CD окружности пересекаются в точке E. AE = 4, EB = 6, CE = 3. Найдите ED.",
+    "prompt_image": "images/geometry-L3-015.svg",
+    "correct": 1,
+    "options": [
+      {
+        "text": "4,5"
+      },
+      {
+        "text": "8"
+      },
+      {
+        "text": "7"
+      },
+      {
+        "text": "2"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L3-016",
+    "level": 3,
+    "prompt": "В треугольнике ABC AB = 6, BC = 9, AC = 10. BD — биссектриса угла B, точка D лежит на AC. Найдите AD.",
+    "prompt_image": "images/geometry-L3-016.svg",
+    "correct": 2,
+    "options": [
+      {
+        "text": "6"
+      },
+      {
+        "text": "5"
+      },
+      {
+        "text": "4"
+      },
+      {
+        "text": "3,6"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L3-017",
+    "level": 3,
+    "prompt": "Сторона ромба равна 10, острый угол равен 30°. Найдите площадь ромба.",
+    "correct": 3,
+    "options": [
+      {
+        "svg": "svg/geometry-L3-017-a0.svg"
+      },
+      {
+        "svg": "svg/geometry-L3-017-a1.svg"
+      },
+      {
+        "svg": "svg/geometry-L3-017-a2.svg"
+      },
+      {
+        "svg": "svg/geometry-L3-017-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L3-018",
+    "level": 3,
+    "prompt": "Стороны параллелограмма равны 4 и 6, угол между ними 60°. Найдите меньшую диагональ.",
+    "correct": 0,
+    "options": [
+      {
+        "svg": "svg/geometry-L3-018-a0.svg"
+      },
+      {
+        "svg": "svg/geometry-L3-018-a1.svg"
+      },
+      {
+        "svg": "svg/geometry-L3-018-a2.svg"
+      },
+      {
+        "svg": "svg/geometry-L3-018-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L3-019",
+    "level": 3,
+    "prompt": "Найдите площадь правильного шестиугольника со стороной 2.",
+    "correct": 1,
+    "options": [
+      {
+        "svg": "svg/geometry-L3-019-a0.svg"
+      },
+      {
+        "svg": "svg/geometry-L3-019-a1.svg"
+      },
+      {
+        "svg": "svg/geometry-L3-019-a2.svg"
+      },
+      {
+        "svg": "svg/geometry-L3-019-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L3-020",
+    "level": 3,
+    "prompt": "Цилиндр описан около шара. Найдите отношение объёма цилиндра к объёму шара.",
+    "correct": 2,
+    "options": [
+      {
+        "svg": "svg/geometry-L3-020-a0.svg"
+      },
+      {
+        "svg": "svg/geometry-L3-020-a1.svg"
+      },
+      {
+        "svg": "svg/geometry-L3-020-a2.svg"
+      },
+      {
+        "svg": "svg/geometry-L3-020-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L3-021",
+    "level": 3,
+    "prompt": "Ребро куба равно 4. Найдите площадь его диагонального сечения.",
+    "correct": 3,
+    "options": [
+      {
+        "svg": "svg/geometry-L3-021-a0.svg"
+      },
+      {
+        "svg": "svg/geometry-L3-021-a1.svg"
+      },
+      {
+        "svg": "svg/geometry-L3-021-a2.svg"
+      },
+      {
+        "svg": "svg/geometry-L3-021-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L3-022",
+    "level": 3,
+    "prompt": "Найдите тангенс угла между диагональю куба и плоскостью его основания.",
+    "correct": 0,
+    "options": [
+      {
+        "svg": "svg/geometry-L3-022-a0.svg"
+      },
+      {
+        "svg": "svg/geometry-L3-022-a1.svg"
+      },
+      {
+        "svg": "svg/geometry-L3-022-a2.svg"
+      },
+      {
+        "svg": "svg/geometry-L3-022-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L3-023",
+    "level": 3,
+    "prompt": "Найдите площадь круга, вписанного в равносторонний треугольник со стороной 6.",
+    "correct": 1,
+    "options": [
+      {
+        "svg": "svg/geometry-L3-023-a0.svg"
+      },
+      {
+        "svg": "svg/geometry-L3-023-a1.svg"
+      },
+      {
+        "svg": "svg/geometry-L3-023-a2.svg"
+      },
+      {
+        "svg": "svg/geometry-L3-023-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L3-024",
+    "level": 3,
+    "prompt": "Хорда AB стягивает дугу 110°. Найдите острый угол между хордой AB и касательной к окружности в точке A.",
+    "prompt_image": "images/geometry-L3-024.svg",
+    "correct": 2,
+    "options": [
+      {
+        "text": "110°"
+      },
+      {
+        "text": "35°"
+      },
+      {
+        "text": "55°"
+      },
+      {
+        "text": "70°"
+      }
+    ]
+  },
+  {
+    "id": "geometry-L3-025",
+    "level": 3,
+    "prompt": "Найдите площадь четырёхугольника с вершинами (0; 0), (4; 0), (6; 3) и (0; 3).",
+    "correct": 3,
+    "options": [
+      {
+        "text": "18"
+      },
+      {
+        "text": "12"
+      },
+      {
+        "text": "24"
+      },
+      {
+        "text": "15"
+      }
+    ]
+  }
+]
