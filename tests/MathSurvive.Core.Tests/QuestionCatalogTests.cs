@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using MathSurvive.Core.Questions;
+using MathSurvive.Core.Progress;
 using Xunit;
 
 namespace MathSurvive.Core.Tests;
@@ -153,5 +154,130 @@ public class QuestionCatalogTests
         Assert.Throws<ArgumentException>(() => new QuestionCatalog(Config, Packs(), new[] { "algebra", "algebra" }, rng));
         Assert.Throws<ArgumentException>(() => new QuestionCatalog(Config, Packs(), new[] { "algebra", "topology" }, rng));
         Assert.Throws<ArgumentException>(() => Catalog().SelectSection("topology"));
+    }
+
+    private static IReadOnlyDictionary<int, IReadOnlyList<string>> Used(params (int Level, string[] Ids)[] items)
+        => items.ToDictionary(i => i.Level, i => (IReadOnlyList<string>)i.Ids);
+
+    private static SectionProgressSnapshot Section(QuizProgressSnapshot s, string id) => s.Sections.Single(x => x.SectionId == id);
+
+    [Fact]
+    public void Capture_and_restore_round_trip()
+    {
+        var c = Catalog(geometryExtraL1: 3);
+        c.SelectSection("geometry");
+        c.NextQuestion();
+        c.NextQuestion();
+        Record(c, true, 4);
+        c.NextQuestion();
+        Record(c, true, 2);
+        c.SelectSection("algebra");
+        Record(c, false, 2);
+
+        var snapshot = c.CaptureProgress();
+        Assert.Equal("algebra", snapshot.SelectedSectionId);
+        var geometry = Section(snapshot, "geometry");
+        Assert.Equal((2, 2, 0), (geometry.Level, geometry.CorrectStreak, geometry.WrongStreak));
+        Assert.Equal(2, geometry.UsedQuestionIdsByLevel[1].Count);
+        Assert.Equal(new[] { "c2" }, geometry.UsedQuestionIdsByLevel[2]);
+        var algebra = Section(snapshot, "algebra");
+        Assert.Equal((1, 0, 2), (algebra.Level, algebra.CorrectStreak, algebra.WrongStreak));
+
+        var restored = Catalog(geometryExtraL1: 3, seed: 9);
+        restored.RestoreProgress(snapshot);
+        Assert.Equal("algebra", restored.SelectedSectionId);
+        Assert.Equal("algebra", restored.ActivePack.Section.Id);
+        Assert.Equivalent(snapshot, restored.CaptureProgress(), strict: true);
+
+        restored.SelectSection("geometry");
+        Assert.Equal(2, restored.ActiveDifficulty.Level);
+        Record(restored, true, 2);
+        Assert.Equal(3, restored.ActiveDifficulty.Level);
+        Record(restored, false, 6);
+        Assert.Equal(1, restored.ActiveDifficulty.Level);
+        var fresh = new[] { restored.NextQuestion().Id, restored.NextQuestion().Id };
+        Assert.Empty(fresh.Intersect(geometry.UsedQuestionIdsByLevel[1]));
+    }
+
+    [Fact]
+    public void Restore_random_selection()
+    {
+        var c = Catalog();
+        c.SelectSection("analysis");
+        c.SelectRandom();
+        var snapshot = c.CaptureProgress();
+        Assert.Null(snapshot.SelectedSectionId);
+
+        var restored = Catalog();
+        restored.SelectSection("algebra");
+        restored.RestoreProgress(snapshot);
+        Assert.Null(restored.SelectedSectionId);
+        Assert.Equal("a1", restored.NextQuestion().Id);
+    }
+
+    public static IEnumerable<object?[]> InvalidSnapshots()
+    {
+        var ok = new SectionProgressSnapshot("algebra", 2, 1, 0, Used((1, new[] { "b1" })));
+        yield return new object?[] { null };
+        yield return new object?[] { new QuizProgressSnapshot("topology", new[] { ok }) };
+        yield return new object?[] { new QuizProgressSnapshot(null, new[] { ok, ok }) };
+        yield return new object?[] { new QuizProgressSnapshot(null, new[] { ok, ok with { SectionId = "topology" } }) };
+        yield return new object?[] { new QuizProgressSnapshot(null, new[] { ok with { Level = 4 } }) };
+        yield return new object?[] { new QuizProgressSnapshot(null, new[] { ok with { CorrectStreak = 4 } }) };
+        yield return new object?[] { new QuizProgressSnapshot(null, new[] { ok with { WrongStreak = 3 } }) };
+        yield return new object?[] { new QuizProgressSnapshot(null, new[] { ok with { UsedQuestionIdsByLevel = Used((5, new[] { "b1" })) } }) };
+    }
+
+    [Theory]
+    [MemberData(nameof(InvalidSnapshots))]
+    public void Invalid_snapshot_restores_defaults(QuizProgressSnapshot? snapshot)
+    {
+        var c = Catalog();
+        c.SelectSection("geometry");
+        Record(c, true, 4);
+        c.NextQuestion();
+        c.SelectSection("arithmetic");
+        Record(c, false, 1);
+
+        c.RestoreProgress(snapshot);
+
+        Assert.Equivalent(Catalog().CaptureProgress(), c.CaptureProgress(), strict: true);
+        Assert.Null(c.SelectedSectionId);
+        Assert.Equal("a1", c.NextQuestion().Id);
+    }
+
+    [Fact]
+    public void Restore_accepts_thresholds_of_its_config_only()
+    {
+        var snapshot = new QuizProgressSnapshot("geometry", new[] { new SectionProgressSnapshot("geometry", 2, 3, 0, Used()) });
+        var c = Catalog();
+        c.RestoreProgress(snapshot);
+        Assert.Equal((2, 3), (c.ActiveDifficulty.Level, c.ActiveDifficulty.CorrectStreak));
+        Record(c, true, 1);
+        Assert.Equal(3, c.ActiveDifficulty.Level);
+
+        var strict = new QuestionCatalog(GameConfig.Default, Packs(), Order, new Random(1));
+        strict.RestoreProgress(snapshot);
+        Assert.Null(strict.SelectedSectionId);
+        Assert.Equal(1, strict.ActiveDifficulty.Level);
+    }
+
+    [Fact]
+    public void Restore_drops_unknown_ids_and_resets_missing_sections()
+    {
+        var c = Catalog();
+        c.SelectSection("algebra");
+        Record(c, true, 4);
+
+        c.RestoreProgress(new QuizProgressSnapshot("geometry", new[]
+        {
+            new SectionProgressSnapshot("geometry", 1, 0, 0, Used((1, new[] { "c1", "gone" }), (2, new[] { "c1" }))),
+        }));
+
+        var progress = c.CaptureProgress();
+        var geometry = Section(progress, "geometry");
+        Assert.Equal(new[] { "c1" }, geometry.UsedQuestionIdsByLevel[1]);
+        Assert.False(geometry.UsedQuestionIdsByLevel.ContainsKey(2));
+        Assert.Equal(1, Section(progress, "algebra").Level);
     }
 }

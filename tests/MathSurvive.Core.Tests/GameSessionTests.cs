@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using MathSurvive.Core.Questions;
 using MathSurvive.Core.Session;
+using MathSurvive.Core.Progress;
 using Xunit;
 
 namespace MathSurvive.Core.Tests;
@@ -444,5 +445,26 @@ public class GameSessionTests
         Assert.Equal("arithmetic", s.Run.Sections.Keys.Single());
         s.Tick(s.Config.FeedbackDuration, T0);
         Assert.Equal("algebra", OpenSection(s));
+    }
+
+    [Fact]
+    public void Switching_collapse_and_horde_keep_progress_snapshot()
+    {
+        var catalog = Catalog(GameConfig.Default);
+        var s = new GameSession(GameConfig.Default, catalog, new Random(1));
+        s.SelectSection("geometry");
+        SolveOne(s);
+        SolveOne(s);
+        s.OpenQuiz();
+        var before = catalog.CaptureProgress();
+
+        s.CollapseQuiz();
+        s.SelectSection("algebra");
+        s.SelectSection("geometry");
+        s.ForceHordeNow();
+        s.FinishHorde(survived: true, killed: 3);
+        s.Tick(s.Config.HordeSummaryDuration, T0);
+
+        Assert.Equivalent(before, catalog.CaptureProgress(), strict: true);
     }
 }

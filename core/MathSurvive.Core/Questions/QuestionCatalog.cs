@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using MathSurvive.Core.Progress;
 
 namespace MathSurvive.Core.Questions;
 
@@ -25,6 +26,7 @@ public sealed class QuestionCatalog
     }
 
     private readonly Dictionary<string, SectionState> _sections = new();
+    private readonly List<SectionState> _ordered = new();
     private readonly IReadOnlyList<string> _randomOrder;
     private int _randomCursor;
     private SectionState _active;
@@ -36,9 +38,11 @@ public sealed class QuestionCatalog
         {
             if (_sections.ContainsKey(pack.Section.Id))
                 throw new ArgumentException($"Повтор раздела «{pack.Section.Id}»", nameof(packs));
-            _sections[pack.Section.Id] = new SectionState(pack,
+            var state = new SectionState(pack,
                 new QuestionPicker(pack.Questions, rng),
                 new DifficultyTracker(config, pack.Section.Levels));
+            _sections[pack.Section.Id] = state;
+            _ordered.Add(state);
         }
 
         if (randomOrder.Count == 0)
@@ -87,5 +91,41 @@ public sealed class QuestionCatalog
         SelectedSectionId = null;
         _randomCursor = 0;
         _active = _sections[_randomOrder[0]];
+    }
+
+    /// <summary>Выбор, сложность и показанные ID всех разделов; текущий вопрос и курсор случайного режима не входят.</summary>
+    public QuizProgressSnapshot CaptureProgress() => new(SelectedSectionId, _ordered.Select(s =>
+        new SectionProgressSnapshot(s.Pack.Section.Id, s.Difficulty.Level, s.Difficulty.CorrectStreak, s.Difficulty.WrongStreak,
+            s.Used.Where(kv => kv.Value.Count > 0)
+                .ToDictionary(kv => kv.Key, kv => (IReadOnlyList<string>)kv.Value.Order(StringComparer.Ordinal).ToArray())))
+        .ToArray());
+
+    /// <summary>
+    /// Применить snapshot целиком. <c>null</c> или недопустимый snapshot — значения по умолчанию.
+    /// Разделы, которых нет в snapshot, начинают заново; ID, которых больше нет на уровне, отбрасываются.
+    /// </summary>
+    public void RestoreProgress(QuizProgressSnapshot? snapshot)
+    {
+        var valid = ProgressRules.IsValid(snapshot, _ordered.Select(s => s.Pack.Section), Config);
+        var bySection = valid ? snapshot!.Sections.ToDictionary(s => s.SectionId) : new Dictionary<string, SectionProgressSnapshot>();
+
+        foreach (var state in _ordered)
+        {
+            state.Used.Clear();
+            if (!bySection.TryGetValue(state.Pack.Section.Id, out var saved))
+            {
+                state.Difficulty.Restore(1, 0, 0);
+                continue;
+            }
+            state.Difficulty.Restore(saved.Level, saved.CorrectStreak, saved.WrongStreak);
+            foreach (var (level, ids) in saved.UsedQuestionIdsByLevel)
+            {
+                var known = state.Pack.Questions.Where(q => q.Level == level).Select(q => q.Id).ToHashSet();
+                state.UsedAt(level).UnionWith(ids.Where(known.Contains));
+            }
+        }
+
+        if (valid && snapshot!.SelectedSectionId is { } id) SelectSection(id);
+        else SelectRandom();
     }
 }
