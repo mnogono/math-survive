@@ -52,6 +52,7 @@ public class BuiltPackTests
     [Theory]
     [InlineData("arithmetic", 40, 35, 25)]
     [InlineData("algebra", 40, 35, 25)]
+    [InlineData("analysis", 40, 35, 25)]
     public void Section_pack_matches_source_and_distribution(string id, int l1, int l2, int l3)
     {
         var (pack, packDir) = LoadPack(id);
