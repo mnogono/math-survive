@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="230" viewBox="0 0 300 230">
+<g fill="none" stroke="#1a1a1a" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+<circle cx="80" cy="150" r="60"/>
+<line x1="80" y1="150" x2="103.1" y2="94.6"/>
+<line x1="103.1" y1="94.6" x2="236" y2="150"/>
+<line x1="80" y1="150" x2="236" y2="150" stroke-dasharray="7 5" stroke-width="2"/>
+<polyline points="98.1,106.6 110.1,111.6 115.1,99.6" stroke-width="2"/>
+<circle cx="80" cy="150" r="4" fill="#1a1a1a" stroke="none"/>
+<text x="64" y="167.7" font-size="22" text-anchor="middle">O</text>
+<text x="99.1" y="82.3" font-size="22" text-anchor="middle">T</text>
+<text x="252" y="161.7" font-size="22" text-anchor="middle">P</text>
+<text x="77.5" y="125.3" font-size="20" text-anchor="middle">5</text>
+<text x="177.5" y="115.3" font-size="20" text-anchor="middle">12</text>
+<text x="158" y="175" font-size="20" text-anchor="middle">?</text>
+</g>
+</svg>

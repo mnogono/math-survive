@@ -5,7 +5,7 @@ setlocal
 chcp 65001 >nul
 cd /d "%~dp0"
 
-if not defined GODOT set "GODOT=C:\w\godot\Godot_v4.7.2-stable_mono_win64\Godot_v4.7.2-stable_mono_win64.exe"
+if not defined GODOT set "GODOT=D:\soft\Godot_v4.7.2-stable_mono_win64\Godot_v4.7.2-stable_mono_win64.exe"
 if not exist "%GODOT%" (
   echo Не найден Godot: %GODOT%
   exit /b 1

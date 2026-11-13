@@ -1,0 +1,2047 @@
+[
+  {
+    "id": "arithmetic-L1-001",
+    "level": 1,
+    "prompt": "Вычислите:",
+    "correct": 0,
+    "prompt_svg": "svg/arithmetic-L1-001-q.svg",
+    "options": [
+      {
+        "svg": "svg/arithmetic-L1-001-a0.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L1-001-a1.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L1-001-a2.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L1-001-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L1-002",
+    "level": 1,
+    "prompt": "Вычислите:",
+    "correct": 1,
+    "prompt_svg": "svg/arithmetic-L1-002-q.svg",
+    "options": [
+      {
+        "svg": "svg/arithmetic-L1-002-a0.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L1-002-a1.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L1-002-a2.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L1-002-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L1-003",
+    "level": 1,
+    "prompt": "Вычислите:",
+    "correct": 2,
+    "prompt_svg": "svg/arithmetic-L1-003-q.svg",
+    "options": [
+      {
+        "svg": "svg/arithmetic-L1-003-a0.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L1-003-a1.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L1-003-a2.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L1-003-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L1-004",
+    "level": 1,
+    "prompt": "Вычислите:",
+    "correct": 3,
+    "prompt_svg": "svg/arithmetic-L1-004-q.svg",
+    "options": [
+      {
+        "svg": "svg/arithmetic-L1-004-a0.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L1-004-a1.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L1-004-a2.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L1-004-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L1-005",
+    "level": 1,
+    "prompt": "Вычислите:",
+    "correct": 0,
+    "prompt_svg": "svg/arithmetic-L1-005-q.svg",
+    "options": [
+      {
+        "text": "0,75"
+      },
+      {
+        "text": "0,48"
+      },
+      {
+        "text": "0,078"
+      },
+      {
+        "text": "7,5"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L1-006",
+    "level": 1,
+    "prompt": "Вычислите:",
+    "correct": 1,
+    "prompt_svg": "svg/arithmetic-L1-006-q.svg",
+    "options": [
+      {
+        "text": "0,1"
+      },
+      {
+        "text": "1"
+      },
+      {
+        "text": "10"
+      },
+      {
+        "text": "1,4"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L1-007",
+    "level": 1,
+    "prompt": "Вычислите:",
+    "correct": 2,
+    "prompt_svg": "svg/arithmetic-L1-007-q.svg",
+    "options": [
+      {
+        "text": "0,8"
+      },
+      {
+        "text": "80"
+      },
+      {
+        "text": "8"
+      },
+      {
+        "text": "6,3"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L1-008",
+    "level": 1,
+    "prompt": "Вычислите:",
+    "correct": 3,
+    "prompt_svg": "svg/arithmetic-L1-008-q.svg",
+    "options": [
+      {
+        "text": "50"
+      },
+      {
+        "text": "1"
+      },
+      {
+        "text": "−3"
+      },
+      {
+        "text": "5"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L1-009",
+    "level": 1,
+    "prompt": "Вычислите:",
+    "correct": 0,
+    "prompt_svg": "svg/arithmetic-L1-009-q.svg",
+    "options": [
+      {
+        "text": "−14"
+      },
+      {
+        "text": "−10"
+      },
+      {
+        "text": "10"
+      },
+      {
+        "text": "2"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L1-010",
+    "level": 1,
+    "prompt": "Вычислите:",
+    "correct": 1,
+    "prompt_svg": "svg/arithmetic-L1-010-q.svg",
+    "options": [
+      {
+        "text": "70"
+      },
+      {
+        "text": "−10"
+      },
+      {
+        "text": "−70"
+      },
+      {
+        "text": "10"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L1-011",
+    "level": 1,
+    "prompt": "Найдите 20% от числа 350.",
+    "correct": 2,
+    "options": [
+      {
+        "text": "7"
+      },
+      {
+        "text": "175"
+      },
+      {
+        "text": "70"
+      },
+      {
+        "text": "35"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L1-012",
+    "level": 1,
+    "prompt": "Сколько процентов составляет число 45 от числа 180?",
+    "correct": 3,
+    "options": [
+      {
+        "text": "40%"
+      },
+      {
+        "text": "4%"
+      },
+      {
+        "text": "135%"
+      },
+      {
+        "text": "25%"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L1-013",
+    "level": 1,
+    "prompt": "Найдите число, 30% которого равны 12.",
+    "correct": 0,
+    "options": [
+      {
+        "text": "40"
+      },
+      {
+        "text": "3,6"
+      },
+      {
+        "text": "36"
+      },
+      {
+        "text": "4"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L1-014",
+    "level": 1,
+    "prompt": "Вычислите:",
+    "correct": 1,
+    "prompt_svg": "svg/arithmetic-L1-014-q.svg",
+    "options": [
+      {
+        "text": "10"
+      },
+      {
+        "text": "32"
+      },
+      {
+        "text": "25"
+      },
+      {
+        "text": "64"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L1-015",
+    "level": 1,
+    "prompt": "Вычислите:",
+    "correct": 2,
+    "prompt_svg": "svg/arithmetic-L1-015-q.svg",
+    "options": [
+      {
+        "text": "12"
+      },
+      {
+        "text": "64"
+      },
+      {
+        "text": "81"
+      },
+      {
+        "text": "27"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L1-016",
+    "level": 1,
+    "prompt": "Вычислите:",
+    "correct": 3,
+    "prompt_svg": "svg/arithmetic-L1-016-q.svg",
+    "options": [
+      {
+        "text": "72"
+      },
+      {
+        "text": "14"
+      },
+      {
+        "text": "24"
+      },
+      {
+        "text": "12"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L1-017",
+    "level": 1,
+    "prompt": "Вычислите:",
+    "correct": 0,
+    "prompt_svg": "svg/arithmetic-L1-017-q.svg",
+    "options": [
+      {
+        "text": "0,7"
+      },
+      {
+        "text": "0,07"
+      },
+      {
+        "text": "7"
+      },
+      {
+        "text": "0,245"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L1-018",
+    "level": 1,
+    "prompt": "Запишите в виде десятичной дроби:",
+    "correct": 1,
+    "prompt_svg": "svg/arithmetic-L1-018-q.svg",
+    "options": [
+      {
+        "text": "−100"
+      },
+      {
+        "text": "0,01"
+      },
+      {
+        "text": "−20"
+      },
+      {
+        "text": "0,1"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L1-019",
+    "level": 1,
+    "prompt": "Найдите наибольший общий делитель чисел 36 и 60.",
+    "correct": 2,
+    "options": [
+      {
+        "text": "6"
+      },
+      {
+        "text": "4"
+      },
+      {
+        "text": "12"
+      },
+      {
+        "text": "180"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L1-020",
+    "level": 1,
+    "prompt": "Найдите наименьшее общее кратное чисел 8 и 12.",
+    "correct": 3,
+    "options": [
+      {
+        "text": "96"
+      },
+      {
+        "text": "4"
+      },
+      {
+        "text": "48"
+      },
+      {
+        "text": "24"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L1-021",
+    "level": 1,
+    "prompt": "Какое из чисел делится на 9?",
+    "correct": 0,
+    "options": [
+      {
+        "text": "4 563"
+      },
+      {
+        "text": "4 561"
+      },
+      {
+        "text": "1 234"
+      },
+      {
+        "text": "6 512"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L1-022",
+    "level": 1,
+    "prompt": "Какое из чисел является простым?",
+    "correct": 1,
+    "options": [
+      {
+        "text": "27"
+      },
+      {
+        "text": "29"
+      },
+      {
+        "text": "33"
+      },
+      {
+        "text": "51"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L1-023",
+    "level": 1,
+    "prompt": "Найдите x из пропорции:",
+    "correct": 2,
+    "prompt_svg": "svg/arithmetic-L1-023-q.svg",
+    "options": [
+      {
+        "svg": "svg/arithmetic-L1-023-a0.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L1-023-a1.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L1-023-a2.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L1-023-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L1-024",
+    "level": 1,
+    "prompt": "Автомобиль едет со скоростью 75 км/ч. Сколько километров он проедет за 4 часа?",
+    "correct": 3,
+    "options": [
+      {
+        "text": "79"
+      },
+      {
+        "text": "18,75"
+      },
+      {
+        "text": "280"
+      },
+      {
+        "text": "300"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L1-025",
+    "level": 1,
+    "prompt": "Тетрадь стоит 24 рубля. Какое наибольшее число тетрадей можно купить на 200 рублей?",
+    "correct": 0,
+    "options": [
+      {
+        "text": "8"
+      },
+      {
+        "text": "9"
+      },
+      {
+        "text": "7"
+      },
+      {
+        "text": "10"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L1-026",
+    "level": 1,
+    "prompt": "Округлите число 3,1462 до сотых.",
+    "correct": 1,
+    "options": [
+      {
+        "text": "3,14"
+      },
+      {
+        "text": "3,15"
+      },
+      {
+        "text": "3,1"
+      },
+      {
+        "text": "3,146"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L1-027",
+    "level": 1,
+    "prompt": "Какое из чисел наибольшее?",
+    "correct": 2,
+    "options": [
+      {
+        "text": "0,7"
+      },
+      {
+        "text": "0,69"
+      },
+      {
+        "text": "0,701"
+      },
+      {
+        "text": "0,0799"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L1-028",
+    "level": 1,
+    "prompt": "Вычислите:",
+    "correct": 3,
+    "prompt_svg": "svg/arithmetic-L1-028-q.svg",
+    "options": [
+      {
+        "svg": "svg/arithmetic-L1-028-a0.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L1-028-a1.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L1-028-a2.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L1-028-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L1-029",
+    "level": 1,
+    "prompt": "Запишите дробь 3/8 в виде десятичной.",
+    "correct": 0,
+    "options": [
+      {
+        "text": "0,375"
+      },
+      {
+        "text": "0,38"
+      },
+      {
+        "text": "0,83"
+      },
+      {
+        "text": "0,24"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L1-030",
+    "level": 1,
+    "prompt": "Вычислите:",
+    "correct": 1,
+    "prompt_svg": "svg/arithmetic-L1-030-q.svg",
+    "options": [
+      {
+        "text": "−10"
+      },
+      {
+        "text": "4"
+      },
+      {
+        "text": "10"
+      },
+      {
+        "text": "−4"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L1-031",
+    "level": 1,
+    "prompt": "Сколько минут в 1 ч 15 мин?",
+    "correct": 2,
+    "options": [
+      {
+        "text": "115"
+      },
+      {
+        "text": "65"
+      },
+      {
+        "text": "75"
+      },
+      {
+        "text": "85"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L1-032",
+    "level": 1,
+    "prompt": "Сколько секунд в 2,5 минуты?",
+    "correct": 3,
+    "options": [
+      {
+        "text": "250"
+      },
+      {
+        "text": "125"
+      },
+      {
+        "text": "90"
+      },
+      {
+        "text": "150"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L1-033",
+    "level": 1,
+    "prompt": "Цену товара 800 рублей снизили на 15%. Какой стала цена?",
+    "correct": 0,
+    "options": [
+      {
+        "text": "680 руб."
+      },
+      {
+        "text": "785 руб."
+      },
+      {
+        "text": "120 руб."
+      },
+      {
+        "text": "920 руб."
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L1-034",
+    "level": 1,
+    "prompt": "3 кг яблок стоят 270 рублей. Сколько стоят 5 кг таких яблок?",
+    "correct": 1,
+    "options": [
+      {
+        "text": "540 руб."
+      },
+      {
+        "text": "450 руб."
+      },
+      {
+        "text": "400 руб."
+      },
+      {
+        "text": "302 руб."
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L1-035",
+    "level": 1,
+    "prompt": "Вычислите:",
+    "correct": 2,
+    "prompt_svg": "svg/arithmetic-L1-035-q.svg",
+    "options": [
+      {
+        "text": "5"
+      },
+      {
+        "text": "10"
+      },
+      {
+        "text": "6"
+      },
+      {
+        "text": "1"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L1-036",
+    "level": 1,
+    "prompt": "Вычислите:",
+    "correct": 3,
+    "prompt_svg": "svg/arithmetic-L1-036-q.svg",
+    "options": [
+      {
+        "text": "8"
+      },
+      {
+        "text": "−6"
+      },
+      {
+        "text": "6"
+      },
+      {
+        "text": "−8"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L1-037",
+    "level": 1,
+    "prompt": "Найдите остаток от деления 100 на 7.",
+    "correct": 0,
+    "options": [
+      {
+        "text": "2"
+      },
+      {
+        "text": "14"
+      },
+      {
+        "text": "3"
+      },
+      {
+        "text": "5"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L1-038",
+    "level": 1,
+    "prompt": "Найдите 2/3 от числа 45.",
+    "correct": 1,
+    "options": [
+      {
+        "text": "15"
+      },
+      {
+        "text": "30"
+      },
+      {
+        "text": "67,5"
+      },
+      {
+        "text": "27"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L1-039",
+    "level": 1,
+    "prompt": "Запишите отношение 18 : 24 в несократимом виде.",
+    "correct": 2,
+    "options": [
+      {
+        "text": "4 : 3"
+      },
+      {
+        "text": "2 : 3"
+      },
+      {
+        "text": "3 : 4"
+      },
+      {
+        "text": "9 : 16"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L1-040",
+    "level": 1,
+    "prompt": "Вычислите:",
+    "correct": 3,
+    "prompt_svg": "svg/arithmetic-L1-040-q.svg",
+    "options": [
+      {
+        "text": "1,01"
+      },
+      {
+        "text": "0,09"
+      },
+      {
+        "text": "1,99"
+      },
+      {
+        "text": "0,99"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L2-001",
+    "level": 2,
+    "prompt": "Вычислите:",
+    "correct": 0,
+    "prompt_svg": "svg/arithmetic-L2-001-q.svg",
+    "options": [
+      {
+        "svg": "svg/arithmetic-L2-001-a0.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L2-001-a1.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L2-001-a2.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L2-001-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L2-002",
+    "level": 2,
+    "prompt": "Вычислите:",
+    "correct": 1,
+    "prompt_svg": "svg/arithmetic-L2-002-q.svg",
+    "options": [
+      {
+        "text": "4"
+      },
+      {
+        "text": "40"
+      },
+      {
+        "text": "400"
+      },
+      {
+        "text": "0,4"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L2-003",
+    "level": 2,
+    "prompt": "Вычислите:",
+    "correct": 2,
+    "prompt_svg": "svg/arithmetic-L2-003-q.svg",
+    "options": [
+      {
+        "svg": "svg/arithmetic-L2-003-a0.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L2-003-a1.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L2-003-a2.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L2-003-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L2-004",
+    "level": 2,
+    "prompt": "Вычислите:",
+    "correct": 3,
+    "prompt_svg": "svg/arithmetic-L2-004-q.svg",
+    "options": [
+      {
+        "text": "6,375"
+      },
+      {
+        "text": "1,8"
+      },
+      {
+        "text": "7,8"
+      },
+      {
+        "text": "4,8"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L2-005",
+    "level": 2,
+    "prompt": "Вычислите:",
+    "correct": 0,
+    "prompt_svg": "svg/arithmetic-L2-005-q.svg",
+    "options": [
+      {
+        "text": "0"
+      },
+      {
+        "text": "18"
+      },
+      {
+        "text": "−18"
+      },
+      {
+        "text": "9"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L2-006",
+    "level": 2,
+    "prompt": "Вычислите:",
+    "correct": 1,
+    "prompt_svg": "svg/arithmetic-L2-006-q.svg",
+    "options": [
+      {
+        "text": "3"
+      },
+      {
+        "text": "8"
+      },
+      {
+        "text": "16"
+      },
+      {
+        "text": "128"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L2-007",
+    "level": 2,
+    "prompt": "Вычислите:",
+    "correct": 2,
+    "prompt_svg": "svg/arithmetic-L2-007-q.svg",
+    "options": [
+      {
+        "svg": "svg/arithmetic-L2-007-a0.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L2-007-a1.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L2-007-a2.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L2-007-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L2-008",
+    "level": 2,
+    "prompt": "Вычислите:",
+    "correct": 3,
+    "prompt_svg": "svg/arithmetic-L2-008-q.svg",
+    "options": [
+      {
+        "svg": "svg/arithmetic-L2-008-a0.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L2-008-a1.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L2-008-a2.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L2-008-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L2-009",
+    "level": 2,
+    "prompt": "Вычислите:",
+    "correct": 0,
+    "prompt_svg": "svg/arithmetic-L2-009-q.svg",
+    "options": [
+      {
+        "svg": "svg/arithmetic-L2-009-a0.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L2-009-a1.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L2-009-a2.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L2-009-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L2-010",
+    "level": 2,
+    "prompt": "Цену товара повысили на 20%, а затем понизили на 20%. Как изменилась цена по сравнению с первоначальной?",
+    "correct": 1,
+    "options": [
+      {
+        "text": "Не изменилась"
+      },
+      {
+        "text": "Снизилась на 4%"
+      },
+      {
+        "text": "Выросла на 4%"
+      },
+      {
+        "text": "Снизилась на 2%"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L2-011",
+    "level": 2,
+    "prompt": "Зарплата составляет 40 000 рублей, из неё удерживают налог 13%. Сколько рублей человек получит на руки?",
+    "correct": 2,
+    "options": [
+      {
+        "text": "5 200"
+      },
+      {
+        "text": "39 987"
+      },
+      {
+        "text": "34 800"
+      },
+      {
+        "text": "35 200"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L2-012",
+    "level": 2,
+    "prompt": "В 200 г раствора содержится 30 г соли. Какова концентрация соли в растворе?",
+    "correct": 3,
+    "options": [
+      {
+        "text": "30%"
+      },
+      {
+        "text": "20%"
+      },
+      {
+        "text": "13%"
+      },
+      {
+        "text": "15%"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L2-013",
+    "level": 2,
+    "prompt": "Расстояние между сёлами 54 км. Из них одновременно навстречу друг другу выехали велосипедисты со скоростями 12 км/ч и 15 км/ч. Через сколько часов они встретятся?",
+    "correct": 0,
+    "options": [
+      {
+        "text": "2 ч"
+      },
+      {
+        "text": "18 ч"
+      },
+      {
+        "text": "4,5 ч"
+      },
+      {
+        "text": "3,6 ч"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L2-014",
+    "level": 2,
+    "prompt": "Поезд проехал 360 км со скоростью 90 км/ч, а затем ещё 360 км со скоростью 72 км/ч. Найдите среднюю скорость на всём пути.",
+    "correct": 1,
+    "options": [
+      {
+        "text": "81 км/ч"
+      },
+      {
+        "text": "80 км/ч"
+      },
+      {
+        "text": "85 км/ч"
+      },
+      {
+        "text": "75 км/ч"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L2-015",
+    "level": 2,
+    "prompt": "Одна труба наполняет бак за 6 ч, другая — за 3 ч. За сколько часов наполнят бак обе трубы, работая вместе?",
+    "correct": 2,
+    "options": [
+      {
+        "text": "4,5 ч"
+      },
+      {
+        "text": "9 ч"
+      },
+      {
+        "text": "2 ч"
+      },
+      {
+        "text": "1,5 ч"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L2-016",
+    "level": 2,
+    "prompt": "Найдите наименьшее трёхзначное число, кратное 12.",
+    "correct": 3,
+    "options": [
+      {
+        "text": "102"
+      },
+      {
+        "text": "120"
+      },
+      {
+        "text": "112"
+      },
+      {
+        "text": "108"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L2-017",
+    "level": 2,
+    "prompt": "Сколько натуральных делителей у числа 36?",
+    "correct": 0,
+    "options": [
+      {
+        "text": "9"
+      },
+      {
+        "text": "8"
+      },
+      {
+        "text": "6"
+      },
+      {
+        "text": "10"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L2-018",
+    "level": 2,
+    "prompt": "5 рабочих выполняют работу за 12 дней. За сколько дней выполнят ту же работу 6 рабочих при той же производительности?",
+    "correct": 1,
+    "options": [
+      {
+        "text": "14,4"
+      },
+      {
+        "text": "10"
+      },
+      {
+        "text": "13"
+      },
+      {
+        "text": "11"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L2-019",
+    "level": 2,
+    "prompt": "Масштаб карты 1 : 50 000. Расстояние на карте 7 см. Каково расстояние на местности?",
+    "correct": 2,
+    "options": [
+      {
+        "text": "35 км"
+      },
+      {
+        "text": "350 м"
+      },
+      {
+        "text": "3,5 км"
+      },
+      {
+        "text": "7 км"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L2-020",
+    "level": 2,
+    "prompt": "Число 72 разделили на две части в отношении 2 : 7. Найдите меньшую часть.",
+    "correct": 3,
+    "options": [
+      {
+        "text": "56"
+      },
+      {
+        "text": "18"
+      },
+      {
+        "text": "24"
+      },
+      {
+        "text": "16"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L2-021",
+    "level": 2,
+    "prompt": "Найдите 2,5% от числа 4 800.",
+    "correct": 0,
+    "options": [
+      {
+        "text": "120"
+      },
+      {
+        "text": "1 200"
+      },
+      {
+        "text": "12"
+      },
+      {
+        "text": "192"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L2-022",
+    "level": 2,
+    "prompt": "Цена выросла с 250 до 310 рублей. На сколько процентов повысилась цена?",
+    "correct": 1,
+    "options": [
+      {
+        "text": "60%"
+      },
+      {
+        "text": "24%"
+      },
+      {
+        "text": "19,4%"
+      },
+      {
+        "text": "2,4%"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L2-023",
+    "level": 2,
+    "prompt": "Вычислите:",
+    "correct": 2,
+    "prompt_svg": "svg/arithmetic-L2-023-q.svg",
+    "options": [
+      {
+        "svg": "svg/arithmetic-L2-023-a0.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L2-023-a1.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L2-023-a2.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L2-023-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L2-024",
+    "level": 2,
+    "prompt": "Запишите периодическую дробь в виде обыкновенной:",
+    "correct": 3,
+    "prompt_svg": "svg/arithmetic-L2-024-q.svg",
+    "options": [
+      {
+        "svg": "svg/arithmetic-L2-024-a0.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L2-024-a1.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L2-024-a2.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L2-024-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L2-025",
+    "level": 2,
+    "prompt": "Вычислите:",
+    "correct": 0,
+    "prompt_svg": "svg/arithmetic-L2-025-q.svg",
+    "options": [
+      {
+        "svg": "svg/arithmetic-L2-025-a0.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L2-025-a1.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L2-025-a2.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L2-025-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L2-026",
+    "level": 2,
+    "prompt": "Вычислите:",
+    "correct": 1,
+    "prompt_svg": "svg/arithmetic-L2-026-q.svg",
+    "options": [
+      {
+        "svg": "svg/arithmetic-L2-026-a0.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L2-026-a1.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L2-026-a2.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L2-026-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L2-027",
+    "level": 2,
+    "prompt": "Вычислите:",
+    "correct": 2,
+    "prompt_svg": "svg/arithmetic-L2-027-q.svg",
+    "options": [
+      {
+        "svg": "svg/arithmetic-L2-027-a0.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L2-027-a1.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L2-027-a2.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L2-027-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L2-028",
+    "level": 2,
+    "prompt": "Какое из чисел лежит между 3 и 4?",
+    "correct": 3,
+    "options": [
+      {
+        "svg": "svg/arithmetic-L2-028-a0.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L2-028-a1.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L2-028-a2.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L2-028-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L2-029",
+    "level": 2,
+    "prompt": "Сколько натуральных чисел от 1 до 100 делятся на 7?",
+    "correct": 0,
+    "options": [
+      {
+        "text": "14"
+      },
+      {
+        "text": "15"
+      },
+      {
+        "text": "13"
+      },
+      {
+        "text": "7"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L2-030",
+    "level": 2,
+    "prompt": "Собственная скорость лодки 15 км/ч, скорость течения 3 км/ч. За сколько часов лодка пройдёт 54 км по течению?",
+    "correct": 1,
+    "options": [
+      {
+        "text": "4,5 ч"
+      },
+      {
+        "text": "3 ч"
+      },
+      {
+        "text": "3,6 ч"
+      },
+      {
+        "text": "4 ч"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L2-031",
+    "level": 2,
+    "prompt": "Тетрадь стоит 25 рублей, а ручка на 40% дороже тетради. Сколько стоят 2 ручки и 3 тетради?",
+    "correct": 2,
+    "options": [
+      {
+        "text": "130 руб."
+      },
+      {
+        "text": "155 руб."
+      },
+      {
+        "text": "145 руб."
+      },
+      {
+        "text": "125 руб."
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L2-032",
+    "level": 2,
+    "prompt": "Поезд отправился в 22:45 и был в пути 7 ч 30 мин. Во сколько он прибыл?",
+    "correct": 3,
+    "options": [
+      {
+        "text": "5:15"
+      },
+      {
+        "text": "6:45"
+      },
+      {
+        "text": "7:15"
+      },
+      {
+        "text": "6:15"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L2-033",
+    "level": 2,
+    "prompt": "Найдите среднее арифметическое чисел 4, 7, 10 и 15.",
+    "correct": 0,
+    "options": [
+      {
+        "text": "9"
+      },
+      {
+        "text": "8"
+      },
+      {
+        "text": "10"
+      },
+      {
+        "text": "12"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L2-034",
+    "level": 2,
+    "prompt": "Число увеличили на 25% и получили 60. Найдите исходное число.",
+    "correct": 1,
+    "options": [
+      {
+        "text": "45"
+      },
+      {
+        "text": "48"
+      },
+      {
+        "text": "75"
+      },
+      {
+        "text": "35"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L2-035",
+    "level": 2,
+    "prompt": "Вычислите:",
+    "correct": 2,
+    "prompt_svg": "svg/arithmetic-L2-035-q.svg",
+    "options": [
+      {
+        "text": "0,2"
+      },
+      {
+        "text": "10"
+      },
+      {
+        "text": "1"
+      },
+      {
+        "text": "0,1"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L3-001",
+    "level": 3,
+    "prompt": "Какой цифрой оканчивается число",
+    "correct": 3,
+    "prompt_svg": "svg/arithmetic-L3-001-q.svg",
+    "options": [
+      {
+        "text": "7"
+      },
+      {
+        "text": "3"
+      },
+      {
+        "text": "1"
+      },
+      {
+        "text": "9"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L3-002",
+    "level": 3,
+    "prompt": "Вычислите:",
+    "correct": 0,
+    "prompt_svg": "svg/arithmetic-L3-002-q.svg",
+    "options": [
+      {
+        "svg": "svg/arithmetic-L3-002-a0.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L3-002-a1.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L3-002-a2.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L3-002-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L3-003",
+    "level": 3,
+    "prompt": "Вычислите:",
+    "correct": 1,
+    "prompt_svg": "svg/arithmetic-L3-003-q.svg",
+    "options": [
+      {
+        "svg": "svg/arithmetic-L3-003-a0.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L3-003-a1.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L3-003-a2.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L3-003-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L3-004",
+    "level": 3,
+    "prompt": "Смешали 3 кг 20-процентного раствора соли и 2 кг 45-процентного раствора. Какова концентрация получившегося раствора?",
+    "correct": 2,
+    "options": [
+      {
+        "text": "32,5%"
+      },
+      {
+        "text": "25%"
+      },
+      {
+        "text": "30%"
+      },
+      {
+        "text": "35%"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L3-005",
+    "level": 3,
+    "prompt": "Вклад 10 000 рублей положили под 10% годовых; проценты начисляются раз в год и прибавляются к вкладу. Какой будет сумма через 2 года?",
+    "correct": 3,
+    "options": [
+      {
+        "text": "12 000 руб."
+      },
+      {
+        "text": "12 210 руб."
+      },
+      {
+        "text": "11 000 руб."
+      },
+      {
+        "text": "12 100 руб."
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L3-006",
+    "level": 3,
+    "prompt": "Цена товара выросла на 25%. На сколько процентов её нужно теперь снизить, чтобы вернуться к исходной цене?",
+    "correct": 0,
+    "options": [
+      {
+        "text": "20%"
+      },
+      {
+        "text": "25%"
+      },
+      {
+        "text": "22,5%"
+      },
+      {
+        "text": "30%"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L3-007",
+    "level": 3,
+    "prompt": "Из пункта A выехал велосипедист со скоростью 12 км/ч. Через 1 ч вслед за ним выехал мотоциклист со скоростью 36 км/ч. Через какое время после своего выезда мотоциклист догонит велосипедиста?",
+    "correct": 1,
+    "options": [
+      {
+        "text": "20 мин"
+      },
+      {
+        "text": "30 мин"
+      },
+      {
+        "text": "1 ч"
+      },
+      {
+        "text": "45 мин"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L3-008",
+    "level": 3,
+    "prompt": "Двое рабочих вместе выполняют работу за 12 дней, а первый один — за 20 дней. За сколько дней выполнит эту работу второй рабочий один?",
+    "correct": 2,
+    "options": [
+      {
+        "text": "8"
+      },
+      {
+        "text": "32"
+      },
+      {
+        "text": "30"
+      },
+      {
+        "text": "24"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L3-009",
+    "level": 3,
+    "prompt": "Какую цифру нужно поставить вместо звёздочки в числе 3*12, чтобы оно делилось на 36?",
+    "correct": 3,
+    "options": [
+      {
+        "text": "0"
+      },
+      {
+        "text": "6"
+      },
+      {
+        "text": "9"
+      },
+      {
+        "text": "3"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L3-010",
+    "level": 3,
+    "prompt": "Произведение двух натуральных чисел равно 720, а их наибольший общий делитель равен 6. Найдите их наименьшее общее кратное.",
+    "correct": 0,
+    "options": [
+      {
+        "text": "120"
+      },
+      {
+        "text": "4 320"
+      },
+      {
+        "text": "60"
+      },
+      {
+        "text": "114"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L3-011",
+    "level": 3,
+    "prompt": "Сколькими нулями оканчивается произведение всех натуральных чисел от 1 до 25?",
+    "correct": 1,
+    "options": [
+      {
+        "text": "5"
+      },
+      {
+        "text": "6"
+      },
+      {
+        "text": "7"
+      },
+      {
+        "text": "4"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L3-012",
+    "level": 3,
+    "prompt": "Вычислите:",
+    "correct": 2,
+    "prompt_svg": "svg/arithmetic-L3-012-q.svg",
+    "options": [
+      {
+        "svg": "svg/arithmetic-L3-012-a0.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L3-012-a1.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L3-012-a2.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L3-012-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L3-013",
+    "level": 3,
+    "prompt": "Запишите периодическую дробь в виде обыкновенной:",
+    "correct": 3,
+    "prompt_svg": "svg/arithmetic-L3-013-q.svg",
+    "options": [
+      {
+        "svg": "svg/arithmetic-L3-013-a0.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L3-013-a1.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L3-013-a2.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L3-013-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L3-014",
+    "level": 3,
+    "prompt": "Вычислите:",
+    "correct": 0,
+    "prompt_svg": "svg/arithmetic-L3-014-q.svg",
+    "options": [
+      {
+        "svg": "svg/arithmetic-L3-014-a0.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L3-014-a1.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L3-014-a2.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L3-014-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L3-015",
+    "level": 3,
+    "prompt": "Сумма трёх чисел равна 96, а сами числа относятся как 3 : 4 : 5. Найдите наибольшее из них.",
+    "correct": 1,
+    "options": [
+      {
+        "text": "32"
+      },
+      {
+        "text": "40"
+      },
+      {
+        "text": "24"
+      },
+      {
+        "text": "48"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L3-016",
+    "level": 3,
+    "prompt": "Катер прошёл 35 км по течению реки и 35 км обратно, затратив на весь путь 6 ч. Скорость течения 2 км/ч. Найдите собственную скорость катера.",
+    "correct": 2,
+    "options": [
+      {
+        "text": "10 км/ч"
+      },
+      {
+        "text": "14 км/ч"
+      },
+      {
+        "text": "12 км/ч"
+      },
+      {
+        "text": "13 км/ч"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L3-017",
+    "level": 3,
+    "prompt": "В классе 40 учеников, 60% из них — девочки. Четверть девочек учится на отлично. Сколько в классе девочек-отличниц?",
+    "correct": 3,
+    "options": [
+      {
+        "text": "10"
+      },
+      {
+        "text": "15"
+      },
+      {
+        "text": "4"
+      },
+      {
+        "text": "6"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L3-018",
+    "level": 3,
+    "prompt": "Часы отстают на 2 минуты в сутки. Их выставили точно. Через сколько суток они впервые будут отставать ровно на 1 час?",
+    "correct": 0,
+    "options": [
+      {
+        "text": "30"
+      },
+      {
+        "text": "12"
+      },
+      {
+        "text": "60"
+      },
+      {
+        "text": "24"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L3-019",
+    "level": 3,
+    "prompt": "Найдите остаток от деления на 7 числа:",
+    "correct": 1,
+    "prompt_svg": "svg/arithmetic-L3-019-q.svg",
+    "options": [
+      {
+        "text": "1"
+      },
+      {
+        "text": "2"
+      },
+      {
+        "text": "4"
+      },
+      {
+        "text": "3"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L3-020",
+    "level": 3,
+    "prompt": "Какое из чисел наибольшее?",
+    "correct": 2,
+    "options": [
+      {
+        "svg": "svg/arithmetic-L3-020-a0.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L3-020-a1.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L3-020-a2.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L3-020-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L3-021",
+    "level": 3,
+    "prompt": "20 кг свежих грибов содержат 90% воды. После сушки в грибах осталось 20% воды. Сколько весят сушёные грибы?",
+    "correct": 3,
+    "options": [
+      {
+        "text": "2 кг"
+      },
+      {
+        "text": "4 кг"
+      },
+      {
+        "text": "3 кг"
+      },
+      {
+        "text": "2,5 кг"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L3-022",
+    "level": 3,
+    "prompt": "Три рубашки и две футболки стоят 2 900 рублей, а две рубашки и три футболки — 2 600 рублей. Сколько стоит одна рубашка?",
+    "correct": 0,
+    "options": [
+      {
+        "text": "700 руб."
+      },
+      {
+        "text": "600 руб."
+      },
+      {
+        "text": "400 руб."
+      },
+      {
+        "text": "800 руб."
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L3-023",
+    "level": 3,
+    "prompt": "Поезд длиной 300 м полностью проезжает мост длиной 600 м за 45 с. Найдите скорость поезда.",
+    "correct": 1,
+    "options": [
+      {
+        "text": "48 км/ч"
+      },
+      {
+        "text": "72 км/ч"
+      },
+      {
+        "text": "20 км/ч"
+      },
+      {
+        "text": "54 км/ч"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L3-024",
+    "level": 3,
+    "prompt": "Вычислите:",
+    "correct": 2,
+    "prompt_svg": "svg/arithmetic-L3-024-q.svg",
+    "options": [
+      {
+        "svg": "svg/arithmetic-L3-024-a0.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L3-024-a1.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L3-024-a2.svg"
+      },
+      {
+        "svg": "svg/arithmetic-L3-024-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "arithmetic-L3-025",
+    "level": 3,
+    "prompt": "Вычислите:",
+    "correct": 3,
+    "prompt_svg": "svg/arithmetic-L3-025-q.svg",
+    "options": [
+      {
+        "text": "2000"
+      },
+      {
+        "text": "4"
+      },
+      {
+        "text": "400"
+      },
+      {
+        "text": "4000"
+      }
+    ]
+  }
+]

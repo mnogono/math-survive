@@ -1,4 +1,5 @@
 using System;
+using MathSurvive.Core.Progress;
 
 namespace MathSurvive.Core;
 
@@ -17,6 +18,17 @@ public sealed class DifficultyTracker
 
     public int Level { get; private set; }
     public int MaxLevel { get; }
+    public int CorrectStreak => _correctStreak;
+    public int WrongStreak => _wrongStreak;
+
+    public void Restore(int level, int correctStreak, int wrongStreak)
+    {
+        if (!ProgressRules.IsValidDifficulty(_config, MaxLevel, level, correctStreak, wrongStreak))
+            throw new ArgumentOutOfRangeException(nameof(level), "Недопустимое состояние сложности");
+        Level = level;
+        _correctStreak = correctStreak;
+        _wrongStreak = wrongStreak;
+    }
 
     public void RecordAnswer(bool correct)
     {

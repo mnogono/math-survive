@@ -59,6 +59,48 @@ public class PackLoaderTests
     public void Rejects_question_without_prompt() =>
         AssertRejects("""{"id":"badp","level":1,"options":[{"text":"a"},{"text":"b"},{"text":"c"},{"text":"d"}],"correct":0}""", "badp");
 
+    private static string ImageQ(string id, string image, string prompt = "") => $$"""
+        {"id":"{{id}}","level":1,{{prompt}}"prompt_image":"{{image}}",
+         "options":[{"text":"a"},{"text":"b"},{"text":"c"},{"text":"d"}],"correct":0}
+        """;
+
+    [Fact]
+    public void Parses_question_with_only_prompt_image()
+    {
+        var q = PackLoader.Parse(Section, "[" + ImageQ("img1", "images/geometry-L1-001.svg") + "]").Questions[0];
+
+        Assert.Equal("images/geometry-L1-001.svg", q.PromptImage);
+        Assert.Null(q.Prompt);
+        Assert.Null(q.PromptSvg);
+    }
+
+    [Fact]
+    public void Keeps_prompt_formula_and_image_together()
+    {
+        var json = ImageQ("img2", "images/img2.svg", "\"prompt\":\"Найдите x:\",\"prompt_svg\":\"svg/img2-q.svg\",");
+        var q = PackLoader.Parse(Section, "[" + json + "]").Questions[0];
+
+        Assert.Equal("Найдите x:", q.Prompt);
+        Assert.Equal("svg/img2-q.svg", q.PromptSvg);
+        Assert.Equal("images/img2.svg", q.PromptImage);
+    }
+
+    [Fact]
+    public void Text_questions_have_no_prompt_image() =>
+        Assert.Null(PackLoader.Parse(Section, "[" + TextQ + "]").Questions[0].PromptImage);
+
+    [Theory]
+    [InlineData("")]
+    [InlineData("/images/a.svg")]
+    [InlineData("C:/images/a.svg")]
+    [InlineData("images/../a.svg")]
+    [InlineData("svg/a.svg")]
+    [InlineData("images/a.png")]
+    [InlineData("images\\\\a.svg")]
+    [InlineData("images/.svg")]
+    public void Rejects_invalid_prompt_image_path(string path) =>
+        AssertRejects(ImageQ("badimg", path), "badimg");
+
     [Fact]
     public void Rejects_duplicate_id()
     {

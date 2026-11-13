@@ -6,7 +6,7 @@
 
 **Architecture:** `QuestionCatalog` хранит пакеты и независимый прогресс разделов, а `GameSession` управляет разрешёнными переходами и текущим вопросом. Неизменяемый snapshot и DTO сохранения остаются в Core; Godot-адаптер задаёт путь `save.json` и подключает файловое сохранение к ответам, выбору и выходу. Godot-слой строит комнату, перемещает существующую модель с clip `walk` и только сообщает Core о выборе; контент остаётся статическими JSON/SVG-пакетами.
 
-**Tech Stack:** Godot 4.7.2 .NET, .NET 8, C# 12, xUnit, Node.js, MathJax 3, JSON/SVG.
+**Tech Stack:** Godot 4.7.2 .NET, .NET 10, C# 12, xUnit, Node.js, MathJax 3, JSON/SVG.
 
 **Spec:** `docs/superpowers/specs/2026-10-30-quiz-sections-room-design.md`
 
@@ -62,7 +62,7 @@
   - `QuestionPicker.NextAtLevel(int level, ISet<string> used)` — строгий выбор текущего уровня для каталога.
 - Preserve: существующий `QuestionPicker.Next` и его тесты для одиночного отладочного пакета.
 
-- [ ] **Step 1: Написать failing-тесты строгого выбора и каталога**
+- [x] **Step 1: Написать failing-тесты строгого выбора и каталога**
 
 В `QuestionPickerTests` проверить seeded `Random`: `NextAtLevel` выбирает только вопросы запрошенного уровня, не повторяет их до исчерпания, затем очищает только переданный набор этого уровня и начинает новый цикл; при отсутствующем уровне выбрасывается `InvalidOperationException` вместо fallback.
 
@@ -76,23 +76,23 @@
 - `FindActive` ищет только в активном пакете;
 - дубликаты ID пакетов, пустой `randomOrder`, повторы и отсутствующие разделы в `randomOrder` вызывают `ArgumentException`.
 
-- [ ] **Step 2: Запустить тест и подтвердить красный результат**
+- [x] **Step 2: Запустить тест и подтвердить красный результат**
 
 Run: `dotnet test tests\MathSurvive.Core.Tests --filter "QuestionCatalogTests|QuestionPickerTests" -nologo -v:minimal`
 Expected: FAIL по отсутствующим `QuestionCatalog` и `NextAtLevel`.
 
-- [ ] **Step 3: Реализовать строгий выбор и `QuestionCatalog`**
+- [x] **Step 3: Реализовать строгий выбор и `QuestionCatalog`**
 
 Добавить `NextAtLevel`, не меняя старый `Next`: случайно выбирать из fresh только заданного уровня; при пустом fresh очистить used только для вопросов этого уровня и повторить выбор. Конструктор каталога сохраняет полученный `GameConfig` и передаёт его без изменений в `DifficultyTracker` каждого раздела. Хранить для каждого раздела отдельные `QuestionPicker`, `DifficultyTracker` и `Dictionary<int, HashSet<string>>` показанных ID. `NextQuestion()` передаёт в `NextAtLevel` уровень `ActiveDifficulty` и набор именно этого уровня.
 
 В random `NextQuestion()` выбирает состояние текущего элемента `randomOrder`, затем сдвигает курсор следующего выбора по модулю; `ActivePack` остаётся у только что выданного вопроса, чтобы ответ и статистика относились к нему. В конкретном разделе random-курсор не меняется. Конструктор сразу выбирает random и делает активным первый раздел до первого вопроса. Все вызовы в тестах, `GameSession` и `Main` передают один и тот же config явно.
 
-- [ ] **Step 4: Прогнать новые и старые Core-тесты**
+- [x] **Step 4: Прогнать новые и старые Core-тесты**
 
 Run: `dotnet test tests\MathSurvive.Core.Tests -nologo -v:minimal`
 Expected: PASS, включая прежние тесты `QuestionPicker.Next`.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```cmd
 git add core\MathSurvive.Core\Questions\QuestionCatalog.cs core\MathSurvive.Core\Questions\QuestionPicker.cs tests\MathSurvive.Core.Tests\QuestionCatalogTests.cs tests\MathSurvive.Core.Tests\QuestionPickerTests.cs docs\superpowers\plans\2026-10-30-quiz-sections-room.md
@@ -115,7 +115,7 @@ git commit -m "Core: каталог разделов и случайный ци�
   - `bool SelectRandom()`
 - Preserve: существующий `GameSession(GameConfig, QuestionPack, Random)`, `Pack`, `Difficulty`, `OpenQuiz(string? forcedQuestionId = null)`.
 
-- [ ] **Step 1: Добавить failing-тесты переходов**
+- [x] **Step 1: Добавить failing-тесты переходов**
 
 Проверить:
 - `SelectSection` в `QuizOpen` очищает `CurrentQuiz`/`LastAnswer`, переводит в `Idle`, возвращает `true` и не меняет `Run`, `Combat`, `Pause` и игровой `Clock`;
@@ -126,21 +126,21 @@ git commit -m "Core: каталог разделов и случайный ци�
 - сворачивание и орда сохраняют текущий вопрос и не продвигают цикл; новый вопрос после ответа берёт следующий раздел;
 - старый конструктор одиночного пакета работает без изменения ожиданий текущих тестов.
 
-- [ ] **Step 2: Запустить тесты и подтвердить красный результат**
+- [x] **Step 2: Запустить тесты и подтвердить красный результат**
 
 Run: `dotnet test tests\MathSurvive.Core.Tests --filter GameSessionTests -nologo -v:minimal`
 Expected: FAIL по отсутствующим конструктору и методам выбора.
 
-- [ ] **Step 3: Перевести сессию на каталог**
+- [x] **Step 3: Перевести сессию на каталог**
 
 Заменить поля `_picker`, `_used` и единственный `Difficulty` на `QuestionCatalog`; `Pack` и `Difficulty` делать делегирующими свойствами. Разрешить выбор только в `Idle`/`QuizOpen`; при реальной смене очистить текущий вопрос и время ответа, вызвать `SetMode(Idle)`. Не сбрасывать боевые ресурсы, паузу, статистику или `GameClock`. Старый конструктор создаёт `QuestionCatalog(config, ...)` с тем же `config`, который получает `GameSession`, и выбирает конкретный ID пакета; тестовые и игровые вызовы нового конструктора создают каталог с этим же config до передачи в сессию.
 
-- [ ] **Step 4: Прогнать полный набор**
+- [x] **Step 4: Прогнать полный набор**
 
 Run: `dotnet test tests\MathSurvive.Core.Tests -nologo -v:minimal`
 Expected: PASS.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```cmd
 git add core\MathSurvive.Core\Session\GameSession.cs tests\MathSurvive.Core.Tests\GameSessionTests.cs
@@ -169,33 +169,33 @@ git commit -m "Core: переключение разделов без потер
 - Produces tracker: `CorrectStreak`, `WrongStreak` только для чтения и `Restore(int level, int correctStreak, int wrongStreak)`; codec, каталог и tracker используют общую Core-валидацию с config.
 - Preserve: `RecordAnswer`, `GameConfig.LevelUpStreak`, `LevelDownStreak`; текущий вопрос, random-курсор и боевое состояние в snapshot не входят.
 
-- [ ] **Step 1: Расширить failing-тесты сложности**
+- [x] **Step 1: Расширить failing-тесты сложности**
 
 В `DifficultyTrackerTests` проверить 3 верных подряд и 2 неверных подряд, сброс wrong после верного и correct после неверного, обнуление сработавшей серии и ограничение 1..MaxLevel. Отдельно на max проверить, что третий верный оставляет max и обнуляет correct streak; на min — что второй неверный оставляет min и обнуляет wrong streak. Использовать `GameConfig.Default` для 3/2 и конфигурацию с другими порогами через `with`, чтобы исключить дублирование констант. Проверить чтение и восстановление обеих серий.
 
-- [ ] **Step 2: Подтвердить красный результат**
+- [x] **Step 2: Подтвердить красный результат**
 
 Run: `dotnet test tests\MathSurvive.Core.Tests --filter DifficultyTrackerTests -nologo -v:minimal`
 Expected: FAIL по отсутствующим свойствам серий и `Restore`.
 
-- [ ] **Step 3: Реализовать восстановление `DifficultyTracker`**
+- [x] **Step 3: Реализовать восстановление `DifficultyTracker`**
 
 Открыть `CorrectStreak`/`WrongStreak` только для чтения, не меняя алгоритм `RecordAnswer`: сброс противоположной серии, сброс сработавшей серии даже у min/max и ограничение уровня. `Restore` проверяет уровень 1..MaxLevel и серии в допустимых диапазонах от нуля до соответствующего порога `GameConfig` минус один; недопустимые значения отклоняются, пороги не копируются в DTO. Вынести эту проверку в общий Core-валидатор, который используют `DifficultyTracker.Restore`, `ProgressSaveCodec` и `QuestionCatalog.RestoreProgress`, чтобы правила не расходились.
 
-- [ ] **Step 4: Добавить failing-тесты snapshot каталога**
+- [x] **Step 4: Добавить failing-тесты snapshot каталога**
 
 В `QuestionCatalogTests` проверить capture/restore выбора конкретного раздела и random, разных уровней, correct/wrong streaks и used IDs по нескольким уровням. После restore следующий вопрос идёт с восстановленного уровня и не повторяет сохранённые ID до исчерпания уровня; прогресс остальных разделов остаётся независимым. Проверить defaults при `null`, отсутствии restore и недопустимом snapshot: random, уровни 1, нулевые серии, пустые used IDs, random-курсор на первом разделе, без исключения и без частично применённых данных. В `GameSessionTests` подтвердить, что смена раздела, сворачивание и орда не меняют snapshot сложности и used IDs.
 
 Run: `dotnet test tests\MathSurvive.Core.Tests --filter "QuestionCatalogTests|GameSessionTests" -nologo -v:minimal`
 Expected: FAIL по отсутствующим snapshot API.
 
-- [ ] **Step 5: Реализовать snapshot, DTO и round-trip**
+- [x] **Step 5: Реализовать snapshot, DTO и round-trip**
 
 `CaptureProgress` возвращает неизменяемые копии данных всех разделов. `RestoreProgress` сначала проверяет весь snapshot по разделам, уровням и сериям через общий валидатор, затем копирует значения в независимые коллекции и вызывает `DifficultyTracker.Restore`; при `null` или любой ошибке валидации атомарно применяет defaults ко всему каталогу и не выбрасывает исключение. Текущий вопрос и random-курсор в snapshot не добавляются. Неизменяемый snapshot отделён от mutable DTO с snake_case JSON. `ProgressSaveCodec` сериализует только выбор, уровни, серии и used IDs по уровням; при повреждённом JSON, дубликатах разделов, неизвестных разделах или недопустимых значениях возвращает `null`, а не выбрасывает наружу ошибку загрузки.
 
 В `ProgressSaveCodecTests` и `QuestionCatalogTests` проверить round-trip выбора random/раздела, уровней, streaks и used IDs, отсутствие боевых полей, текущего вопроса и random-курсора, повреждённый JSON и недопустимую структуру. Отдельно использовать `GameConfig.Default with { LevelUpStreak = 4, LevelDownStreak = 3 }`: убедиться, что все разделы применяют 4/3, streaks 3/2 проходят codec и восстанавливаются, следующие ответы вызывают повышение/понижение по 4/3, а значения вне этих порогов дают `null` из codec и defaults при `RestoreProgress` без исключения. Прогнать полный `dotnet test tests\MathSurvive.Core.Tests -nologo -v:minimal`. Expected: PASS.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```cmd
 git add core\MathSurvive.Core\DifficultyTracker.cs core\MathSurvive.Core\Questions\QuestionCatalog.cs core\MathSurvive.Core\Progress tests\MathSurvive.Core.Tests\DifficultyTrackerTests.cs tests\MathSurvive.Core.Tests\QuestionCatalogTests.cs tests\MathSurvive.Core.Tests\GameSessionTests.cs tests\MathSurvive.Core.Tests\ProgressSaveCodecTests.cs
@@ -223,29 +223,29 @@ git commit -m "Core: snapshot и восстановление прогресса
   - `RoomIconView.ScreenRect : Rect2` и `RoomIconView.HitArea() : Rect2?` (`null`, если иконка неактивна)
 - Порядок пяти rect соответствует порядку ID выше.
 
-- [ ] **Step 1: Написать failing-тесты `RoomLayout`**
+- [x] **Step 1: Написать failing-тесты `RoomLayout`**
 
 Для 1920×1040 и scale 1 проверить пять непересекающихся rect, порядок слева направо, координаты внутри окна и совпадение `PlayerFeet(...).x` с центром соответствующей иконки. Повторить для scale 1.5 и окна 1024×700; проверить `ArgumentOutOfRangeException` для iconIndex −1 и 5.
 
-- [ ] **Step 2: Запустить layout-тесты**
+- [x] **Step 2: Запустить layout-тесты**
 
 Run: `dotnet test tests\MathSurvive.Core.Tests --filter RoomLayoutTests -nologo -v:minimal`
 Expected: FAIL, тип отсутствует.
 
-- [ ] **Step 3: Реализовать раскладку**
+- [x] **Step 3: Реализовать раскладку**
 
 Разместить центры по 10/30/50/70/90% ширины окна, нижнюю стену и иконки задавать в логических px с учётом scale. Все размеры и hit rect возвращать в физических px; не использовать координаты Godot в Core.
 
-- [ ] **Step 4: Построить комнату и иконки**
+- [x] **Step 4: Построить комнату и иконки**
 
 `RoomView` создаёт нижнюю стену и пол из простых материалов без текстурных зависимостей. `RoomIconView` использует `Label3D` для символа и подписи, показывает selected/disabled состояния и ловит левый клик только внутри `ScreenRect` через `DesktopOverlay.IsLeftClickIn`. В `Main.tscn` добавить `Room` до `Player`, чтобы персонаж оставался перед стеной. Точные размеры подобрать по макету, сохранив символы `?`, `+ −`, `x²`, `△`, `∫` и полные названия разделов.
 
-- [ ] **Step 5: Собрать и прогнать тесты**
+- [x] **Step 5: Собрать и прогнать тесты**
 
 Run: `dotnet build MathSurvive.sln -nologo -v:minimal && dotnet test tests\MathSurvive.Core.Tests -nologo -v:minimal`
 Expected: сборка без ошибок, тесты PASS.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```cmd
 git add core\MathSurvive.Core\Layout\RoomLayout.cs scripts\RoomView.cs scripts\RoomIconView.cs scenes\Main.tscn tests\MathSurvive.Core.Tests\RoomLayoutTests.cs
@@ -272,28 +272,28 @@ git commit -m "UI: комната с иконками разделов"
   - `Placement.FireLineX(double playerX, int windowW, double fireRangeFraction) : double`
 - Main использует порядок `arithmetic, algebra, geometry, analysis` и словарь путей `packs/math/<id>`.
 
-- [ ] **Step 1: Добавить failing-тест динамической линии огня**
+- [x] **Step 1: Добавить failing-тест динамической линии огня**
 
 В `PlacementTests` проверить, что новый `FireLineX(500, 1920, 1.0/3)` возвращает `1140` и не зависит от старой фиксированной позиции игрока; сохранить старый overload как делегирующий для совместимости.
 
-- [ ] **Step 2: Подтвердить красный результат**
+- [x] **Step 2: Подтвердить красный результат**
 
 Run: `dotnet test tests\MathSurvive.Core.Tests --filter PlacementTests -nologo -v:minimal`
 Expected: FAIL по отсутствующему overload.
 
-- [ ] **Step 3: Реализовать ходьбу существующей модели**
+- [x] **Step 3: Реализовать ходьбу существующей модели**
 
 В `PlayerView` хранить модель, stage, текущие/целевые feet. `WalkTo` включает clip `walk` в loop, разворачивает модель по направлению и движется со скоростью 240 логических px/s с учётом `UiScale`; каждый кадр обновляет `FeetPx`, `ScreenRect`, `HeadTopPx`. По прибытии вызвать одноразовый `Arrived` и вернуть `holding-both`; `Place` отменяет движение. Существующий `PlayShot` и возврат после `holding-both-shoot` не ломать.
 
-- [ ] **Step 4: Подключить четыре пакета и иконки в `Main`**
+- [x] **Step 4: Подключить четыре пакета и иконки в `Main`**
 
 Загрузить четыре пакета через существующий `PackLoader.Parse`, создать `QuestionCatalog(config, packs, randomOrder, rng)` и `GameSession(config, catalog, rng)` с одним config, начать под `random`. Зарегистрировать каждую иконку в `DesktopOverlay` через `RegisterHitArea(() => icon.HitArea())`, чтобы неактивные иконки и стена пропускали клики. При допустимом клике вызвать `SelectRandom`/`SelectSection`, скрыть квиз, заблокировать повторные клики и запустить `WalkTo`; из `Arrived` открыть квиз. В `ApplyMode` учитывать `CanChangeSection && !IsWalking`. Обновлять позиции Bubble/Quiz/Toast/Stats при каждом перемещении и передавать в `QuizPanel.ShowQuiz` каталог активного пакета.
 
-- [ ] **Step 5: Привязать орду и статистику к новым данным**
+- [x] **Step 5: Привязать орду и статистику к новым данным**
 
 В начале орды пересчитывать stop/fire line и feet по `PlayerView.FeetPx`, чтобы зомби шли к актуальному персонажу. В `StatsPanel` заменить один `sectionTitle` на `IReadOnlyDictionary<string,string> sectionTitles` и выводить русские названия для каждого ID; поведение одиночного пакета сохранить.
 
-- [ ] **Step 6: Собрать, протестировать и проверить первый кадр**
+- [x] **Step 6: Собрать, протестировать и проверить первый кадр**
 
 Run: `dotnet build MathSurvive.sln -nologo -v:minimal && dotnet test tests\MathSurvive.Core.Tests -nologo -v:minimal`
 Expected: PASS.
@@ -301,7 +301,7 @@ Expected: PASS.
 Run: `start.cmd -- --quit-after=3 --shot=room.png`
 Expected: игра запускается без отсутствующих ресурсов; на снимке видны стена, пять иконок и персонаж под `?`. Удалить `room.png` после просмотра.
 
-- [ ] **Step 7: Commit**
+- [x] **Step 7: Commit**
 
 ```cmd
 git add scripts\PlayerView.cs scripts\Main.cs scripts\HordeDirector.cs scripts\StatsPanel.cs core\MathSurvive.Core\Layout\Placement.cs tests\MathSurvive.Core.Tests\PlacementTests.cs
@@ -322,31 +322,31 @@ git commit -m "Игра: выбор раздела с анимацией ход�
 - Produces Godot adapter: `ProgressSaveStore` по образцу `PacksRoot` выбирает `ProjectSettings.GlobalizePath("user://save.json")` в редакторе и `OS.GetExecutablePath().GetBaseDir() + "/save.json"` в собранной игре, затем делегирует чтение/запись `ProgressFileStore` с тем же config.
 - Preserve: в сохранении нет боя, текущего вопроса и random-курсора; выбор random представляется `selected_section_id: null`.
 
-- [ ] **Step 1: Написать failing-тесты файлового сохранения**
+- [x] **Step 1: Написать failing-тесты файлового сохранения**
 
 В `ProgressFileStoreTests` использовать отдельный временный каталог и проверить: отсутствующий файл возвращает `null` без исключения; повреждённый JSON возвращает `null`; round-trip через `Save`/`Load` с одним config восстанавливает выбор, уровни, streaks и used IDs; `Save` создаёт временный файл в том же каталоге и атомарно заменяет существующий `save.json`, после успеха временный файл отсутствует. Добавить round-trip и отклонение невалидных streaks с нестандартными порогами config. Удалять тестовый каталог после каждого теста.
 
 Run: `dotnet test tests\MathSurvive.Core.Tests --filter ProgressFileStoreTests -nologo -v:minimal`
 Expected: FAIL по отсутствующему `ProgressFileStore`.
 
-- [ ] **Step 2: Реализовать безопасное чтение и атомарную запись**
+- [x] **Step 2: Реализовать безопасное чтение и атомарную запись**
 
 `Load(packs, config)` возвращает `null` при отсутствии файла и делегирует повреждённый JSON/структуру и проверку серий `ProgressSaveCodec` с теми же пакетами и config, не позволяя ошибке чтения или разбора ронять игру. `Save` сериализует snapshot, пишет `save.json.tmp` рядом с целевым файлом, сбрасывает содержимое на диск и атомарно заменяет целевой файл средствами `System.IO`; при первой записи создаёт `save.json`. Временный файл всегда остаётся в каталоге, выбранном адаптером для данного режима запуска. Не хранить второй файл прогресса и не добавлять боевые данные.
 
-- [ ] **Step 3: Подключить восстановление и сохранение в `Main`**
+- [x] **Step 3: Подключить восстановление и сохранение в `Main`**
 
 При запуске вычислить config, загрузить четыре пакета, создать `QuestionCatalog(config, packs, randomOrder, rng)` с defaults и вызвать `RestoreProgress(ProgressSaveStore.Load(packs, config))`: действительный snapshot восстанавливается, а `null` оставляет defaults без исключения. В `GameSession` передать тот же config и каталог. До первого кадра применить восстановленный выбор к `RoomView` и поставить персонажа под соответствующей иконкой без фиксации random при каждом запуске.
 
 Сохранять snapshot: в `OnOptionChosen` только если `GameSession.Answer` вернул результат; после `SelectSection`/`SelectRandom` только при возвращённом `true`; в `Main._ExitTree` при любом штатном выходе, включая дверь, закрытие окна и `DebugCapture`. Не сохранять повторный клик по активному режиму как новую смену. Ошибки записи логировать через Godot, не прерывая игровой цикл.
 
-- [ ] **Step 4: Прогнать тесты и ручной сценарий перезапуска**
+- [x] **Step 4: Прогнать тесты и ручной сценарий перезапуска**
 
 Run: `dotnet build MathSurvive.sln -nologo -v:minimal && dotnet test tests\MathSurvive.Core.Tests -nologo -v:minimal`
 Expected: PASS.
 
 Через `start.cmd` ответить на вопрос, закрыть игру, проверить наличие `save.json` и отсутствие временного файла, затем снова запустить: восстанавливаются выбранная иконка, уровни, серии и used IDs; текущий вопрос заново не открывается. Повысить уровень одного раздела, переключиться на другой с уровнем 1 и вернуться: каждый раздел сохраняет собственные уровень, серии и историю. Отдельно применить смену раздела, закрыть игру **без ответа** и снова запустить: новый выбор и его независимый уровень восстановлены. Повторить перезапуск при отсутствующем и повреждённом `save.json`: игра стартует с defaults без падения. Сохранить исходный пользовательский файл перед ручными экспериментами и восстановить после них.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```cmd
 git add core\MathSurvive.Core\Progress\ProgressFileStore.cs scripts\ProgressSaveStore.cs scripts\Main.cs tests\MathSurvive.Core.Tests\ProgressFileStoreTests.cs
@@ -373,20 +373,20 @@ git commit -m "Игра: сохранение прогресса между за
 - Produces source format: `prompt_image: "images/<question-id>.svg"`; путь относителен к корню пакета и в исходнике, и в производном JSON.
 - Produces UI: `QuizPanel` отображает `Prompt`, `PromptSvg` и `PromptImage` вместе, если одновременно заданы все три.
 
-- [ ] **Step 1: Написать failing-тесты модели и загрузчика**
+- [x] **Step 1: Написать failing-тесты модели и загрузчика**
 
 В `PackLoaderTests` проверить: вопрос только с `prompt_image`; сочетание `prompt`, `prompt_svg` и `prompt_image` без потери любого поля; отсутствие всех трёх частей условия по-прежнему вызывает `PackFormatException`. Для `prompt_image` проверить отклонение абсолютного пути, `..`, пути вне `images/`, пустой строки и расширения не `.svg`; валидный путь `images/geometry-L1-001.svg` сохраняется без нормализации в другое поле.
 
-- [ ] **Step 2: Запустить тесты и подтвердить красный результат**
+- [x] **Step 2: Запустить тесты и подтвердить красный результат**
 
 Run: `dotnet test tests\MathSurvive.Core.Tests --filter PackLoaderTests -nologo -v:minimal`
 Expected: FAIL по отсутствующему `PromptImage` и новым проверкам.
 
-- [ ] **Step 3: Расширить модель и `PackLoader`**
+- [x] **Step 3: Расширить модель и `PackLoader`**
 
 Добавить в `Question` последний необязательный параметр `string? PromptImage = null` с учётом `SnakeCaseLower`, чтобы существующие вызовы конструктора не требовали изменений. Условие считать заданным, если присутствует хотя бы одно из `Prompt`, `PromptSvg`, `PromptImage`; разрешить любое их сочетание. Добавить в `PackLoader` проверку относительного SVG-пути `prompt_image` без файлового ввода-вывода: `/` как разделитель, префикс `images/`, отсутствие абсолютного пути и сегментов `..`. Оставить Core независимым от Godot.
 
-- [ ] **Step 4: Научить генератор копировать рисунки**
+- [x] **Step 4: Научить генератор копировать рисунки**
 
 В `build-pack.mjs` оставить преобразование `prompt_tex` → `prompt_svg` и `tex` → `svg` без изменений. Для `prompt_image` проверить тот же относительный путь и существование исходного файла относительно `path.dirname(srcPath)`, создать `<outDir>/images`, удалить устаревшие `.svg` в нём и скопировать файл в тот же относительный путь; в `questions.json` сохранить `prompt_image` без обработки MathJax. Не удалять исходные изображения.
 
@@ -394,11 +394,11 @@ Expected: FAIL по отсутствующему `PromptImage` и новым п�
 
 Run: `cd tools\tex2svg && npm ci && node build-pack.mjs ..\..\packs-src\math\test\questions.src.json ..\..\packs\math\test`
 
-- [ ] **Step 5: Добавить рисунок в `QuizPanel`**
+- [x] **Step 5: Добавить рисунок в `QuizPanel`**
 
 Создать отдельный `TextureRect` после формулы и перед вариантами. Загружать `PromptImage` через `SvgTextures.LoadUi(sectionDir + "/" + question.PromptImage, ...)`, показывать узел только при наличии пути и очищать текстуру при следующем вопросе. Ограничить рисунок областью не шире `PromptMaxWidth` и не выше 320 логических px, сохраняя пропорции и видимость всех подписей; не применять к нему обрезку. Учесть `CustomMinimumSize` в существующих `MinimumSizeChanged`, `ScrollContainer` и `Relayout`, чтобы текст, формула, рисунок и варианты не перекрывались.
 
-- [ ] **Step 6: Проверить файлы, тесты и реальный кадр**
+- [x] **Step 6: Проверить файлы, тесты и реальный кадр**
 
 В `BuiltPackTests` выделить проверку всех SVG ссылок: `PromptSvg`, `PromptImage` и каждый `Option.Svg` разрешать через `Path.Combine(packDir, relativePath)` и требовать `File.Exists`; добавить отдельную проверку несуществующего `prompt_image` и сохранить ожидание девяти вопросов `math/test`.
 
@@ -408,7 +408,7 @@ Expected: PASS; все скопированные и сгенерированн�
 Run: `start.cmd -- --open-quiz --question=test-L3-03 --quit-after=3 --shot=quiz-image.png`
 Expected: текст, формула и схема читаемы одновременно, рисунок не обрезан, варианты доступны, облачко остаётся в окне; удалить `quiz-image.png` после просмотра.
 
-- [ ] **Step 7: Commit**
+- [x] **Step 7: Commit**
 
 ```cmd
 git add core\MathSurvive.Core\Questions\Question.cs core\MathSurvive.Core\Questions\PackLoader.cs scripts\QuizPanel.cs tools\tex2svg\build-pack.mjs tests\MathSurvive.Core.Tests\PackLoaderTests.cs tests\MathSurvive.Core.Tests\BuiltPackTests.cs packs-src\math\test packs\math\test
@@ -429,27 +429,27 @@ git commit -m "Вопросы: SVG-рисунки в условиях"
 - Consumes: генератор и `prompt_image` из Task 7.
 - Produces: пакет `arithmetic`, 100 вопросов, уровни 40/35/25.
 
-- [ ] **Step 1: Обобщить pack-тест и добавить красный `InlineData`**
+- [x] **Step 1: Обобщить pack-тест и добавить красный `InlineData`**
 
 Создать `AssertPack(string id, int count, int l1, int l2, int l3)`; проверять схему, количество, распределение и уникальные ID внутри пакета. По исходному `questions.src.json` нормализовать whitespace в `text`/`tex` и требовать четыре разных варианта; в производном пакете проверять существование SVG формул, вариантов и `prompt_image`. Сохранить отдельный тест девяти вопросов `math/test`; добавить вызов для `arithmetic, 100, 40, 35, 25`.
 
-- [ ] **Step 2: Подтвердить отсутствие пакета красным тестом**
+- [x] **Step 2: Подтвердить отсутствие пакета красным тестом**
 
 Run: `dotnet test tests\MathSurvive.Core.Tests --filter BuiltPackTests -nologo -v:minimal`
 Expected: FAIL для `arithmetic`.
 
-- [ ] **Step 3: Составить и сгенерировать 100 вопросов**
+- [x] **Step 3: Составить и сгенерировать 100 вопросов**
 
 Использовать ID `arithmetic-L<level>-NNN`, темы и ограничения сложности из Spec. Допускаются оригинальные, заимствованные и адаптированные общедоступные задания, включая ЕГЭ; сохранять только итоговое содержимое и нужные SVG, без сведений об источнике. Распределить вопросы по всем перечисленным темам, не создавать числовые клоны одного шаблона. Создать `section.json` с `{"id":"arithmetic","title":"Арифметика","levels":3}`. Обобщить `SvgGallery`: перечислять `svg/` и `images/` всех существующих разделов `packs/math` и группировать строки по разделу и вопросу, сохранив работу с `math/test`.
 
 Run: `cd tools\tex2svg && npm ci && node build-pack.mjs ..\..\packs-src\math\arithmetic\questions.src.json ..\..\packs\math\arithmetic`
 
-- [ ] **Step 4: Проверить пакет и аудит ответов**
+- [x] **Step 4: Проверить пакет и аудит ответов**
 
 Run из корня: `dotnet test tests\MathSurvive.Core.Tests --filter BuiltPackTests -nologo -v:minimal`
 Expected: PASS. Проверить правильность `correct` для всех 100 вопросов и просмотреть формулы и рисунки в обобщённой `SvgGallery.tscn`; исправить эквивалентные варианты и неоднозначные условия до commit. Каждое заимствованное или адаптированное задание вручную решить и подтвердить однозначность и время не более 5–10 минут.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```cmd
 git add packs-src\math\arithmetic packs\math\arithmetic tests\MathSurvive.Core.Tests\BuiltPackTests.cs scripts\SvgGallery.cs
@@ -467,20 +467,20 @@ git commit -m "Вопросы: 100 задач по арифметике"
 - Consumes: `AssertPack` из Task 8.
 - Produces: пакет `algebra`, 100 вопросов, уровни 40/35/25.
 
-- [ ] **Step 1: Добавить красный вызов `AssertPack("algebra", 100, 40, 35, 25)` и запустить `BuiltPackTests`**
+- [x] **Step 1: Добавить красный вызов `AssertPack("algebra", 100, 40, 35, 25)` и запустить `BuiltPackTests`**
 
 Expected: FAIL только из-за отсутствующего нового пакета.
 
-- [ ] **Step 2: Составить 100 вопросов по алгебре**
+- [x] **Step 2: Составить 100 вопросов по алгебре**
 
 ID `algebra-L<level>-NNN`; охватить все темы Spec, включая несложные текстовые задачи и графики. Использовать оригинальные, заимствованные или адаптированные общедоступные задания без метаданных источника. Для условий, где график необходим или улучшает наглядность, добавить `prompt_image` и читаемый SVG с подписями осей и нужными значениями. Проверить отсутствие клонов и эквивалентных вариантов.
 
-- [ ] **Step 3: Сгенерировать SVG и прогнать тесты**
+- [x] **Step 3: Сгенерировать SVG и прогнать тесты**
 
 Run: `node tools\tex2svg\build-pack.mjs packs-src\math\algebra\questions.src.json packs\math\algebra` после `npm ci` в `tools\tex2svg`; затем `dotnet test tests\MathSurvive.Core.Tests --filter BuiltPackTests`.
 Expected: PASS; вручную проверить все `correct`, рендеринг формул и читаемость рисунков. Заимствованные и адаптированные задания вручную решить и проверить ограничение 5–10 минут.
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```cmd
 git add packs-src\math\algebra packs\math\algebra tests\MathSurvive.Core.Tests\BuiltPackTests.cs
@@ -498,19 +498,19 @@ git commit -m "Вопросы: 100 задач по алгебре"
 - Consumes: `AssertPack` из Task 8.
 - Produces: пакет `geometry`, 100 вопросов, уровни 40/35/25.
 
-- [ ] **Step 1: Добавить красный вызов `AssertPack("geometry", 100, 40, 35, 25)` и запустить `BuiltPackTests`**
+- [x] **Step 1: Добавить красный вызов `AssertPack("geometry", 100, 40, 35, 25)` и запустить `BuiltPackTests`**
 
 Expected: FAIL только из-за отсутствующего нового пакета.
 
-- [ ] **Step 2: Составить 100 вопросов по геометрии**
+- [x] **Step 2: Составить 100 вопросов по геометрии**
 
 ID `geometry-L<level>-NNN`; допускаются задачи по тексту и по рисунку из оригинальных или общедоступных материалов, включая адаптированные задания ЕГЭ. Все числовые данные, обозначения и единицы измерения должны быть в тексте или на рисунке. Подписи вершин, точек, углов и величин обязаны однозначно соответствовать условию; рисунок не заменяет отсутствующие данные. Не использовать неоднозначные «найдите остальные элементы», доказательства без одного ясного ответа или числовые клоны.
 
-- [ ] **Step 3: Сгенерировать, протестировать и проверить математику/рендеринг**
+- [x] **Step 3: Сгенерировать, протестировать и проверить математику/рендеринг**
 
 Run генератор для `geometry`, затем `BuiltPackTests`. Expected: PASS; вручную проверить все `correct`, единицы измерения, соответствие каждого рисунка условию, отсутствие перекрытий и читаемость подписей в реальном размере квиза. Все заимствованные и адаптированные задания вручную решить и проверить ограничение 5–10 минут.
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```cmd
 git add packs-src\math\geometry packs\math\geometry tests\MathSurvive.Core.Tests\BuiltPackTests.cs
@@ -528,19 +528,19 @@ git commit -m "Вопросы: 100 задач по геометрии"
 - Consumes: `AssertPack` из Task 8.
 - Produces: пакет `analysis`, 100 вопросов, уровни 40/35/25.
 
-- [ ] **Step 1: Добавить красный вызов `AssertPack("analysis", 100, 40, 35, 25)` и запустить `BuiltPackTests`**
+- [x] **Step 1: Добавить красный вызов `AssertPack("analysis", 100, 40, 35, 25)` и запустить `BuiltPackTests`**
 
 Expected: FAIL только из-за отсутствующего нового пакета.
 
-- [ ] **Step 2: Составить 100 вопросов по математическому анализу**
+- [x] **Step 2: Составить 100 вопросов по математическому анализу**
 
 ID `analysis-L<level>-NNN`; охватить пределы, производные, касательные, экстремумы и интегралы из Spec. Использовать оригинальные, заимствованные или адаптированные общедоступные задания без метаданных источника; для графиков функций и площадей допускаются читаемые `prompt_image`. Не выходить за несложные элементарные функции и аккуратные вычисления, не создавать числовые клоны.
 
-- [ ] **Step 3: Сгенерировать, протестировать и проверить математику/рендеринг**
+- [x] **Step 3: Сгенерировать, протестировать и проверить математику/рендеринг**
 
 Run генератор для `analysis`. Добавить в `BuiltPackTests` тест `All_pack_question_ids_are_unique_across_sections`, который загружает `test` и четыре новых пакета и сравнивает общее число ID с размером `HashSet`. Затем запустить полный `dotnet test tests\MathSurvive.Core.Tests`. Expected: PASS; вручную проверить все `correct`, области определения, константу интегрирования, формулы и рисунки. Заимствованные и адаптированные задания вручную решить и проверить ограничение 5–10 минут.
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```cmd
 git add packs-src\math\analysis packs\math\analysis tests\MathSurvive.Core.Tests\BuiltPackTests.cs
@@ -556,11 +556,11 @@ git commit -m "Вопросы: 100 задач по математическом�
 **Interfaces:**
 - Consumes: весь функционал Tasks 1–11.
 
-- [ ] **Step 1: Обновить проектные инструкции**
+- [x] **Step 1: Обновить проектные инструкции**
 
 В `AGENTS.md` заменить описание одного текущего пакета на четыре раздела и random-цикл, добавить комнату/выбор в архитектуру и команды генерации для любого `<section>`. Описать строгий выбор текущего уровня, независимые streaks/used IDs и `save.json`: состав snapshot, передачу одного config в каталог/кодек, путь `user://save.json` в редакторе и `save.json` рядом с exe в собранной игре, defaults, сохранение после ответа/применённого выбора/выхода и атомарную замену в том же каталоге без боевого состояния. Описать совместимые `prompt`, `prompt_tex`, `prompt_image`, относительные пути `images/*.svg`, копирование рисунков генератором и проверку существования всех SVG. Не добавлять метаданные или реестр источников и не изменять `packs/SOURCES.md`.
 
-- [ ] **Step 2: Прогнать полный build и экспорт**
+- [x] **Step 2: Прогнать полный build и экспорт**
 
 Run: `build.cmd`
 Expected: solution собирается, все тесты PASS, `build\MathSurvive.exe` создан, четыре пакета со всеми `svg/` и `images/` скопированы в `build\packs\math`; пользовательские файлы в `build` не удалены.
@@ -579,12 +579,12 @@ Expected: solution собирается, все тесты PASS, `build\MathSurv
 - вопрос `test-L3-03` одновременно показывает текст, формулу и рисунок; вопросы геометрии с `prompt_image` имеют читаемые подписи, не обрезаются и при необходимости прокручиваются;
 - при системном масштабе 150% иконки, длинная подпись и рисунки остаются доступными; раскладка 1024×700 дополнительно проверена unit-тестом в Task 4.
 
-- [ ] **Step 4: Проверить итоговый diff и отсутствие мусора**
+- [x] **Step 4: Проверить итоговый diff и отсутствие мусора**
 
 Run: `git status --short`
 Expected: только запланированные изменения; нет PNG-снимков, логов, `node_modules` или файлов экспорта. Не включать unrelated-файлы, перечисленные в Global Constraints, если они не менялись задачами.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```cmd
 git add AGENTS.md docs\superpowers\plans\2026-10-30-quiz-sections-room.md

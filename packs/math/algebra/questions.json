@@ -1,0 +1,2061 @@
+[
+  {
+    "id": "algebra-L1-001",
+    "level": 1,
+    "prompt": "Упростите выражение:",
+    "correct": 0,
+    "prompt_svg": "svg/algebra-L1-001-q.svg",
+    "options": [
+      {
+        "svg": "svg/algebra-L1-001-a0.svg"
+      },
+      {
+        "svg": "svg/algebra-L1-001-a1.svg"
+      },
+      {
+        "svg": "svg/algebra-L1-001-a2.svg"
+      },
+      {
+        "svg": "svg/algebra-L1-001-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L1-002",
+    "level": 1,
+    "prompt": "Раскройте скобки:",
+    "correct": 1,
+    "prompt_svg": "svg/algebra-L1-002-q.svg",
+    "options": [
+      {
+        "svg": "svg/algebra-L1-002-a0.svg"
+      },
+      {
+        "svg": "svg/algebra-L1-002-a1.svg"
+      },
+      {
+        "svg": "svg/algebra-L1-002-a2.svg"
+      },
+      {
+        "svg": "svg/algebra-L1-002-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L1-003",
+    "level": 1,
+    "prompt": "Раскройте скобки:",
+    "correct": 2,
+    "prompt_svg": "svg/algebra-L1-003-q.svg",
+    "options": [
+      {
+        "svg": "svg/algebra-L1-003-a0.svg"
+      },
+      {
+        "svg": "svg/algebra-L1-003-a1.svg"
+      },
+      {
+        "svg": "svg/algebra-L1-003-a2.svg"
+      },
+      {
+        "svg": "svg/algebra-L1-003-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L1-004",
+    "level": 1,
+    "prompt": "Раскройте скобки:",
+    "correct": 3,
+    "prompt_svg": "svg/algebra-L1-004-q.svg",
+    "options": [
+      {
+        "svg": "svg/algebra-L1-004-a0.svg"
+      },
+      {
+        "svg": "svg/algebra-L1-004-a1.svg"
+      },
+      {
+        "svg": "svg/algebra-L1-004-a2.svg"
+      },
+      {
+        "svg": "svg/algebra-L1-004-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L1-005",
+    "level": 1,
+    "prompt": "Решите уравнение:",
+    "correct": 0,
+    "prompt_svg": "svg/algebra-L1-005-q.svg",
+    "options": [
+      {
+        "text": "5"
+      },
+      {
+        "text": "15"
+      },
+      {
+        "text": "−5"
+      },
+      {
+        "text": "3"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L1-006",
+    "level": 1,
+    "prompt": "Решите уравнение:",
+    "correct": 1,
+    "prompt_svg": "svg/algebra-L1-006-q.svg",
+    "options": [
+      {
+        "text": "2"
+      },
+      {
+        "text": "4"
+      },
+      {
+        "text": "−4"
+      },
+      {
+        "text": "12"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L1-007",
+    "level": 1,
+    "prompt": "Решите уравнение:",
+    "correct": 2,
+    "prompt_svg": "svg/algebra-L1-007-q.svg",
+    "options": [
+      {
+        "svg": "svg/algebra-L1-007-a0.svg"
+      },
+      {
+        "svg": "svg/algebra-L1-007-a1.svg"
+      },
+      {
+        "svg": "svg/algebra-L1-007-a2.svg"
+      },
+      {
+        "svg": "svg/algebra-L1-007-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L1-008",
+    "level": 1,
+    "prompt": "Решите уравнение:",
+    "correct": 3,
+    "prompt_svg": "svg/algebra-L1-008-q.svg",
+    "options": [
+      {
+        "text": "4"
+      },
+      {
+        "text": "6"
+      },
+      {
+        "text": "1"
+      },
+      {
+        "text": "3"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L1-009",
+    "level": 1,
+    "prompt": "Найдите значение выражения 2a − b при a = 3, b = −4.",
+    "correct": 0,
+    "options": [
+      {
+        "text": "10"
+      },
+      {
+        "text": "2"
+      },
+      {
+        "text": "−10"
+      },
+      {
+        "text": "6"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L1-010",
+    "level": 1,
+    "prompt": "Решите уравнение:",
+    "correct": 1,
+    "prompt_svg": "svg/algebra-L1-010-q.svg",
+    "options": [
+      {
+        "svg": "svg/algebra-L1-010-a0.svg"
+      },
+      {
+        "svg": "svg/algebra-L1-010-a1.svg"
+      },
+      {
+        "svg": "svg/algebra-L1-010-a2.svg"
+      },
+      {
+        "svg": "svg/algebra-L1-010-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L1-011",
+    "level": 1,
+    "prompt": "Решите уравнение:",
+    "correct": 2,
+    "prompt_svg": "svg/algebra-L1-011-q.svg",
+    "options": [
+      {
+        "svg": "svg/algebra-L1-011-a0.svg"
+      },
+      {
+        "svg": "svg/algebra-L1-011-a1.svg"
+      },
+      {
+        "svg": "svg/algebra-L1-011-a2.svg"
+      },
+      {
+        "svg": "svg/algebra-L1-011-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L1-012",
+    "level": 1,
+    "prompt": "Решите уравнение:",
+    "correct": 3,
+    "prompt_svg": "svg/algebra-L1-012-q.svg",
+    "options": [
+      {
+        "svg": "svg/algebra-L1-012-a0.svg"
+      },
+      {
+        "svg": "svg/algebra-L1-012-a1.svg"
+      },
+      {
+        "svg": "svg/algebra-L1-012-a2.svg"
+      },
+      {
+        "svg": "svg/algebra-L1-012-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L1-013",
+    "level": 1,
+    "prompt": "Решите неравенство:",
+    "correct": 0,
+    "prompt_svg": "svg/algebra-L1-013-q.svg",
+    "options": [
+      {
+        "svg": "svg/algebra-L1-013-a0.svg"
+      },
+      {
+        "svg": "svg/algebra-L1-013-a1.svg"
+      },
+      {
+        "svg": "svg/algebra-L1-013-a2.svg"
+      },
+      {
+        "svg": "svg/algebra-L1-013-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L1-014",
+    "level": 1,
+    "prompt": "Решите неравенство:",
+    "correct": 1,
+    "prompt_svg": "svg/algebra-L1-014-q.svg",
+    "options": [
+      {
+        "svg": "svg/algebra-L1-014-a0.svg"
+      },
+      {
+        "svg": "svg/algebra-L1-014-a1.svg"
+      },
+      {
+        "svg": "svg/algebra-L1-014-a2.svg"
+      },
+      {
+        "svg": "svg/algebra-L1-014-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L1-015",
+    "level": 1,
+    "prompt": "Какая пара чисел является решением системы?",
+    "correct": 2,
+    "prompt_svg": "svg/algebra-L1-015-q.svg",
+    "options": [
+      {
+        "svg": "svg/algebra-L1-015-a0.svg"
+      },
+      {
+        "svg": "svg/algebra-L1-015-a1.svg"
+      },
+      {
+        "svg": "svg/algebra-L1-015-a2.svg"
+      },
+      {
+        "svg": "svg/algebra-L1-015-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L1-016",
+    "level": 1,
+    "prompt": "Найдите значение функции y = 2x − 3 при x = 5.",
+    "correct": 3,
+    "options": [
+      {
+        "text": "13"
+      },
+      {
+        "text": "10"
+      },
+      {
+        "text": "4"
+      },
+      {
+        "text": "7"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L1-017",
+    "level": 1,
+    "prompt": "В какой точке график функции y = −x + 4 пересекает ось Oy?",
+    "correct": 0,
+    "options": [
+      {
+        "text": "(0; 4)"
+      },
+      {
+        "text": "(4; 0)"
+      },
+      {
+        "text": "(0; −4)"
+      },
+      {
+        "text": "(−4; 0)"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L1-018",
+    "level": 1,
+    "prompt": "Найдите угловой коэффициент прямой y = −3x + 2.",
+    "correct": 1,
+    "options": [
+      {
+        "text": "2"
+      },
+      {
+        "text": "−3"
+      },
+      {
+        "text": "3"
+      },
+      {
+        "text": "−2"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L1-019",
+    "level": 1,
+    "prompt": "Какая из функций возрастает на всей числовой прямой?",
+    "correct": 2,
+    "options": [
+      {
+        "svg": "svg/algebra-L1-019-a0.svg"
+      },
+      {
+        "svg": "svg/algebra-L1-019-a1.svg"
+      },
+      {
+        "svg": "svg/algebra-L1-019-a2.svg"
+      },
+      {
+        "svg": "svg/algebra-L1-019-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L1-020",
+    "level": 1,
+    "prompt": "Дана арифметическая прогрессия 2, 5, 8, … Найдите её пятый член.",
+    "correct": 3,
+    "options": [
+      {
+        "text": "17"
+      },
+      {
+        "text": "11"
+      },
+      {
+        "text": "15"
+      },
+      {
+        "text": "14"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L1-021",
+    "level": 1,
+    "prompt": "Дана геометрическая прогрессия 3, 6, 12, … Найдите её пятый член.",
+    "correct": 0,
+    "options": [
+      {
+        "text": "48"
+      },
+      {
+        "text": "24"
+      },
+      {
+        "text": "96"
+      },
+      {
+        "text": "15"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L1-022",
+    "level": 1,
+    "prompt": "Сократите дробь:",
+    "correct": 1,
+    "prompt_svg": "svg/algebra-L1-022-q.svg",
+    "options": [
+      {
+        "svg": "svg/algebra-L1-022-a0.svg"
+      },
+      {
+        "svg": "svg/algebra-L1-022-a1.svg"
+      },
+      {
+        "svg": "svg/algebra-L1-022-a2.svg"
+      },
+      {
+        "svg": "svg/algebra-L1-022-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L1-023",
+    "level": 1,
+    "prompt": "Упростите выражение:",
+    "correct": 2,
+    "prompt_svg": "svg/algebra-L1-023-q.svg",
+    "options": [
+      {
+        "svg": "svg/algebra-L1-023-a0.svg"
+      },
+      {
+        "svg": "svg/algebra-L1-023-a1.svg"
+      },
+      {
+        "svg": "svg/algebra-L1-023-a2.svg"
+      },
+      {
+        "svg": "svg/algebra-L1-023-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L1-024",
+    "level": 1,
+    "prompt": "Упростите выражение:",
+    "correct": 3,
+    "prompt_svg": "svg/algebra-L1-024-q.svg",
+    "options": [
+      {
+        "svg": "svg/algebra-L1-024-a0.svg"
+      },
+      {
+        "svg": "svg/algebra-L1-024-a1.svg"
+      },
+      {
+        "svg": "svg/algebra-L1-024-a2.svg"
+      },
+      {
+        "svg": "svg/algebra-L1-024-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L1-025",
+    "level": 1,
+    "prompt": "Вынесите общий множитель за скобки:",
+    "correct": 0,
+    "prompt_svg": "svg/algebra-L1-025-q.svg",
+    "options": [
+      {
+        "svg": "svg/algebra-L1-025-a0.svg"
+      },
+      {
+        "svg": "svg/algebra-L1-025-a1.svg"
+      },
+      {
+        "svg": "svg/algebra-L1-025-a2.svg"
+      },
+      {
+        "svg": "svg/algebra-L1-025-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L1-026",
+    "level": 1,
+    "prompt": "Решите уравнение:",
+    "correct": 1,
+    "prompt_svg": "svg/algebra-L1-026-q.svg",
+    "options": [
+      {
+        "text": "1,75"
+      },
+      {
+        "text": "7"
+      },
+      {
+        "text": "3"
+      },
+      {
+        "text": "70"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L1-027",
+    "level": 1,
+    "prompt": "Сумма двух чисел равна 30, одно из них больше другого на 6. Найдите меньшее число.",
+    "correct": 2,
+    "options": [
+      {
+        "text": "18"
+      },
+      {
+        "text": "24"
+      },
+      {
+        "text": "12"
+      },
+      {
+        "text": "15"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L1-028",
+    "level": 1,
+    "prompt": "Задумали число, умножили его на 3 и прибавили 5. Получилось 26. Какое число задумали?",
+    "correct": 3,
+    "options": [
+      {
+        "text": "10"
+      },
+      {
+        "text": "9"
+      },
+      {
+        "text": "8"
+      },
+      {
+        "text": "7"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L1-029",
+    "level": 1,
+    "prompt": "При каком значении x выражение не имеет смысла?",
+    "correct": 0,
+    "prompt_svg": "svg/algebra-L1-029-q.svg",
+    "options": [
+      {
+        "svg": "svg/algebra-L1-029-a0.svg"
+      },
+      {
+        "svg": "svg/algebra-L1-029-a1.svg"
+      },
+      {
+        "svg": "svg/algebra-L1-029-a2.svg"
+      },
+      {
+        "svg": "svg/algebra-L1-029-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L1-030",
+    "level": 1,
+    "prompt": "Найдите значение выражения 3x² при x = −2.",
+    "correct": 1,
+    "options": [
+      {
+        "text": "−12"
+      },
+      {
+        "text": "12"
+      },
+      {
+        "text": "36"
+      },
+      {
+        "text": "−36"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L1-031",
+    "level": 1,
+    "prompt": "Решите уравнение:",
+    "correct": 2,
+    "prompt_svg": "svg/algebra-L1-031-q.svg",
+    "options": [
+      {
+        "text": "7"
+      },
+      {
+        "text": "1"
+      },
+      {
+        "text": "5"
+      },
+      {
+        "text": "6"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L1-032",
+    "level": 1,
+    "prompt": "Какое из чисел является корнем уравнения?",
+    "correct": 3,
+    "prompt_svg": "svg/algebra-L1-032-q.svg",
+    "options": [
+      {
+        "text": "4"
+      },
+      {
+        "text": "−3"
+      },
+      {
+        "text": "2"
+      },
+      {
+        "text": "3"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L1-033",
+    "level": 1,
+    "prompt": "Найдите дискриминант квадратного трёхчлена:",
+    "correct": 0,
+    "prompt_svg": "svg/algebra-L1-033-q.svg",
+    "options": [
+      {
+        "text": "12"
+      },
+      {
+        "text": "20"
+      },
+      {
+        "text": "15"
+      },
+      {
+        "text": "−12"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L1-034",
+    "level": 1,
+    "prompt": "Упростите выражение:",
+    "correct": 1,
+    "prompt_svg": "svg/algebra-L1-034-q.svg",
+    "options": [
+      {
+        "svg": "svg/algebra-L1-034-a0.svg"
+      },
+      {
+        "svg": "svg/algebra-L1-034-a1.svg"
+      },
+      {
+        "svg": "svg/algebra-L1-034-a2.svg"
+      },
+      {
+        "svg": "svg/algebra-L1-034-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L1-035",
+    "level": 1,
+    "prompt": "Разложите на множители:",
+    "correct": 2,
+    "prompt_svg": "svg/algebra-L1-035-q.svg",
+    "options": [
+      {
+        "svg": "svg/algebra-L1-035-a0.svg"
+      },
+      {
+        "svg": "svg/algebra-L1-035-a1.svg"
+      },
+      {
+        "svg": "svg/algebra-L1-035-a2.svg"
+      },
+      {
+        "svg": "svg/algebra-L1-035-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L1-036",
+    "level": 1,
+    "prompt": "Какое из чисел является решением неравенства x − 3 < 1?",
+    "correct": 3,
+    "options": [
+      {
+        "text": "4"
+      },
+      {
+        "text": "5"
+      },
+      {
+        "text": "7"
+      },
+      {
+        "text": "2"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L1-037",
+    "level": 1,
+    "prompt": "Ручка стоит x рублей, а тетрадь на 10 рублей дешевле. Сколько стоят 2 ручки и одна тетрадь?",
+    "correct": 0,
+    "options": [
+      {
+        "svg": "svg/algebra-L1-037-a0.svg"
+      },
+      {
+        "svg": "svg/algebra-L1-037-a1.svg"
+      },
+      {
+        "svg": "svg/algebra-L1-037-a2.svg"
+      },
+      {
+        "svg": "svg/algebra-L1-037-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L1-038",
+    "level": 1,
+    "prompt": "Как расположены прямые y = 2x + 1 и y = 2x − 5?",
+    "correct": 1,
+    "options": [
+      {
+        "text": "Пересекаются в одной точке"
+      },
+      {
+        "text": "Параллельны"
+      },
+      {
+        "text": "Совпадают"
+      },
+      {
+        "text": "Перпендикулярны"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L1-039",
+    "level": 1,
+    "prompt": "Найдите координаты вершины параболы y = x² − 4.",
+    "correct": 2,
+    "options": [
+      {
+        "text": "(−4; 0)"
+      },
+      {
+        "text": "(0; 4)"
+      },
+      {
+        "text": "(0; −4)"
+      },
+      {
+        "text": "(2; 0)"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L1-040",
+    "level": 1,
+    "prompt": "Решите уравнение:",
+    "correct": 3,
+    "prompt_svg": "svg/algebra-L1-040-q.svg",
+    "options": [
+      {
+        "text": "−3"
+      },
+      {
+        "text": "4"
+      },
+      {
+        "text": "6"
+      },
+      {
+        "text": "3"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L2-001",
+    "level": 2,
+    "prompt": "Сократите дробь:",
+    "correct": 0,
+    "prompt_svg": "svg/algebra-L2-001-q.svg",
+    "options": [
+      {
+        "svg": "svg/algebra-L2-001-a0.svg"
+      },
+      {
+        "svg": "svg/algebra-L2-001-a1.svg"
+      },
+      {
+        "svg": "svg/algebra-L2-001-a2.svg"
+      },
+      {
+        "svg": "svg/algebra-L2-001-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L2-002",
+    "level": 2,
+    "prompt": "Раскройте скобки:",
+    "correct": 1,
+    "prompt_svg": "svg/algebra-L2-002-q.svg",
+    "options": [
+      {
+        "svg": "svg/algebra-L2-002-a0.svg"
+      },
+      {
+        "svg": "svg/algebra-L2-002-a1.svg"
+      },
+      {
+        "svg": "svg/algebra-L2-002-a2.svg"
+      },
+      {
+        "svg": "svg/algebra-L2-002-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L2-003",
+    "level": 2,
+    "prompt": "Решите уравнение:",
+    "correct": 2,
+    "prompt_svg": "svg/algebra-L2-003-q.svg",
+    "options": [
+      {
+        "svg": "svg/algebra-L2-003-a0.svg"
+      },
+      {
+        "svg": "svg/algebra-L2-003-a1.svg"
+      },
+      {
+        "svg": "svg/algebra-L2-003-a2.svg"
+      },
+      {
+        "svg": "svg/algebra-L2-003-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L2-004",
+    "level": 2,
+    "prompt": "Решите уравнение:",
+    "correct": 3,
+    "prompt_svg": "svg/algebra-L2-004-q.svg",
+    "options": [
+      {
+        "svg": "svg/algebra-L2-004-a0.svg"
+      },
+      {
+        "svg": "svg/algebra-L2-004-a1.svg"
+      },
+      {
+        "svg": "svg/algebra-L2-004-a2.svg"
+      },
+      {
+        "svg": "svg/algebra-L2-004-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L2-005",
+    "level": 2,
+    "prompt": "Найдите сумму корней уравнения:",
+    "correct": 0,
+    "prompt_svg": "svg/algebra-L2-005-q.svg",
+    "options": [
+      {
+        "text": "7"
+      },
+      {
+        "text": "−7"
+      },
+      {
+        "text": "10"
+      },
+      {
+        "text": "3"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L2-006",
+    "level": 2,
+    "prompt": "Решите систему уравнений:",
+    "correct": 1,
+    "prompt_svg": "svg/algebra-L2-006-q.svg",
+    "options": [
+      {
+        "svg": "svg/algebra-L2-006-a0.svg"
+      },
+      {
+        "svg": "svg/algebra-L2-006-a1.svg"
+      },
+      {
+        "svg": "svg/algebra-L2-006-a2.svg"
+      },
+      {
+        "svg": "svg/algebra-L2-006-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L2-007",
+    "level": 2,
+    "prompt": "Решите систему уравнений:",
+    "correct": 2,
+    "prompt_svg": "svg/algebra-L2-007-q.svg",
+    "options": [
+      {
+        "svg": "svg/algebra-L2-007-a0.svg"
+      },
+      {
+        "svg": "svg/algebra-L2-007-a1.svg"
+      },
+      {
+        "svg": "svg/algebra-L2-007-a2.svg"
+      },
+      {
+        "svg": "svg/algebra-L2-007-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L2-008",
+    "level": 2,
+    "prompt": "Решите неравенство:",
+    "correct": 3,
+    "prompt_svg": "svg/algebra-L2-008-q.svg",
+    "options": [
+      {
+        "svg": "svg/algebra-L2-008-a0.svg"
+      },
+      {
+        "svg": "svg/algebra-L2-008-a1.svg"
+      },
+      {
+        "svg": "svg/algebra-L2-008-a2.svg"
+      },
+      {
+        "svg": "svg/algebra-L2-008-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L2-009",
+    "level": 2,
+    "prompt": "Решите неравенство:",
+    "correct": 0,
+    "prompt_svg": "svg/algebra-L2-009-q.svg",
+    "options": [
+      {
+        "svg": "svg/algebra-L2-009-a0.svg"
+      },
+      {
+        "svg": "svg/algebra-L2-009-a1.svg"
+      },
+      {
+        "svg": "svg/algebra-L2-009-a2.svg"
+      },
+      {
+        "svg": "svg/algebra-L2-009-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L2-010",
+    "level": 2,
+    "prompt": "Решите неравенство:",
+    "correct": 1,
+    "prompt_svg": "svg/algebra-L2-010-q.svg",
+    "options": [
+      {
+        "svg": "svg/algebra-L2-010-a0.svg"
+      },
+      {
+        "svg": "svg/algebra-L2-010-a1.svg"
+      },
+      {
+        "svg": "svg/algebra-L2-010-a2.svg"
+      },
+      {
+        "svg": "svg/algebra-L2-010-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L2-011",
+    "level": 2,
+    "prompt": "В арифметической прогрессии первый член равен 4, разность равна 3. Найдите сумму первых десяти членов.",
+    "correct": 2,
+    "options": [
+      {
+        "text": "155"
+      },
+      {
+        "text": "350"
+      },
+      {
+        "text": "175"
+      },
+      {
+        "text": "130"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L2-012",
+    "level": 2,
+    "prompt": "В геометрической прогрессии первый член равен 2, знаменатель равен 3. Найдите сумму первых четырёх членов.",
+    "correct": 3,
+    "options": [
+      {
+        "text": "54"
+      },
+      {
+        "text": "162"
+      },
+      {
+        "text": "26"
+      },
+      {
+        "text": "80"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L2-013",
+    "level": 2,
+    "prompt": "В арифметической прогрессии третий член равен 10, а седьмой равен 22. Найдите разность прогрессии.",
+    "correct": 0,
+    "options": [
+      {
+        "text": "3"
+      },
+      {
+        "text": "4"
+      },
+      {
+        "text": "12"
+      },
+      {
+        "text": "6"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L2-014",
+    "level": 2,
+    "prompt": "Найдите абсциссу вершины параболы y = x² − 6x + 5.",
+    "correct": 1,
+    "options": [
+      {
+        "text": "−3"
+      },
+      {
+        "text": "3"
+      },
+      {
+        "text": "6"
+      },
+      {
+        "text": "5"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L2-015",
+    "level": 2,
+    "prompt": "Найдите наименьшее значение функции y = x² − 4x + 7.",
+    "correct": 2,
+    "options": [
+      {
+        "text": "7"
+      },
+      {
+        "text": "2"
+      },
+      {
+        "text": "3"
+      },
+      {
+        "text": "4"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L2-016",
+    "level": 2,
+    "prompt": "При каком k прямая y = kx + 2 проходит через точку (3; 8)?",
+    "correct": 3,
+    "options": [
+      {
+        "svg": "svg/algebra-L2-016-a0.svg"
+      },
+      {
+        "svg": "svg/algebra-L2-016-a1.svg"
+      },
+      {
+        "svg": "svg/algebra-L2-016-a2.svg"
+      },
+      {
+        "svg": "svg/algebra-L2-016-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L2-017",
+    "level": 2,
+    "prompt": "Найдите точку пересечения прямых y = 2x − 1 и y = −x + 5.",
+    "correct": 0,
+    "options": [
+      {
+        "text": "(2; 3)"
+      },
+      {
+        "text": "(3; 2)"
+      },
+      {
+        "text": "(1; 1)"
+      },
+      {
+        "text": "(1; 4)"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L2-018",
+    "level": 2,
+    "prompt": "Найдите область определения выражения:",
+    "correct": 1,
+    "prompt_svg": "svg/algebra-L2-018-q.svg",
+    "options": [
+      {
+        "svg": "svg/algebra-L2-018-a0.svg"
+      },
+      {
+        "svg": "svg/algebra-L2-018-a1.svg"
+      },
+      {
+        "svg": "svg/algebra-L2-018-a2.svg"
+      },
+      {
+        "svg": "svg/algebra-L2-018-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L2-019",
+    "level": 2,
+    "prompt": "Какая точка принадлежит графику функции y = 6/x?",
+    "correct": 2,
+    "options": [
+      {
+        "text": "(2; −3)"
+      },
+      {
+        "text": "(−3; 2)"
+      },
+      {
+        "text": "(−2; −3)"
+      },
+      {
+        "text": "(6; 6)"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L2-020",
+    "level": 2,
+    "prompt": "Найдите значение выражения при a = 1/2:",
+    "correct": 3,
+    "prompt_svg": "svg/algebra-L2-020-q.svg",
+    "options": [
+      {
+        "svg": "svg/algebra-L2-020-a0.svg"
+      },
+      {
+        "svg": "svg/algebra-L2-020-a1.svg"
+      },
+      {
+        "svg": "svg/algebra-L2-020-a2.svg"
+      },
+      {
+        "svg": "svg/algebra-L2-020-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L2-021",
+    "level": 2,
+    "prompt": "Упростите выражение:",
+    "correct": 0,
+    "prompt_svg": "svg/algebra-L2-021-q.svg",
+    "options": [
+      {
+        "svg": "svg/algebra-L2-021-a0.svg"
+      },
+      {
+        "svg": "svg/algebra-L2-021-a1.svg"
+      },
+      {
+        "svg": "svg/algebra-L2-021-a2.svg"
+      },
+      {
+        "svg": "svg/algebra-L2-021-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L2-022",
+    "level": 2,
+    "prompt": "Периметр прямоугольника 30 см, длина на 3 см больше ширины. Найдите площадь прямоугольника.",
+    "correct": 1,
+    "options": [
+      {
+        "text": "45 см²"
+      },
+      {
+        "text": "54 см²"
+      },
+      {
+        "text": "63 см²"
+      },
+      {
+        "text": "36 см²"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L2-023",
+    "level": 2,
+    "prompt": "Произведение двух последовательных натуральных чисел равно 132. Найдите меньшее из них.",
+    "correct": 2,
+    "options": [
+      {
+        "text": "12"
+      },
+      {
+        "text": "10"
+      },
+      {
+        "text": "11"
+      },
+      {
+        "text": "66"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L2-024",
+    "level": 2,
+    "prompt": "5 тетрадей и 3 ручки стоят 230 рублей. Тетрадь на 10 рублей дешевле ручки. Сколько стоит ручка?",
+    "correct": 3,
+    "options": [
+      {
+        "text": "25 руб."
+      },
+      {
+        "text": "30 руб."
+      },
+      {
+        "text": "40 руб."
+      },
+      {
+        "text": "35 руб."
+      }
+    ]
+  },
+  {
+    "id": "algebra-L2-025",
+    "level": 2,
+    "prompt": "Сколько корней имеет уравнение?",
+    "correct": 0,
+    "prompt_svg": "svg/algebra-L2-025-q.svg",
+    "options": [
+      {
+        "text": "4"
+      },
+      {
+        "text": "2"
+      },
+      {
+        "text": "3"
+      },
+      {
+        "text": "1"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L2-026",
+    "level": 2,
+    "prompt": "Решите уравнение:",
+    "correct": 1,
+    "prompt_svg": "svg/algebra-L2-026-q.svg",
+    "options": [
+      {
+        "svg": "svg/algebra-L2-026-a0.svg"
+      },
+      {
+        "svg": "svg/algebra-L2-026-a1.svg"
+      },
+      {
+        "svg": "svg/algebra-L2-026-a2.svg"
+      },
+      {
+        "svg": "svg/algebra-L2-026-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L2-027",
+    "level": 2,
+    "prompt": "Упростите выражение:",
+    "correct": 2,
+    "prompt_svg": "svg/algebra-L2-027-q.svg",
+    "options": [
+      {
+        "svg": "svg/algebra-L2-027-a0.svg"
+      },
+      {
+        "svg": "svg/algebra-L2-027-a1.svg"
+      },
+      {
+        "svg": "svg/algebra-L2-027-a2.svg"
+      },
+      {
+        "svg": "svg/algebra-L2-027-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L2-028",
+    "level": 2,
+    "prompt": "Выразите x из равенства 3x − 2y = 6.",
+    "correct": 3,
+    "options": [
+      {
+        "svg": "svg/algebra-L2-028-a0.svg"
+      },
+      {
+        "svg": "svg/algebra-L2-028-a1.svg"
+      },
+      {
+        "svg": "svg/algebra-L2-028-a2.svg"
+      },
+      {
+        "svg": "svg/algebra-L2-028-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L2-029",
+    "level": 2,
+    "prompt": "Решите уравнение:",
+    "correct": 0,
+    "prompt_svg": "svg/algebra-L2-029-q.svg",
+    "options": [
+      {
+        "svg": "svg/algebra-L2-029-a0.svg"
+      },
+      {
+        "svg": "svg/algebra-L2-029-a1.svg"
+      },
+      {
+        "svg": "svg/algebra-L2-029-a2.svg"
+      },
+      {
+        "svg": "svg/algebra-L2-029-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L2-030",
+    "level": 2,
+    "prompt": "Решите неравенство:",
+    "correct": 1,
+    "prompt_svg": "svg/algebra-L2-030-q.svg",
+    "options": [
+      {
+        "svg": "svg/algebra-L2-030-a0.svg"
+      },
+      {
+        "svg": "svg/algebra-L2-030-a1.svg"
+      },
+      {
+        "svg": "svg/algebra-L2-030-a2.svg"
+      },
+      {
+        "svg": "svg/algebra-L2-030-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L2-031",
+    "level": 2,
+    "prompt": "У какой параболы ветви направлены вниз, а вершина находится в точке (1; 2)?",
+    "correct": 2,
+    "options": [
+      {
+        "svg": "svg/algebra-L2-031-a0.svg"
+      },
+      {
+        "svg": "svg/algebra-L2-031-a1.svg"
+      },
+      {
+        "svg": "svg/algebra-L2-031-a2.svg"
+      },
+      {
+        "svg": "svg/algebra-L2-031-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L2-032",
+    "level": 2,
+    "prompt": "Найдите сумму бесконечно убывающей геометрической прогрессии 8, 4, 2, …",
+    "correct": 3,
+    "options": [
+      {
+        "text": "14"
+      },
+      {
+        "text": "15"
+      },
+      {
+        "text": "32"
+      },
+      {
+        "text": "16"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L2-033",
+    "level": 2,
+    "prompt": "Сколько членов арифметической прогрессии 3, 7, 11, … меньше 100?",
+    "correct": 0,
+    "options": [
+      {
+        "text": "25"
+      },
+      {
+        "text": "24"
+      },
+      {
+        "text": "26"
+      },
+      {
+        "text": "97"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L2-034",
+    "level": 2,
+    "prompt": "Известно, что x + y = 5 и xy = 6. Найдите x² + y².",
+    "correct": 1,
+    "options": [
+      {
+        "text": "25"
+      },
+      {
+        "text": "13"
+      },
+      {
+        "text": "37"
+      },
+      {
+        "text": "19"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L2-035",
+    "level": 2,
+    "prompt": "Решите уравнение:",
+    "correct": 2,
+    "prompt_svg": "svg/algebra-L2-035-q.svg",
+    "options": [
+      {
+        "text": "16"
+      },
+      {
+        "text": "4"
+      },
+      {
+        "text": "5"
+      },
+      {
+        "text": "6"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L3-001",
+    "level": 3,
+    "prompt": "Решите уравнение:",
+    "correct": 3,
+    "prompt_svg": "svg/algebra-L3-001-q.svg",
+    "options": [
+      {
+        "svg": "svg/algebra-L3-001-a0.svg"
+      },
+      {
+        "svg": "svg/algebra-L3-001-a1.svg"
+      },
+      {
+        "svg": "svg/algebra-L3-001-a2.svg"
+      },
+      {
+        "svg": "svg/algebra-L3-001-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L3-002",
+    "level": 3,
+    "prompt": "Двое рабочих, работая вместе, выполняют работу за 6 ч. Первый, работая один, справляется на 5 ч быстрее второго. За сколько часов выполнит работу первый рабочий?",
+    "correct": 0,
+    "options": [
+      {
+        "text": "10 ч"
+      },
+      {
+        "text": "15 ч"
+      },
+      {
+        "text": "5 ч"
+      },
+      {
+        "text": "12 ч"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L3-003",
+    "level": 3,
+    "prompt": "Найдите сумму квадратов корней уравнения:",
+    "correct": 1,
+    "prompt_svg": "svg/algebra-L3-003-q.svg",
+    "options": [
+      {
+        "text": "16"
+      },
+      {
+        "text": "14"
+      },
+      {
+        "text": "18"
+      },
+      {
+        "text": "15"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L3-004",
+    "level": 3,
+    "prompt": "При каких значениях a уравнение имеет два различных корня?",
+    "correct": 2,
+    "prompt_svg": "svg/algebra-L3-004-q.svg",
+    "options": [
+      {
+        "svg": "svg/algebra-L3-004-a0.svg"
+      },
+      {
+        "svg": "svg/algebra-L3-004-a1.svg"
+      },
+      {
+        "svg": "svg/algebra-L3-004-a2.svg"
+      },
+      {
+        "svg": "svg/algebra-L3-004-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L3-005",
+    "level": 3,
+    "prompt": "Решите систему уравнений:",
+    "correct": 3,
+    "prompt_svg": "svg/algebra-L3-005-q.svg",
+    "options": [
+      {
+        "svg": "svg/algebra-L3-005-a0.svg"
+      },
+      {
+        "svg": "svg/algebra-L3-005-a1.svg"
+      },
+      {
+        "svg": "svg/algebra-L3-005-a2.svg"
+      },
+      {
+        "svg": "svg/algebra-L3-005-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L3-006",
+    "level": 3,
+    "prompt": "Решите уравнение:",
+    "correct": 0,
+    "prompt_svg": "svg/algebra-L3-006-q.svg",
+    "options": [
+      {
+        "svg": "svg/algebra-L3-006-a0.svg"
+      },
+      {
+        "svg": "svg/algebra-L3-006-a1.svg"
+      },
+      {
+        "svg": "svg/algebra-L3-006-a2.svg"
+      },
+      {
+        "svg": "svg/algebra-L3-006-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L3-007",
+    "level": 3,
+    "prompt": "Решите неравенство:",
+    "correct": 1,
+    "prompt_svg": "svg/algebra-L3-007-q.svg",
+    "options": [
+      {
+        "svg": "svg/algebra-L3-007-a0.svg"
+      },
+      {
+        "svg": "svg/algebra-L3-007-a1.svg"
+      },
+      {
+        "svg": "svg/algebra-L3-007-a2.svg"
+      },
+      {
+        "svg": "svg/algebra-L3-007-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L3-008",
+    "level": 3,
+    "prompt": "В геометрической прогрессии второй член равен 6, а пятый равен 162. Найдите сумму первых пяти членов.",
+    "correct": 2,
+    "options": [
+      {
+        "text": "240"
+      },
+      {
+        "text": "243"
+      },
+      {
+        "text": "242"
+      },
+      {
+        "text": "486"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L3-009",
+    "level": 3,
+    "prompt": "Сумма первых пяти членов арифметической прогрессии равна 25, а первых десяти — 100. Найдите двадцатый член.",
+    "correct": 3,
+    "options": [
+      {
+        "text": "40"
+      },
+      {
+        "text": "41"
+      },
+      {
+        "text": "37"
+      },
+      {
+        "text": "39"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L3-010",
+    "level": 3,
+    "prompt": "Поезд задержали на 12 минут. Чтобы прибыть вовремя, на перегоне 60 км он увеличил скорость на 10 км/ч. Найдите первоначальную скорость поезда.",
+    "correct": 0,
+    "options": [
+      {
+        "text": "50 км/ч"
+      },
+      {
+        "text": "60 км/ч"
+      },
+      {
+        "text": "40 км/ч"
+      },
+      {
+        "text": "55 км/ч"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L3-011",
+    "level": 3,
+    "prompt": "Сплав массой 36 кг содержит 45% меди. Сколько килограммов чистой меди нужно добавить, чтобы её содержание стало 60%?",
+    "correct": 1,
+    "options": [
+      {
+        "text": "5,4 кг"
+      },
+      {
+        "text": "13,5 кг"
+      },
+      {
+        "text": "9 кг"
+      },
+      {
+        "text": "15 кг"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L3-012",
+    "level": 3,
+    "prompt": "Известно, что a + b = 4 и ab = 2. Найдите значение выражения:",
+    "correct": 2,
+    "prompt_svg": "svg/algebra-L3-012-q.svg",
+    "options": [
+      {
+        "text": "8"
+      },
+      {
+        "text": "2"
+      },
+      {
+        "text": "6"
+      },
+      {
+        "text": "7"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L3-013",
+    "level": 3,
+    "prompt": "Упростите выражение:",
+    "correct": 3,
+    "prompt_svg": "svg/algebra-L3-013-q.svg",
+    "options": [
+      {
+        "svg": "svg/algebra-L3-013-a0.svg"
+      },
+      {
+        "svg": "svg/algebra-L3-013-a1.svg"
+      },
+      {
+        "svg": "svg/algebra-L3-013-a2.svg"
+      },
+      {
+        "svg": "svg/algebra-L3-013-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L3-014",
+    "level": 3,
+    "prompt": "Вершина параболы y = x² + bx + c находится в точке (2; −1). Найдите c.",
+    "correct": 0,
+    "options": [
+      {
+        "text": "3"
+      },
+      {
+        "text": "−1"
+      },
+      {
+        "text": "4"
+      },
+      {
+        "text": "5"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L3-015",
+    "level": 3,
+    "prompt": "При каком m прямые y = mx + 1 и y = (3 − 2m)x − 4 параллельны?",
+    "correct": 1,
+    "options": [
+      {
+        "text": "3"
+      },
+      {
+        "text": "1"
+      },
+      {
+        "text": "1,5"
+      },
+      {
+        "text": "−1"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L3-016",
+    "level": 3,
+    "prompt": "Сколько целых решений имеет неравенство?",
+    "correct": 2,
+    "prompt_svg": "svg/algebra-L3-016-q.svg",
+    "options": [
+      {
+        "text": "6"
+      },
+      {
+        "text": "7"
+      },
+      {
+        "text": "5"
+      },
+      {
+        "text": "4"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L3-017",
+    "level": 3,
+    "prompt": "Решите неравенство:",
+    "correct": 3,
+    "prompt_svg": "svg/algebra-L3-017-q.svg",
+    "options": [
+      {
+        "svg": "svg/algebra-L3-017-a0.svg"
+      },
+      {
+        "svg": "svg/algebra-L3-017-a1.svg"
+      },
+      {
+        "svg": "svg/algebra-L3-017-a2.svg"
+      },
+      {
+        "svg": "svg/algebra-L3-017-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L3-018",
+    "level": 3,
+    "prompt": "Решите уравнение:",
+    "correct": 0,
+    "prompt_svg": "svg/algebra-L3-018-q.svg",
+    "options": [
+      {
+        "text": "3"
+      },
+      {
+        "text": "4"
+      },
+      {
+        "text": "2"
+      },
+      {
+        "text": "8"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L3-019",
+    "level": 3,
+    "prompt": "Найдите сумму всех двузначных чисел, кратных 3.",
+    "correct": 1,
+    "options": [
+      {
+        "text": "1683"
+      },
+      {
+        "text": "1665"
+      },
+      {
+        "text": "1638"
+      },
+      {
+        "text": "1650"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L3-020",
+    "level": 3,
+    "prompt": "Избавьтесь от иррациональности в знаменателе:",
+    "correct": 2,
+    "prompt_svg": "svg/algebra-L3-020-q.svg",
+    "options": [
+      {
+        "svg": "svg/algebra-L3-020-a0.svg"
+      },
+      {
+        "svg": "svg/algebra-L3-020-a1.svg"
+      },
+      {
+        "svg": "svg/algebra-L3-020-a2.svg"
+      },
+      {
+        "svg": "svg/algebra-L3-020-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L3-021",
+    "level": 3,
+    "prompt": "Из городов A и B, расстояние между которыми 300 км, одновременно навстречу друг другу выехали два автомобиля и встретились через 2 ч. Скорость первого на 10 км/ч больше скорости второго. Найдите скорость первого.",
+    "correct": 3,
+    "options": [
+      {
+        "text": "70 км/ч"
+      },
+      {
+        "text": "75 км/ч"
+      },
+      {
+        "text": "85 км/ч"
+      },
+      {
+        "text": "80 км/ч"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L3-022",
+    "level": 3,
+    "prompt": "Знаменатель дроби на 3 больше числителя. Если к числителю и знаменателю прибавить по 2, получится 3/4. Найдите исходную дробь.",
+    "correct": 0,
+    "options": [
+      {
+        "svg": "svg/algebra-L3-022-a0.svg"
+      },
+      {
+        "svg": "svg/algebra-L3-022-a1.svg"
+      },
+      {
+        "svg": "svg/algebra-L3-022-a2.svg"
+      },
+      {
+        "svg": "svg/algebra-L3-022-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L3-023",
+    "level": 3,
+    "prompt": "Решите уравнение:",
+    "correct": 1,
+    "prompt_svg": "svg/algebra-L3-023-q.svg",
+    "options": [
+      {
+        "svg": "svg/algebra-L3-023-a0.svg"
+      },
+      {
+        "svg": "svg/algebra-L3-023-a1.svg"
+      },
+      {
+        "svg": "svg/algebra-L3-023-a2.svg"
+      },
+      {
+        "svg": "svg/algebra-L3-023-a3.svg"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L3-024",
+    "level": 3,
+    "prompt": "Найдите наибольшее значение функции y = −2x² + 8x − 3.",
+    "correct": 2,
+    "options": [
+      {
+        "text": "−3"
+      },
+      {
+        "text": "2"
+      },
+      {
+        "text": "5"
+      },
+      {
+        "text": "13"
+      }
+    ]
+  },
+  {
+    "id": "algebra-L3-025",
+    "level": 3,
+    "prompt": "Найдите сумму корней уравнения:",
+    "correct": 3,
+    "prompt_svg": "svg/algebra-L3-025-q.svg",
+    "options": [
+      {
+        "text": "3"
+      },
+      {
+        "text": "2"
+      },
+      {
+        "text": "0"
+      },
+      {
+        "text": "6"
+      }
+    ]
+  }
+]

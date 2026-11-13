@@ -17,6 +17,23 @@ public sealed class QuestionPicker
 
     public Question? Find(string id) => _all.FirstOrDefault(q => q.Id == id);
 
+    /// <summary>Строгий выбор: только уровень <paramref name="level"/>, без перехода на соседние.</summary>
+    public Question NextAtLevel(int level, ISet<string> used)
+    {
+        var atLevel = _all.Where(q => q.Level == level).ToList();
+        if (atLevel.Count == 0) throw new InvalidOperationException($"Нет вопросов уровня {level}");
+
+        var fresh = atLevel.Where(q => !used.Contains(q.Id)).ToList();
+        if (fresh.Count == 0)
+        {
+            foreach (var q in atLevel) used.Remove(q.Id);
+            fresh = atLevel;
+        }
+        var pick = fresh[_rng.Next(fresh.Count)];
+        used.Add(pick.Id);
+        return pick;
+    }
+
     public Question Next(int level, ISet<string> used)
     {
         if (_all.Count == 0) throw new InvalidOperationException("Пакет вопросов пуст");

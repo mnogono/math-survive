@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3]
+[gd_scene load_steps=12 format=3]
 
 [ext_resource type="Script" path="res://scripts/Main.cs" id="1"]
 [ext_resource type="Script" path="res://scripts/DesktopOverlay.cs" id="2"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://scripts/HordeDirector.cs" id="8"]
 [ext_resource type="Script" path="res://scripts/SummaryToast.cs" id="9"]
 [ext_resource type="Script" path="res://scripts/StatsPanel.cs" id="10"]
+[ext_resource type="Script" path="res://scripts/RoomView.cs" id="11"]
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1")
@@ -19,6 +20,9 @@ script = ExtResource("2")
 
 [node name="Stage" type="Node3D" parent="."]
 script = ExtResource("3")
+
+[node name="Room" type="Node3D" parent="Stage"]
+script = ExtResource("11")
 
 [node name="Player" type="Node3D" parent="Stage"]
 script = ExtResource("4")

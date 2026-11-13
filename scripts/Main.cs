@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Godot;
 using MathSurvive.Core;
 using MathSurvive.Core.Layout;
@@ -9,20 +11,35 @@ namespace MathSurvive.Game;
 
 public partial class Main : Node3D
 {
+    /// <summary>Разделы комнаты; это же порядок случайного режима.</summary>
+    private static readonly string[] SectionIds = { "arithmetic", "algebra", "geometry", "analysis" };
+
+    /// <summary>Отладочный пакет: подключается, только если <c>--question</c> указывает на его вопрос.</summary>
+    private const string DebugSectionId = "test";
+
     private GameSession _session = null!;
+    private QuestionCatalog _catalog = null!;
     private bool _started;
+    /// <summary>С <c>--question</c> выбор раздела отладочный и в save.json не попадает.</summary>
+    private bool _saveEnabled;
+    private Stage _stage = null!;
+    private PlayerView _player = null!;
+    private RoomView _room = null!;
     private BubbleView _bubble = null!;
     private QuizPanel _quiz = null!;
     private HordeDirector _horde = null!;
     private SummaryToast _toast = null!;
     private StatsPanel _stats = null!;
-    private static string SectionDir => PacksRoot.Path + "/math/test";
+    private IReadOnlyDictionary<string, string> _sectionTitles = null!;
+
+    private static string SectionDir(string id) => PacksRoot.Path + "/math/" + id;
 
     public override void _Ready()
     {
         var overlay = GetNode<DesktopOverlay>("DesktopOverlay");
-        var stage = GetNode<Stage>("Stage");
-        var player = GetNode<PlayerView>("Stage/Player");
+        _stage = GetNode<Stage>("Stage");
+        _player = GetNode<PlayerView>("Stage/Player");
+        _room = GetNode<RoomView>("Stage/Room");
         var door = GetNode<DoorView>("Stage/Door");
         _bubble = GetNode<BubbleView>("Ui/Bubble");
         _quiz = GetNode<QuizPanel>("Ui/Quiz");
@@ -30,15 +47,25 @@ public partial class Main : Node3D
         _toast = GetNode<SummaryToast>("Ui/Toast");
         _stats = GetNode<StatsPanel>("Ui/Stats");
 
+        var config = BuildConfig();
+        var rng = new Random();
         try
         {
-            _session = new GameSession(BuildConfig(), LoadPack(SectionDir), new Random());
+            var packs = LoadPacks();
+            _sectionTitles = packs.ToDictionary(p => p.Section.Id, p => p.Section.Title);
+            _catalog = new QuestionCatalog(config, packs, SectionIds, rng);
+            _catalog.RestoreProgress(ProgressSaveStore.Load(packs, config));
+            _session = new GameSession(config, _catalog, rng);
+            _saveEnabled = DebugArgs.Current.QuestionId == null;
+            if (DebugArgs.Current.QuestionId is { } questionId
+                && packs.FirstOrDefault(p => p.Questions.Any(q => q.Id == questionId)) is { } owner)
+                _session.SelectSection(owner.Section.Id);
         }
         catch (Exception e)
         {
             // Окно оверлея уже полноэкранное, поверх всех и прозрачное для кликов: без выхода его не закрыть.
-            GD.PushError($"Не удалось загрузить пакет вопросов: {e}");
-            OS.Alert($"Не удалось загрузить пакет вопросов.\n\n{e.Message}\n\nКаталог пакетов: {PacksRoot.Path}", "Math Survive");
+            GD.PushError($"Не удалось загрузить пакеты вопросов: {e}");
+            OS.Alert($"Не удалось загрузить пакеты вопросов.\n\n{e.Message}\n\nКаталог пакетов: {PacksRoot.Path}", "Math Survive");
             GetTree().Quit();
             return;
         }
@@ -46,14 +73,18 @@ public partial class Main : Node3D
 
         var window = GetWindow().Size;
         var scale = UiScale.Value;
-        player.Place(stage, ToVector(Placement.PlayerFeet(window.X, window.Y, scale)));
-        door.Place(stage, ToVector(Placement.DoorFeet(window.X, window.Y, scale)));
-        _bubble.PlaceAbove(player.HeadTopPx);
-        _quiz.PlaceAbove(player.HeadTopPx);
-        _toast.PlaceAbove(player.HeadTopPx);
-        _stats.PlaceAbove(player.HeadTopPx);
-        _horde.Setup(_session, stage, player);
-        _session.HordeStarted += _horde.Begin;
+        _room.Setup(_stage);
+        var icon = SelectedIconId();
+        _room.SetSelected(icon);
+        _player.Place(_stage, _room.PlayerFeetPx(icon));
+        door.Place(_stage, ToVector(Placement.DoorFeet(window.X, window.Y, scale)));
+        PlaceUi();
+        _horde.Setup(_session, _stage, _player);
+        _session.HordeStarted += info =>
+        {
+            _player.FinishWalk();
+            _horde.Begin(info);
+        };
         var tray = new TrayController();
         AddChild(tray);
         tray.Setup(_session);
@@ -64,18 +95,24 @@ public partial class Main : Node3D
         _quiz.OptionChosen += OnOptionChosen;
         _quiz.CollapseClicked += () => _session.CollapseQuiz();
         _quiz.PauseClicked += () => _session.StartPause(DateTime.UtcNow);
+        _room.IconClicked += OnIconClicked;
+        _player.Arrived += OnArrived;
 
         overlay.RegisterHitArea(() => door.ScreenRect);
-        overlay.RegisterHitArea(() => player.ScreenRect);
+        overlay.RegisterHitArea(() => _player.ScreenRect);
         overlay.RegisterHitArea(() => _bubble.Visible ? _bubble.ScreenRect : null);
         overlay.RegisterHitArea(() => _quiz.Visible ? _quiz.ScreenRect : null);
         overlay.RegisterHitArea(() => _stats.Visible ? _stats.ScreenRect : null);
+        foreach (var roomIcon in _room.Icons)
+            overlay.RegisterHitArea(roomIcon.HitArea);
 
         ApplyMode(_session.Mode);
         if (DebugArgs.Current.OpenQuiz)
             _session.OpenQuiz(DebugArgs.Current.QuestionId);
         if (DebugArgs.Current.HordeNow)
             _session.ForceHordeNow();
+        if (DebugArgs.Current.SelectIcon is { } select)
+            OnIconClicked(select);
         _started = true;
     }
 
@@ -84,6 +121,20 @@ public partial class Main : Node3D
         if (!_started)
             return;
         _session.Tick(TimeSpan.FromSeconds(Math.Min(delta, _session.Config.MaxFrameDeltaSec)), DateTime.UtcNow);
+        if (_player.IsWalking)
+            PlaceUi();
+    }
+
+    public override void _ExitTree()
+    {
+        if (_started)
+            SaveProgress();
+    }
+
+    private void SaveProgress()
+    {
+        if (_saveEnabled)
+            ProgressSaveStore.Save(_catalog.CaptureProgress());
     }
 
     private void OnModeChanged(GameMode mode)
@@ -94,17 +145,56 @@ public partial class Main : Node3D
 
     private void OnOptionChosen(int displayIndex)
     {
-        if (_session.Answer(displayIndex) is { } result)
-            _quiz.ShowFeedback(result);
+        if (_session.Answer(displayIndex) is not { } result)
+            return;
+        _quiz.ShowFeedback(result);
+        SaveProgress();
+    }
+
+    /// <summary>Выбор раздела: Core применяет его сразу, персонаж идёт к иконке, по приходу открывается вопрос.</summary>
+    private void OnIconClicked(string id)
+    {
+        if (_player.IsWalking || !_room.HasIcon(id))
+            return;
+        var changed = id == RoomView.RandomId ? _session.SelectRandom() : _session.SelectSection(id);
+        if (!changed)
+            return;
+        SaveProgress();
+        _room.SetSelected(id);
+        _player.WalkTo(_stage, _room.PlayerFeetPx(id));
+        ApplyMode(_session.Mode);
+    }
+
+    private void OnArrived()
+    {
+        PlaceUi();
+        ApplyMode(_session.Mode);
+        _session.OpenQuiz();
+    }
+
+    private string SelectedIconId()
+    {
+        var id = _session.SelectedSectionId ?? RoomView.RandomId;
+        return _room.HasIcon(id) ? id : RoomView.RandomId;
+    }
+
+    private void PlaceUi()
+    {
+        _bubble.PlaceAbove(_player.HeadTopPx);
+        _quiz.PlaceAbove(_player.HeadTopPx);
+        _toast.PlaceAbove(_player.HeadTopPx);
+        _stats.PlaceAbove(_player.HeadTopPx);
     }
 
     private void ApplyMode(GameMode mode)
     {
-        _bubble.Visible = mode == GameMode.Idle;
+        var walking = _player.IsWalking;
+        _bubble.Visible = mode == GameMode.Idle && !walking;
+        _room.SetInteractive(_session.CanChangeSection && !walking);
         // Квиз виден в QuizOpen и Feedback; любой другой режим его прячет: свернули (Idle), пауза (Paused),
         // конец обратной связи (Feedback → Idle), орда (Horde — ModeChanged приходит раньше HordeStarted).
         if (mode == GameMode.QuizOpen)
-            _quiz.ShowQuiz(_session.CurrentQuiz!, SectionDir, _session.Pause.Available, _session.Config.PauseDuration);
+            _quiz.ShowQuiz(_session.CurrentQuiz!, SectionDir(_session.Pack.Section.Id), _session.Pause.Available, _session.Config.PauseDuration);
         else if (mode != GameMode.Feedback)
             _quiz.HideQuiz();
         if (mode == GameMode.HordeSummary)
@@ -112,7 +202,7 @@ public partial class Main : Node3D
         else
             _toast.HideToast();
         if (mode == GameMode.GameOver)
-            _stats.ShowStats(_session.Run, _session.Lifetime, _session.Combat.Ammo, _session.Pack.Section.Title);
+            _stats.ShowStats(_session.Run, _session.Lifetime, _session.Combat.Ammo, _sectionTitles);
         else
             _stats.HideStats();
         // После поражения зомби стоят у персонажа до новой игры.
@@ -131,10 +221,22 @@ public partial class Main : Node3D
         return config;
     }
 
-    private static QuestionPack LoadPack(string dir)
-        => PackLoader.Parse(
+    private static List<QuestionPack> LoadPacks()
+    {
+        var packs = SectionIds.Select(LoadPack).ToList();
+        var questionId = DebugArgs.Current.QuestionId;
+        if (questionId != null && !packs.Any(p => p.Questions.Any(q => q.Id == questionId)))
+            packs.Add(LoadPack(DebugSectionId));
+        return packs;
+    }
+
+    private static QuestionPack LoadPack(string id)
+    {
+        var dir = SectionDir(id);
+        return PackLoader.Parse(
             FileAccess.GetFileAsString(dir + "/section.json"),
             FileAccess.GetFileAsString(dir + "/questions.json"));
+    }
 
     private static Vector2 ToVector((double x, double y) p) => new((float)p.x, (float)p.y);
 }

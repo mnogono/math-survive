@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="240" viewBox="0 0 360 240">
+<g fill="none" stroke="#1a1a1a" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+<circle cx="180" cy="120" r="100"/>
+<line x1="100" y1="180" x2="260" y2="180"/>
+<line x1="180" y1="120" x2="100" y2="180"/>
+<line x1="180" y1="120" x2="180" y2="180" stroke-dasharray="7 5" stroke-width="2"/>
+<polyline points="180,167 193,167 193,180" stroke-width="2"/>
+<circle cx="180" cy="120" r="4" fill="#1a1a1a" stroke="none"/>
+<text x="180" y="109.7" font-size="22" text-anchor="middle">O</text>
+<text x="86" y="201.7" font-size="22" text-anchor="middle">A</text>
+<text x="274" y="201.7" font-size="22" text-anchor="middle">B</text>
+<text x="180" y="209.7" font-size="22" text-anchor="middle">H</text>
+<text x="126" y="149" font-size="20" text-anchor="middle">10</text>
+<text x="214" y="203" font-size="20" text-anchor="middle">16</text>
+<text x="192" y="157" font-size="20" text-anchor="middle">?</text>
+</g>
+</svg>

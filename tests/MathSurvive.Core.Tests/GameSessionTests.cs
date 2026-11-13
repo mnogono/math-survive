@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using MathSurvive.Core.Questions;
 using MathSurvive.Core.Session;
+using MathSurvive.Core.Progress;
 using Xunit;
 
 namespace MathSurvive.Core.Tests;
@@ -17,7 +18,7 @@ public class GameSessionTests
     private static QuestionPack Pack()
     {
         var questions = Enumerable.Range(1, 10).Select(i => Q($"q{i}", 1))
-            .Concat(new[] { Q("q11", 2), Q("q12", 2) })
+            .Concat(new[] { Q("q11", 2), Q("q12", 2), Q("q13", 3) })
             .ToList();
         return new QuestionPack(new SectionInfo("test", "Тест", 3), questions);
     }
@@ -277,5 +278,193 @@ public class GameSessionTests
         s.Tick(s.Config.FeedbackDuration, T0);
         s.ForceHordeNow();
         Assert.Equal(new[] { GameMode.QuizOpen, GameMode.Feedback, GameMode.Idle, GameMode.Horde }, modes);
+    }
+
+    private static readonly string[] Sections = { "arithmetic", "algebra", "geometry", "analysis" };
+
+    private static QuestionCatalog Catalog(GameConfig config, int seed = 1)
+    {
+        var packs = Sections.Select(id => new QuestionPack(new SectionInfo(id, id, 3),
+            Enumerable.Range(1, 3).SelectMany(level => Enumerable.Range(1, 5).Select(i => Q($"{id}-L{level}-{i}", level))).ToList()))
+            .ToList();
+        return new QuestionCatalog(config, packs, Sections, new Random(seed));
+    }
+
+    private static GameSession SectionSession(GameConfig? config = null, int seed = 1)
+    {
+        var c = config ?? GameConfig.Default;
+        return new GameSession(c, Catalog(c, seed), new Random(seed));
+    }
+
+    private static string OpenSection(GameSession s)
+    {
+        s.OpenQuiz();
+        return s.Pack.Section.Id;
+    }
+
+    [Fact]
+    public void Select_section_drops_open_question_but_keeps_run()
+    {
+        var s = SectionSession();
+        s.OpenQuiz();
+        s.Tick(TimeSpan.FromMinutes(5), T0);
+        var (run, combat, pause, clock) = (s.Run, s.Combat, s.Pause, s.Clock);
+        var ammo = combat.Ammo;
+
+        Assert.True(s.SelectSection("geometry"));
+
+        Assert.Equal(GameMode.Idle, s.Mode);
+        Assert.Null(s.CurrentQuiz);
+        Assert.Null(s.LastAnswer);
+        Assert.Equal("geometry", s.SelectedSectionId);
+        Assert.Same(run, s.Run);
+        Assert.Same(combat, s.Combat);
+        Assert.Same(pause, s.Pause);
+        Assert.Same(clock, s.Clock);
+        Assert.Equal(ammo, s.Combat.Ammo);
+        Assert.Equal(TimeSpan.FromMinutes(5), s.Clock.Elapsed);
+        Assert.Equal(0, s.Run.Correct + s.Run.Wrong);
+        Assert.Equal("geometry", OpenSection(s));
+    }
+
+    [Fact]
+    public void Repeated_selection_is_ignored()
+    {
+        var s = SectionSession();
+        Assert.Null(s.SelectedSectionId);
+        Assert.False(s.SelectRandom());
+
+        s.OpenQuiz();
+        var quiz = s.CurrentQuiz;
+        Assert.False(s.SelectRandom());
+        Assert.Same(quiz, s.CurrentQuiz);
+        AnswerCorrect(s);
+        s.Tick(s.Config.FeedbackDuration, T0);
+        Assert.Equal("algebra", OpenSection(s));
+
+        Assert.True(s.SelectSection("analysis"));
+        s.OpenQuiz();
+        quiz = s.CurrentQuiz;
+        Assert.False(s.SelectSection("analysis"));
+        Assert.Same(quiz, s.CurrentQuiz);
+    }
+
+    [Fact]
+    public void Selection_is_blocked_outside_idle_and_quiz()
+    {
+        void AssertBlocked(GameSession s, GameMode mode)
+        {
+            Assert.Equal(mode, s.Mode);
+            Assert.False(s.CanChangeSection);
+            Assert.False(s.SelectSection("geometry"));
+            Assert.False(s.SelectRandom());
+            Assert.Equal(mode, s.Mode);
+        }
+
+        var feedback = SectionSession();
+        feedback.SelectSection("algebra");
+        feedback.OpenQuiz();
+        AnswerCorrect(feedback);
+        AssertBlocked(feedback, GameMode.Feedback);
+
+        var paused = SectionSession();
+        paused.SelectSection("algebra");
+        paused.OpenQuiz();
+        paused.StartPause(T0);
+        AssertBlocked(paused, GameMode.Paused);
+
+        var horde = SectionSession();
+        horde.SelectSection("algebra");
+        horde.ForceHordeNow();
+        AssertBlocked(horde, GameMode.Horde);
+
+        horde.FinishHorde(survived: true, killed: 0);
+        AssertBlocked(horde, GameMode.HordeSummary);
+
+        var over = SectionSession();
+        over.SelectSection("algebra");
+        over.ForceHordeNow();
+        over.FinishHorde(survived: false, killed: 0);
+        AssertBlocked(over, GameMode.GameOver);
+    }
+
+    [Fact]
+    public void Each_section_keeps_its_own_difficulty()
+    {
+        var s = SectionSession();
+        s.SelectSection("arithmetic");
+        for (var i = 0; i < 3; i++) SolveOne(s);
+        Assert.Equal(2, s.Difficulty.Level);
+
+        s.SelectSection("algebra");
+        Assert.Equal(1, s.Difficulty.Level);
+        s.OpenQuiz();
+        Assert.Equal(1, s.CurrentQuiz!.Question.Level);
+
+        s.SelectSection("arithmetic");
+        Assert.Equal(2, s.Difficulty.Level);
+        s.OpenQuiz();
+        Assert.Equal(2, s.CurrentQuiz!.Question.Level);
+    }
+
+    [Fact]
+    public void Session_and_catalog_share_custom_thresholds()
+    {
+        var config = GameConfig.Default with { LevelUpStreak = 4, LevelDownStreak = 3 };
+        var s = SectionSession(config);
+        foreach (var id in Sections)
+        {
+            s.SelectSection(id);
+            for (var i = 0; i < 3; i++) SolveOne(s);
+            Assert.Equal(1, s.Difficulty.Level);
+            SolveOne(s);
+            Assert.Equal(2, s.Difficulty.Level);
+        }
+    }
+
+    [Fact]
+    public void Collapse_and_horde_do_not_advance_random_cycle()
+    {
+        var s = SectionSession();
+        s.OpenQuiz();
+        var quiz = s.CurrentQuiz;
+        Assert.Equal("arithmetic", s.Pack.Section.Id);
+
+        s.CollapseQuiz();
+        s.OpenQuiz();
+        Assert.Same(quiz, s.CurrentQuiz);
+
+        s.ForceHordeNow();
+        s.FinishHorde(survived: true, killed: 0);
+        s.Tick(s.Config.HordeSummaryDuration, T0);
+        s.OpenQuiz();
+        Assert.Same(quiz, s.CurrentQuiz);
+        Assert.Equal("arithmetic", s.Pack.Section.Id);
+
+        AnswerCorrect(s);
+        Assert.Equal("arithmetic", s.Run.Sections.Keys.Single());
+        s.Tick(s.Config.FeedbackDuration, T0);
+        Assert.Equal("algebra", OpenSection(s));
+    }
+
+    [Fact]
+    public void Switching_collapse_and_horde_keep_progress_snapshot()
+    {
+        var catalog = Catalog(GameConfig.Default);
+        var s = new GameSession(GameConfig.Default, catalog, new Random(1));
+        s.SelectSection("geometry");
+        SolveOne(s);
+        SolveOne(s);
+        s.OpenQuiz();
+        var before = catalog.CaptureProgress();
+
+        s.CollapseQuiz();
+        s.SelectSection("algebra");
+        s.SelectSection("geometry");
+        s.ForceHordeNow();
+        s.FinishHorde(survived: true, killed: 3);
+        s.Tick(s.Config.HordeSummaryDuration, T0);
+
+        Assert.Equivalent(before, catalog.CaptureProgress(), strict: true);
     }
 }

@@ -48,4 +48,26 @@ public class QuestionPickerTests
         var picker = new QuestionPicker(Array.Empty<Question>(), new Random(1));
         Assert.Throws<InvalidOperationException>(() => picker.Next(1, new HashSet<string>()));
     }
+
+    [Fact]
+    public void NextAtLevel_cycles_only_requested_level()
+    {
+        var picker = new QuestionPicker(new[] { Q("a", 1), Q("b", 2), Q("c", 2), Q("d", 3) }, new Random(3));
+        var used = new HashSet<string> { "a" };
+
+        var first = picker.NextAtLevel(2, used);
+        var second = picker.NextAtLevel(2, used);
+        Assert.Equal(new[] { "b", "c" }, new[] { first.Id, second.Id }.OrderBy(id => id));
+
+        var third = picker.NextAtLevel(2, used);
+        Assert.Equal(2, third.Level);
+        Assert.Equal(new[] { "a", third.Id }.OrderBy(id => id), used.OrderBy(id => id));
+    }
+
+    [Fact]
+    public void NextAtLevel_does_not_fall_back()
+    {
+        var picker = new QuestionPicker(new[] { Q("a", 1) }, new Random(1));
+        Assert.Throws<InvalidOperationException>(() => picker.NextAtLevel(2, new HashSet<string>()));
+    }
 }
