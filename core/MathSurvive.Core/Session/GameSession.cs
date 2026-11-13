@@ -12,18 +12,21 @@ namespace MathSurvive.Core.Session;
 public sealed class GameSession
 {
     private readonly Random _rng;
-    private readonly QuestionPicker _picker;
-    private readonly HashSet<string> _used = new();
+    private readonly QuestionCatalog _catalog;
     private TimeSpan _questionTime;
     private TimeSpan _modeTime;
 
+    /// <summary>Одиночный пакет (отладочный <c>math/test</c>).</summary>
     public GameSession(GameConfig config, QuestionPack pack, Random rng)
+        : this(config, SinglePackCatalog(config, pack, rng), rng)
+    {
+    }
+
+    public GameSession(GameConfig config, QuestionCatalog catalog, Random rng)
     {
         Config = config;
-        Pack = pack;
+        _catalog = catalog;
         _rng = rng;
-        _picker = new QuestionPicker(pack.Questions, rng);
-        Difficulty = new DifficultyTracker(config, pack.Section.Levels);
         Combat = new CombatState(config);
         Pause = new PauseState();
         Clock = new GameClock();
@@ -32,7 +35,13 @@ public sealed class GameSession
     }
 
     public GameConfig Config { get; }
-    public QuestionPack Pack { get; }
+    /// <summary>Пакет текущего вопроса (в случайном режиме — последнего выданного).</summary>
+    public QuestionPack Pack => _catalog.ActivePack;
+
+    /// <summary><c>null</c> — случайный режим.</summary>
+    public string? SelectedSectionId => _catalog.SelectedSectionId;
+
+    public bool CanChangeSection => Mode is GameMode.Idle or GameMode.QuizOpen;
     public GameMode Mode { get; private set; } = GameMode.Idle;
     public bool CanForceHordeNow => Mode is GameMode.Idle or GameMode.QuizOpen;
     public QuizView? CurrentQuiz { get; private set; }
@@ -44,7 +53,7 @@ public sealed class GameSession
     public int HordeNumber { get; private set; } = 1;
 
     public CombatState Combat { get; private set; }
-    public DifficultyTracker Difficulty { get; }
+    public DifficultyTracker Difficulty => _catalog.ActiveDifficulty;
     public PauseState Pause { get; private set; }
     public GameClock Clock { get; private set; }
     public RunStats Run { get; private set; }
@@ -59,12 +68,38 @@ public sealed class GameSession
         if (Mode != GameMode.Idle) return;
         if (CurrentQuiz == null)
         {
-            var forced = forcedQuestionId == null ? null : _picker.Find(forcedQuestionId);
-            var question = forced ?? _picker.Next(Difficulty.Level, _used);
+            var forced = forcedQuestionId == null ? null : _catalog.FindActive(forcedQuestionId);
+            var question = forced ?? _catalog.NextQuestion();
             CurrentQuiz = new QuizView(question, ShuffledOrder(question.Options.Count));
             _questionTime = TimeSpan.Zero;
         }
         SetMode(GameMode.QuizOpen);
+    }
+
+    /// <summary>Выбрать раздел; неотвеченный вопрос сбрасывается, бой и статистика не меняются.</summary>
+    /// <returns><c>false</c>, если режим уже выбран или менять раздел сейчас нельзя.</returns>
+    public bool SelectSection(string id)
+    {
+        if (!CanChangeSection || SelectedSectionId == id) return false;
+        _catalog.SelectSection(id);
+        DropQuestion();
+        return true;
+    }
+
+    public bool SelectRandom()
+    {
+        if (!CanChangeSection || SelectedSectionId is null) return false;
+        _catalog.SelectRandom();
+        DropQuestion();
+        return true;
+    }
+
+    private void DropQuestion()
+    {
+        CurrentQuiz = null;
+        LastAnswer = null;
+        _questionTime = TimeSpan.Zero;
+        SetMode(GameMode.Idle);
     }
 
     public void CollapseQuiz()
@@ -207,6 +242,13 @@ public sealed class GameSession
         if (Mode == mode) return;
         Mode = mode;
         ModeChanged?.Invoke(mode);
+    }
+
+    private static QuestionCatalog SinglePackCatalog(GameConfig config, QuestionPack pack, Random rng)
+    {
+        var catalog = new QuestionCatalog(config, new[] { pack }, new[] { pack.Section.Id }, rng);
+        catalog.SelectSection(pack.Section.Id);
+        return catalog;
     }
 
     private IReadOnlyList<int> ShuffledOrder(int count)
