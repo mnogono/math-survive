@@ -38,11 +38,7 @@ public partial class HordeDirector : Node3D
 
         var window = GetWindow().Size;
         var scale = UiScale.Value;
-        var feet = Placement.PlayerFeet(window.X, window.Y, scale);
         _spawnX = window.X + SpawnOffsetLogicalPx * scale;
-        _stopX = (float)feet.x + StopOffsetLogicalPx * scale;
-        _fireLineX = (float)Placement.FireLineX(window.X, window.Y, scale, session.Config.FireRangeFraction);
-        _feetY = (float)feet.y;
         _speedPx = (float)session.Config.ZombieSpeedPx * scale;
 
         _flash = new MeshInstance3D
@@ -66,6 +62,11 @@ public partial class HordeDirector : Node3D
     public void Begin(HordeInfo info)
     {
         Clear();
+        // Персонаж мог перейти к другой иконке: зомби идут к нему, стрельба — от его позиции.
+        var feet = _player.FeetPx;
+        _stopX = feet.X + StopOffsetLogicalPx * UiScale.Value;
+        _fireLineX = (float)Placement.FireLineX(feet.X, GetWindow().Size.X, _session.Config.FireRangeFraction);
+        _feetY = feet.Y;
         _toSpawn = info.ZombieCount;
         _killed = 0;
         _spawnCooldown = 0;

@@ -8,6 +8,7 @@ public partial class RoomIconView : Control
 {
     private const int SymbolFontSize = 30;
     private const int TitleFontSize = 12;
+    private const int MinTitleFontSize = 8;
     private const float Padding = 6f;
     private const float DisabledAlpha = 0.55f;
 
@@ -73,9 +74,21 @@ public partial class RoomIconView : Control
         DrawString(font, new Vector2(Padding, symbolTop + font.GetAscent(SymbolFontSize)), Symbol,
             HorizontalAlignment.Center, width, SymbolFontSize, Ink);
 
+        // В узком окне иконка сужается: шрифт подписи уменьшается, чтобы слова не рвались посередине.
+        var titleSize = TitleFontSize;
+        while (titleSize > MinTitleFontSize && LongestWordWidth(font, titleSize) > width)
+            titleSize--;
         var titleTop = symbolTop + font.GetHeight(SymbolFontSize) + 2;
-        DrawMultilineString(font, new Vector2(Padding, titleTop + font.GetAscent(TitleFontSize)), Title,
-            HorizontalAlignment.Center, width, TitleFontSize, maxLines: 2, Ink);
+        DrawMultilineString(font, new Vector2(Padding, titleTop + font.GetAscent(titleSize)), Title,
+            HorizontalAlignment.Center, width, titleSize, maxLines: 2, Ink);
+    }
+
+    private float LongestWordWidth(Font font, int fontSize)
+    {
+        var max = 0f;
+        foreach (var word in Title.Split(' '))
+            max = Mathf.Max(max, font.GetStringSize(word, HorizontalAlignment.Left, -1, fontSize).X);
+        return max;
     }
 
     public override void _UnhandledInput(InputEvent e)

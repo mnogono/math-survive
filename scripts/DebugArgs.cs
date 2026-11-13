@@ -3,7 +3,7 @@ using Godot;
 
 namespace MathSurvive.Game;
 
-/// <summary>Отладочные аргументы командной строки (после "--"): --shot, --quit-after, --open-quiz, --question, --horde-now, --ammo.</summary>
+/// <summary>Отладочные аргументы командной строки (после "--"): --shot, --quit-after, --open-quiz, --question, --horde-now, --ammo, --select.</summary>
 public sealed class DebugArgs
 {
     private static DebugArgs? _current;
@@ -17,6 +17,9 @@ public sealed class DebugArgs
     public bool HordeNow { get; private init; }
     public int? Ammo { get; private init; }
 
+    /// <summary>Сразу «кликнуть» иконку комнаты: <c>random</c> или ID раздела.</summary>
+    public string? SelectIcon { get; private init; }
+
     private static DebugArgs Parse(string[] args)
     {
         string? shot = null;
@@ -25,6 +28,7 @@ public sealed class DebugArgs
         string? questionId = null;
         bool hordeNow = false;
         int? ammo = null;
+        string? select = null;
 
         foreach (var arg in args)
         {
@@ -42,6 +46,8 @@ public sealed class DebugArgs
             else if (TryValue(arg, "--ammo", out v)
                      && int.TryParse(v, NumberStyles.Integer, CultureInfo.InvariantCulture, out var n))
                 ammo = n;
+            else if (TryValue(arg, "--select", out v))
+                select = v;
             else
                 GD.PushWarning($"DebugArgs: неизвестный или неверный аргумент '{arg}'");
         }
@@ -54,6 +60,7 @@ public sealed class DebugArgs
             QuestionId = questionId,
             HordeNow = hordeNow,
             Ammo = ammo,
+            SelectIcon = select,
         };
     }
 

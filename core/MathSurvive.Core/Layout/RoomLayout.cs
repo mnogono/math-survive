@@ -11,7 +11,7 @@ public static class RoomLayout
 {
     public const int IconCount = 5;
 
-    private const double IconWidth = 104;
+    private const double IconWidth = 128;
     private const double IconHeight = 84;
     private const double IconGap = 8;
     /// <summary>От пола до низа иконки: выше персонажа и облачка «!» над ним.</summary>

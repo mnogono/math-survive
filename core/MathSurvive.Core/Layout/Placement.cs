@@ -17,5 +17,9 @@ public static class Placement
 
     /// <summary>X, с которого персонаж начинает стрелять: ноги персонажа + доля ширины окна.</summary>
     public static double FireLineX(int windowW, int windowH, double scale, double fireRangeFraction)
-        => PlayerFeet(windowW, windowH, scale).x + windowW * fireRangeFraction;
+        => FireLineX(PlayerFeet(windowW, windowH, scale).x, windowW, fireRangeFraction);
+
+    /// <summary>X, с которого персонаж в точке <paramref name="playerX"/> начинает стрелять.</summary>
+    public static double FireLineX(double playerX, int windowW, double fireRangeFraction)
+        => playerX + windowW * fireRangeFraction;
 }

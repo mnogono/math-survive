@@ -11,11 +11,23 @@ public partial class PlayerView : Node3D
     private const float GunLength = 0.48f;
     private const string IdleClip = "holding-both";
     private const string ShotClip = "holding-both-shoot";
+    private const string WalkClip = "walk";
+    private const float WalkSpeedLogicalPx = 240f;
 
     private AnimationPlayer? _animations;
     private Node3D _muzzle = null!;
+    private Stage? _stage;
+    private Vector2 _target;
 
     public event Action? Clicked;
+
+    /// <summary>Персонаж дошёл до точки <see cref="WalkTo"/>.</summary>
+    public event Action? Arrived;
+
+    public bool IsWalking { get; private set; }
+
+    /// <summary>Ноги (физические px окна).</summary>
+    public Vector2 FeetPx { get; private set; }
 
     /// <summary>Физические px окна.</summary>
     public Rect2 ScreenRect { get; private set; }
@@ -45,8 +57,70 @@ public partial class PlayerView : Node3D
 
     public void PlayShot() => ModelVisual.Play(_animations, ShotClip);
 
+    /// <summary>Мгновенно поставить персонажа; идущий персонаж останавливается без <see cref="Arrived"/>.</summary>
     public void Place(Stage stage, Vector2 feetPx)
     {
+        if (IsWalking)
+        {
+            IsWalking = false;
+            FaceRight();
+        }
+        _stage = stage;
+        SetFeet(feetPx);
+    }
+
+    /// <summary>Пойти к точке с анимацией ходьбы; по прибытии — <see cref="Arrived"/> и снова стойка с ружьём.</summary>
+    public void WalkTo(Stage stage, Vector2 feetPx)
+    {
+        _stage = stage;
+        _target = feetPx;
+        if (feetPx == FeetPx)
+        {
+            Arrived?.Invoke();
+            return;
+        }
+        IsWalking = true;
+        RotationDegrees = new Vector3(0, feetPx.X < FeetPx.X ? 180 : 0, 0);
+        ModelVisual.Play(_animations, WalkClip, loop: true);
+    }
+
+    /// <summary>Сразу оказаться в конце пути (например, если началась орда).</summary>
+    public void FinishWalk()
+    {
+        if (!IsWalking)
+            return;
+        SetFeet(_target);
+        Arrive();
+    }
+
+    public override void _Process(double delta)
+    {
+        if (!IsWalking || _stage == null)
+            return;
+        var step = WalkSpeedLogicalPx * UiScale.Value * (float)delta;
+        var feet = FeetPx.MoveToward(_target, step);
+        SetFeet(feet);
+        if (feet == _target)
+            Arrive();
+    }
+
+    private void Arrive()
+    {
+        IsWalking = false;
+        FaceRight();
+        Arrived?.Invoke();
+    }
+
+    private void FaceRight()
+    {
+        RotationDegrees = Vector3.Zero;
+        ModelVisual.Play(_animations, IdleClip, loop: true);
+    }
+
+    private void SetFeet(Vector2 feetPx)
+    {
+        var stage = _stage!;
+        FeetPx = feetPx;
         Position = stage.PixelToWorld(feetPx);
         var topLeft = stage.WorldToPixel(Position + new Vector3(-Radius, Height, 0));
         var bottomRight = stage.WorldToPixel(Position + new Vector3(Radius + GunLength, 0, 0));

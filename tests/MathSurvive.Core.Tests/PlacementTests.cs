@@ -14,6 +14,10 @@ public class PlacementTests
         => Assert.Equal(710.0, Placement.FireLineX(1920, 1040, 1.0, 1.0 / 3), 1e-6);
 
     [Fact]
+    public void FireLineX_follows_actual_player_position()
+        => Assert.Equal(1140.0, Placement.FireLineX(500.0, 1920, 1.0 / 3), 1e-6);
+
+    [Fact]
     public void Scales_with_ui_scale()
     {
         Assert.Equal((105.0, 1400.0), Placement.PlayerFeet(2560, 1400, 1.5));

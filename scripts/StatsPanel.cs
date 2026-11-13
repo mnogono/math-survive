@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Godot;
 using MathSurvive.Core.Layout;
 using MathSurvive.Core.Stats;
@@ -48,7 +49,8 @@ public partial class StatsPanel : PanelContainer
         QueueRelayout();
     }
 
-    public void ShowStats(RunStats run, RunStats lifetime, int ammoLeft, string sectionTitle)
+    /// <param name="sectionTitles">Названия разделов по ID; без названия выводится ID.</param>
+    public void ShowStats(RunStats run, RunStats lifetime, int ammoLeft, IReadOnlyDictionary<string, string> sectionTitles)
     {
         foreach (var child in _content.GetChildren())
         {
@@ -57,11 +59,11 @@ public partial class StatsPanel : PanelContainer
         }
 
         AddLine("Игра окончена", TitleFontSize, Ink);
-        AddCounters(run, sectionTitle);
+        AddCounters(run, sectionTitles);
         AddLine($"Патронов потрачено: {run.AmmoSpent}, осталось: {ammoLeft}");
         AddSpacer();
         AddLine("За всё время", TitleFontSize - 2, Accent);
-        AddCounters(lifetime, sectionTitle);
+        AddCounters(lifetime, sectionTitles);
         AddLine($"Патронов потрачено: {lifetime.AmmoSpent}");
         AddSpacer();
 
@@ -80,12 +82,12 @@ public partial class StatsPanel : PanelContainer
 
     public void HideStats() => Visible = false;
 
-    private void AddCounters(RunStats s, string sectionTitle)
+    private void AddCounters(RunStats s, IReadOnlyDictionary<string, string> sectionTitles)
     {
         AddLine($"Задачи: верно {s.Correct} / неверно {s.Wrong}");
         foreach (var (id, sec) in s.Sections)
         {
-            var name = s.Sections.Count == 1 ? sectionTitle : id;
+            var name = sectionTitles.GetValueOrDefault(id, id);
             AddLine($"   {name}: верно {sec.Correct} / неверно {sec.Wrong}, макс. уровень {sec.MaxLevel}", color: Muted);
         }
         var t = s.AverageAnswerTime;
