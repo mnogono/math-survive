@@ -18,7 +18,10 @@ public partial class Main : Node3D
     private const string DebugSectionId = "test";
 
     private GameSession _session = null!;
+    private QuestionCatalog _catalog = null!;
     private bool _started;
+    /// <summary>С <c>--question</c> выбор раздела отладочный и в save.json не попадает.</summary>
+    private bool _saveEnabled;
     private Stage _stage = null!;
     private PlayerView _player = null!;
     private RoomView _room = null!;
@@ -50,7 +53,10 @@ public partial class Main : Node3D
         {
             var packs = LoadPacks();
             _sectionTitles = packs.ToDictionary(p => p.Section.Id, p => p.Section.Title);
-            _session = new GameSession(config, new QuestionCatalog(config, packs, SectionIds, rng), rng);
+            _catalog = new QuestionCatalog(config, packs, SectionIds, rng);
+            _catalog.RestoreProgress(ProgressSaveStore.Load(packs, config));
+            _session = new GameSession(config, _catalog, rng);
+            _saveEnabled = DebugArgs.Current.QuestionId == null;
             if (DebugArgs.Current.QuestionId is { } questionId
                 && packs.FirstOrDefault(p => p.Questions.Any(q => q.Id == questionId)) is { } owner)
                 _session.SelectSection(owner.Section.Id);
@@ -119,6 +125,18 @@ public partial class Main : Node3D
             PlaceUi();
     }
 
+    public override void _ExitTree()
+    {
+        if (_started)
+            SaveProgress();
+    }
+
+    private void SaveProgress()
+    {
+        if (_saveEnabled)
+            ProgressSaveStore.Save(_catalog.CaptureProgress());
+    }
+
     private void OnModeChanged(GameMode mode)
     {
         GD.Print($"mode: {mode}");
@@ -127,8 +145,10 @@ public partial class Main : Node3D
 
     private void OnOptionChosen(int displayIndex)
     {
-        if (_session.Answer(displayIndex) is { } result)
-            _quiz.ShowFeedback(result);
+        if (_session.Answer(displayIndex) is not { } result)
+            return;
+        _quiz.ShowFeedback(result);
+        SaveProgress();
     }
 
     /// <summary>Выбор раздела: Core применяет его сразу, персонаж идёт к иконке, по приходу открывается вопрос.</summary>
@@ -139,6 +159,7 @@ public partial class Main : Node3D
         var changed = id == RoomView.RandomId ? _session.SelectRandom() : _session.SelectSection(id);
         if (!changed)
             return;
+        SaveProgress();
         _room.SetSelected(id);
         _player.WalkTo(_stage, _room.PlayerFeetPx(id));
         ApplyMode(_session.Mode);
