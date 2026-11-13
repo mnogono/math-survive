@@ -1904,7 +1904,7 @@
   {
     "id": "arithmetic-L3-019",
     "level": 3,
-    "prompt": "Найдите остаток от деления числа",
+    "prompt": "Найдите остаток от деления на 7 числа:",
     "correct": 1,
     "prompt_svg": "svg/arithmetic-L3-019-q.svg",
     "options": [

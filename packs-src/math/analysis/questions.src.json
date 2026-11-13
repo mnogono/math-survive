@@ -1,8 +1,8 @@
 [
-  {"id":"analysis-L1-001","level":1,"prompt":"Найдите предел:","prompt_tex":"\\lim_{n\\to\\infty}\\frac{1}{n}","options":[{"tex":"0"},{"tex":"1"},{"tex":"\\infty"},{"tex":"\\text{не существует}"}],"correct":0},
+  {"id":"analysis-L1-001","level":1,"prompt":"Найдите предел:","prompt_tex":"\\lim_{n\\to\\infty}\\frac{1}{n}","options":[{"tex":"0"},{"tex":"1"},{"tex":"\\infty"},{"tex":"-1"}],"correct":0},
   {"id":"analysis-L1-002","level":1,"prompt":"Найдите предел:","prompt_tex":"\\lim_{x\\to 2}(3x+1)","options":[{"text":"6"},{"text":"7"},{"text":"5"},{"text":"3"}],"correct":1},
   {"id":"analysis-L1-003","level":1,"prompt":"Найдите предел:","prompt_tex":"\\lim_{n\\to\\infty}\\frac{2n+1}{n}","options":[{"tex":"1"},{"tex":"0"},{"tex":"2"},{"tex":"\\infty"}],"correct":2},
-  {"id":"analysis-L1-004","level":1,"prompt":"Найдите предел:","prompt_tex":"\\lim_{x\\to 0}\\frac{\\sin x}{x}","options":[{"tex":"0"},{"tex":"\\infty"},{"tex":"\\text{не существует}"},{"tex":"1"}],"correct":3},
+  {"id":"analysis-L1-004","level":1,"prompt":"Найдите предел:","prompt_tex":"\\lim_{x\\to 0}\\frac{\\sin x}{x}","options":[{"tex":"0"},{"tex":"\\infty"},{"tex":"-1"},{"tex":"1"}],"correct":3},
   {"id":"analysis-L1-005","level":1,"prompt":"Найдите производную:","prompt_tex":"(x^{5})'","options":[{"tex":"5x^{4}"},{"tex":"x^{4}"},{"tex":"5x^{5}"},{"tex":"\\frac{x^{6}}{6}"}],"correct":0},
   {"id":"analysis-L1-006","level":1,"prompt":"Найдите производную:","prompt_tex":"(7)'","options":[{"text":"7"},{"text":"0"},{"text":"7x"},{"text":"1"}],"correct":1},
   {"id":"analysis-L1-007","level":1,"prompt":"Найдите производную:","prompt_tex":"(3x)'","options":[{"text":"3x"},{"text":"x"},{"text":"3"},{"text":"0"}],"correct":2},
