@@ -31,12 +31,27 @@ public class BuiltPackTests
     {
         foreach (var q in pack.Questions)
         {
-            if (q.PromptSvg is not null)
-                Assert.True(File.Exists(Path.Combine(packDir, q.PromptSvg)), q.PromptSvg);
-            foreach (var o in q.Options)
-                if (o.Svg is not null)
-                    Assert.True(File.Exists(Path.Combine(packDir, o.Svg)), o.Svg);
+            var paths = q.Options.Select(o => o.Svg).Append(q.PromptSvg).Append(q.PromptImage).OfType<string>();
+            foreach (var relative in paths)
+            {
+                var file = Path.Combine(packDir, relative);
+                Assert.True(File.Exists(file), relative);
+                // Godot не рисует <text> в SVG: все надписи должны быть контурами.
+                Assert.DoesNotContain("<text", File.ReadAllText(file));
+            }
         }
+    }
+
+    [Fact]
+    public void Test_pack_shows_prompt_image()
+    {
+        var (pack, packDir) = LoadPack("test");
+        var q = Assert.Single(pack.Questions, q => q.PromptImage is not null);
+
+        Assert.Equal("test-L3-03", q.Id);
+        Assert.NotNull(q.Prompt);
+        Assert.NotNull(q.PromptSvg);
+        Assert.True(File.Exists(Path.Combine(packDir, q.PromptImage!)));
     }
 
     [Fact]

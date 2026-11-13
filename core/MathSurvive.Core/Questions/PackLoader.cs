@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
@@ -30,12 +31,22 @@ public static class PackLoader
                 throw new PackFormatException($"Вопрос {id}: correct вне диапазона 0..{OptionCount - 1}");
             if (q.Options.Any(o => o is null || (o.Text is null && o.Svg is null)))
                 throw new PackFormatException($"Вопрос {id}: у варианта нет ни text, ни svg");
-            if (q.Prompt is null && q.PromptSvg is null)
-                throw new PackFormatException($"Вопрос {id}: нет ни prompt, ни prompt_svg");
+            if (q.Prompt is null && q.PromptSvg is null && q.PromptImage is null)
+                throw new PackFormatException($"Вопрос {id}: нет ни prompt, ни prompt_svg, ни prompt_image");
+            if (q.PromptImage is not null && !IsImagePath(q.PromptImage))
+                throw new PackFormatException($"Вопрос {id}: prompt_image должен быть относительным путём images/*.svg");
         }
 
         return new QuestionPack(section, raw);
     }
+
+    private static bool IsImagePath(string path) =>
+        path.StartsWith("images/", StringComparison.Ordinal)
+        && path.EndsWith(".svg", StringComparison.OrdinalIgnoreCase)
+        && path.Length > "images/.svg".Length
+        && !path.Contains('\\')
+        && !path.Contains(':')
+        && path.Split('/').All(segment => segment.Length > 0 && segment != "." && segment != "..");
 
     private static T Deserialize<T>(string json, string what)
     {

@@ -7,7 +7,7 @@ using MathSurvive.Core.Session;
 namespace MathSurvive.Game;
 
 /// <summary>
-/// Квиз-облачко над персонажем (макет «вариант A»): условие (текст + формула), варианты ответа сеткой 2×2 или
+/// Квиз-облачко над персонажем (макет «вариант A»): условие (текст + формула + рисунок), варианты ответа сеткой 2×2 или
 /// столбиком, внизу «Пауза», в правом верхнем углу «▾» — свернуть. Хвостик указывает на голову персонажа.
 /// Размеры — логические px (холст масштабирован ContentScaleFactor = UiScale).
 /// </summary>
@@ -15,6 +15,7 @@ public partial class QuizPanel : PanelContainer
 {
     private const float PromptMaxWidth = 560f;
     private const float FormulaScale = 1.5f;
+    private const float ImageMaxHeight = 320f;
     private const float GridCellWidth = 200f; // логические px; в QuizLayout.Choose — физические (×UiScale)
     private const int WindowMargin = 8;
     private const float HeadGap = 6f;         // от кончика хвостика до макушки
@@ -44,6 +45,7 @@ public partial class QuizPanel : PanelContainer
     private Label _prompt = null!;
     private Button _collapse = null!;
     private TextureRect _formula = null!;
+    private TextureRect _image = null!;
     private GridContainer _grid = null!;
     private Button _pause = null!;
     private Vector2 _headTop; // логические px
@@ -96,6 +98,14 @@ public partial class QuizPanel : PanelContainer
         _formula = new TextureRect { SizeFlagsHorizontal = SizeFlags.ShrinkCenter };
         _content.AddChild(_formula);
 
+        _image = new TextureRect
+        {
+            SizeFlagsHorizontal = SizeFlags.ShrinkCenter,
+            ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize,
+            StretchMode = TextureRect.StretchModeEnum.KeepAspectCentered,
+        };
+        _content.AddChild(_image);
+
         _grid = new GridContainer { SizeFlagsHorizontal = SizeFlags.ShrinkCenter };
         _grid.AddThemeConstantOverride("h_separation", 10);
         _grid.AddThemeConstantOverride("v_separation", 10);
@@ -129,6 +139,8 @@ public partial class QuizPanel : PanelContainer
         _formula.Texture = question.PromptSvg == null
             ? null
             : SvgTextures.LoadUi(sectionDir + "/" + question.PromptSvg, FormulaScale);
+
+        ShowImage(question.PromptImage == null ? null : sectionDir + "/" + question.PromptImage);
 
         foreach (var old in _options)
         {
@@ -185,6 +197,22 @@ public partial class QuizPanel : PanelContainer
 
         _scroll.ScrollVertical = 0;
         QueueRelayout();
+    }
+
+    /// <summary>Рисунок условия вписывается в PromptMaxWidth × ImageMaxHeight с сохранением пропорций, без обрезки.</summary>
+    private void ShowImage(string? path)
+    {
+        _image.Visible = path != null;
+        _image.Texture = null;
+        _image.CustomMinimumSize = Vector2.Zero;
+        if (path == null)
+            return;
+
+        var size = SvgTextures.LoadUi(path, 1f).GetSize();
+        var fit = Mathf.Min(1f, Mathf.Min(PromptMaxWidth / size.X, ImageMaxHeight / size.Y));
+        var texture = SvgTextures.LoadUi(path, fit);
+        _image.Texture = texture;
+        _image.CustomMinimumSize = texture.GetSize();
     }
 
     /// <summary>Верный вариант — зелёным, выбранный неверный — красным; дальше варианты не нажимаются.</summary>

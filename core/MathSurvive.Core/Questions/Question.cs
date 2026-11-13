@@ -6,7 +6,7 @@ namespace MathSurvive.Core.Questions;
 public sealed record QuestionOption(string? Text, string? Svg);
 
 public sealed record Question(string Id, int Level, string? Prompt, string? PromptSvg,
-    IReadOnlyList<QuestionOption> Options, int Correct);
+    IReadOnlyList<QuestionOption> Options, int Correct, string? PromptImage = null);
 
 public sealed record SectionInfo(string Id, string Title, int Levels);
 
