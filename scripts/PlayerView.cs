@@ -11,20 +11,20 @@ public partial class PlayerView : Node3D
     private const float GunLength = 0.48f;
     private const string IdleClip = "holding-both";
     private const string ShotClip = "holding-both-shoot";
-    private const string WalkClip = "walk";
-    private const float WalkSpeedLogicalPx = 240f;
+    private const double AimShotIntervalSec = 0.25;
+    private const double TracerSec = 0.07;
+    private const float TracerThickness = 0.012f;
+    /// <summary>След пули и вспышка — перед персонажем.</summary>
+    private const float EffectZ = 0.3f;
 
     private AnimationPlayer? _animations;
     private Node3D _muzzle = null!;
+    private MeshInstance3D _tracer = null!;
+    private MeshInstance3D _flash = null!;
     private Stage? _stage;
-    private Vector2 _target;
+    private double _aimCooldown, _effectLeft;
 
     public event Action? Clicked;
-
-    /// <summary>Персонаж дошёл до точки <see cref="WalkTo"/>.</summary>
-    public event Action? Arrived;
-
-    public bool IsWalking { get; private set; }
 
     /// <summary>Ноги (физические px окна).</summary>
     public Vector2 FeetPx { get; private set; }
@@ -53,79 +53,76 @@ public partial class PlayerView : Node3D
         gun.AddChild(_muzzle);
         if (_animations != null)
             _animations.AnimationFinished += OnAnimationFinished;
+
+        var glow = new StandardMaterial3D
+        {
+            AlbedoColor = new Color(1f, 0.85f, 0.2f),
+            ShadingMode = BaseMaterial3D.ShadingModeEnum.Unshaded,
+        };
+        // Эффекты в мировых координатах: не поворачиваются вместе с персонажем.
+        _tracer = new MeshInstance3D
+        {
+            Mesh = new BoxMesh { Size = new Vector3(1, TracerThickness, TracerThickness), Material = glow },
+            TopLevel = true,
+            Visible = false,
+        };
+        AddChild(_tracer);
+        _flash = new MeshInstance3D
+        {
+            Mesh = new SphereMesh { Radius = 0.05f, Height = 0.1f, Material = glow },
+            TopLevel = true,
+            Visible = false,
+        };
+        AddChild(_flash);
     }
 
     public void PlayShot() => ModelVisual.Play(_animations, ShotClip);
 
-    /// <summary>Мгновенно поставить персонажа; идущий персонаж останавливается без <see cref="Arrived"/>.</summary>
+    /// <summary>Поставить персонажа (ноги в физических px окна).</summary>
     public void Place(Stage stage, Vector2 feetPx)
     {
-        if (IsWalking)
-        {
-            IsWalking = false;
-            FaceRight();
-        }
         _stage = stage;
-        SetFeet(feetPx);
-    }
-
-    /// <summary>Пойти к точке с анимацией ходьбы; по прибытии — <see cref="Arrived"/> и снова стойка с ружьём.</summary>
-    public void WalkTo(Stage stage, Vector2 feetPx)
-    {
-        _stage = stage;
-        _target = feetPx;
-        if (feetPx == FeetPx)
-        {
-            Arrived?.Invoke();
-            return;
-        }
-        IsWalking = true;
-        RotationDegrees = new Vector3(0, feetPx.X < FeetPx.X ? 180 : 0, 0);
-        ModelVisual.Play(_animations, WalkClip, loop: true);
-    }
-
-    /// <summary>Сразу оказаться в конце пути (например, если началась орда).</summary>
-    public void FinishWalk()
-    {
-        if (!IsWalking)
-            return;
-        SetFeet(_target);
-        Arrive();
-    }
-
-    public override void _Process(double delta)
-    {
-        if (!IsWalking || _stage == null)
-            return;
-        var step = WalkSpeedLogicalPx * UiScale.Value * (float)delta;
-        var feet = FeetPx.MoveToward(_target, step);
-        SetFeet(feet);
-        if (feet == _target)
-            Arrive();
-    }
-
-    private void Arrive()
-    {
-        IsWalking = false;
-        FaceRight();
-        Arrived?.Invoke();
-    }
-
-    private void FaceRight()
-    {
-        RotationDegrees = Vector3.Zero;
-        ModelVisual.Play(_animations, IdleClip, loop: true);
-    }
-
-    private void SetFeet(Vector2 feetPx)
-    {
-        var stage = _stage!;
         FeetPx = feetPx;
         Position = stage.PixelToWorld(feetPx);
         var topLeft = stage.WorldToPixel(Position + new Vector3(-Radius, Height, 0));
         var bottomRight = stage.WorldToPixel(Position + new Vector3(Radius + GunLength, 0, 0));
         ScreenRect = new Rect2(topLeft, bottomRight - topLeft);
         HeadTopPx = stage.WorldToPixel(Position + new Vector3(0, Height, 0));
+    }
+
+    /// <summary>
+    /// Выстрел в точку (физические px окна): поворот к цели, вспышка и след пули. Это не боевой выстрел — патроны не тратятся.
+    /// </summary>
+    /// <returns><c>false</c>, если ружьё ещё не готово к следующему выстрелу.</returns>
+    public bool ShootAt(Vector2 targetPx)
+    {
+        if (_stage == null || _aimCooldown > 0)
+            return false;
+        _aimCooldown = AimShotIntervalSec;
+        RotationDegrees = new Vector3(0, targetPx.X < FeetPx.X ? 180 : 0, 0);
+        ModelVisual.Play(_animations, ShotClip);
+
+        var from = MuzzleWorld with { Z = EffectZ };
+        var to = _stage.PixelToWorld(targetPx) with { Z = EffectZ };
+        var path = to - from;
+        var angle = Mathf.Atan2(path.Y, path.X);
+        _tracer.GlobalTransform = new Transform3D(
+            new Basis(Vector3.Back, angle) * Basis.FromScale(new Vector3(Mathf.Max(path.Length(), 0.01f), 1, 1)),
+            (from + to) / 2);
+        _flash.GlobalPosition = from;
+        _tracer.Visible = _flash.Visible = true;
+        _effectLeft = TracerSec;
+        return true;
+    }
+
+    public override void _Process(double delta)
+    {
+        _aimCooldown -= delta;
+        if (_effectLeft <= 0)
+            return;
+        _effectLeft -= delta;
+        if (_effectLeft <= 0)
+            _tracer.Visible = _flash.Visible = false;
     }
 
     public override void _UnhandledInput(InputEvent e)
@@ -138,7 +135,9 @@ public partial class PlayerView : Node3D
 
     private void OnAnimationFinished(StringName animationName)
     {
-        if (animationName.ToString() == ShotClip)
-            ModelVisual.Play(_animations, IdleClip, loop: true);
+        if (animationName.ToString() != ShotClip)
+            return;
+        RotationDegrees = Vector3.Zero;
+        ModelVisual.Play(_animations, IdleClip, loop: true);
     }
 }

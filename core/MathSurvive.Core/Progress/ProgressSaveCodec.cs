@@ -18,7 +18,7 @@ public static class ProgressSaveCodec
     {
         var data = new ProgressSaveData
         {
-            SelectedSectionId = snapshot.SelectedSectionId,
+            EnabledSectionIds = snapshot.EnabledSectionIds?.ToList(),
             Sections = snapshot.Sections.Select(s => new SectionProgressSaveData
             {
                 SectionId = s.SectionId,
@@ -45,7 +45,7 @@ public static class ProgressSaveCodec
         }
         if (data?.Sections is null || data.Sections.Any(s => s is null)) return null;
 
-        var snapshot = new QuizProgressSnapshot(data.SelectedSectionId, data.Sections.Select(s =>
+        var snapshot = new QuizProgressSnapshot(data.EnabledSectionIds, data.Sections.Select(s =>
             new SectionProgressSnapshot(s.SectionId!, s.Level, s.CorrectStreak, s.WrongStreak,
                 s.UsedQuestionIds?.ToDictionary(kv => kv.Key, kv => (IReadOnlyList<string>)kv.Value)!)).ToList());
         return ProgressRules.IsValid(snapshot, packs.Select(p => p.Section), config) ? snapshot : null;

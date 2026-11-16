@@ -14,13 +14,16 @@ public static class ProgressRules
 
     /// <summary>
     /// Разделы и уровни должны существовать, серии — быть меньше порогов <paramref name="config"/>.
+    /// Список включённых разделов, если он есть, непустой и без повторов.
     /// Неизвестные ID вопросов допустимы: пакет мог измениться, каталог их отбрасывает.
     /// </summary>
     public static bool IsValid(QuizProgressSnapshot? snapshot, IEnumerable<SectionInfo> sections, GameConfig config)
     {
         if (snapshot?.Sections is null) return false;
         var levels = sections.ToDictionary(s => s.Id, s => s.Levels);
-        if (snapshot.SelectedSectionId is not null && !levels.ContainsKey(snapshot.SelectedSectionId)) return false;
+        if (snapshot.EnabledSectionIds is { } enabled
+            && (enabled.Count == 0 || enabled.Any(id => id is null || !levels.ContainsKey(id)) || enabled.Distinct().Count() != enabled.Count))
+            return false;
 
         var seen = new HashSet<string>();
         foreach (var section in snapshot.Sections)

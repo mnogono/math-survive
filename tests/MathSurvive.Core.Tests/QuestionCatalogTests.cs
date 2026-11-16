@@ -37,24 +37,79 @@ public class QuestionCatalogTests
     }
 
     [Fact]
-    public void Starts_random_with_first_section_active()
+    public void Starts_with_default_sections_enabled_and_first_active()
     {
         var c = Catalog();
-        Assert.Null(c.SelectedSectionId);
+        Assert.Equal(Order, c.EnabledSectionIds);
+        Assert.All(Order, id => Assert.True(c.IsEnabled(id)));
         Assert.Equal("arithmetic", c.ActivePack.Section.Id);
     }
 
+    private static string Prefix(string section) => section switch
+    {
+        "arithmetic" => "a",
+        "algebra" => "b",
+        "geometry" => "c",
+        _ => "d",
+    };
+
     [Fact]
-    public void Random_mode_cycles_sections_in_order()
+    public void Next_question_comes_from_random_enabled_section()
+    {
+        var c = Catalog(seed: 3);
+        var seen = new HashSet<string>();
+        for (var i = 0; i < 40; i++)
+        {
+            var question = c.NextQuestion();
+            var section = c.ActivePack.Section.Id;
+            Assert.StartsWith(Prefix(section), question.Id);
+            seen.Add(section);
+        }
+        Assert.Equal(Order.ToHashSet(), seen);
+
+        Assert.True(c.SetEnabled("arithmetic", false));
+        Assert.True(c.SetEnabled("analysis", false));
+        Assert.Equal(new[] { "algebra", "geometry" }, c.EnabledSectionIds);
+        seen.Clear();
+        for (var i = 0; i < 30; i++)
+        {
+            c.NextQuestion();
+            seen.Add(c.ActivePack.Section.Id);
+        }
+        Assert.Equal(new HashSet<string> { "algebra", "geometry" }, seen);
+    }
+
+    [Fact]
+    public void Same_seed_gives_same_sections()
+    {
+        static string[] Run(int seed)
+        {
+            var c = Catalog(seed: seed);
+            return Enumerable.Range(0, 12).Select(_ =>
+            {
+                c.NextQuestion();
+                return c.ActivePack.Section.Id;
+            }).ToArray();
+        }
+        Assert.Equal(Run(7), Run(7));
+    }
+
+    [Fact]
+    public void Last_enabled_section_cannot_be_disabled()
     {
         var c = Catalog();
-        var expected = new[] { ("a1", "arithmetic"), ("b1", "algebra"), ("c1", "geometry"), ("d1", "analysis"), ("a1", "arithmetic") };
+        Assert.False(c.SetEnabled("algebra", true));
+        Assert.True(c.SetEnabled("arithmetic", false));
+        Assert.False(c.SetEnabled("arithmetic", false));
+        Assert.True(c.SetEnabled("algebra", false));
+        Assert.True(c.SetEnabled("geometry", false));
 
-        foreach (var (id, section) in expected)
-        {
-            Assert.Equal(id, c.NextQuestion().Id);
-            Assert.Equal(section, c.ActivePack.Section.Id);
-        }
+        Assert.False(c.SetEnabled("analysis", false));
+        Assert.Equal(new[] { "analysis" }, c.EnabledSectionIds);
+        Assert.Equal("d1", c.NextQuestion().Id);
+
+        Assert.True(c.SetEnabled("arithmetic", true));
+        Assert.Equal(new[] { "arithmetic", "analysis" }, c.EnabledSectionIds);
     }
 
     [Fact]
@@ -63,7 +118,7 @@ public class QuestionCatalogTests
         var c = Catalog();
         foreach (var section in Order)
         {
-            c.SelectSection(section);
+            c.EnableOnly(section);
             Record(c, true, 3);
             Assert.Equal(1, c.ActiveDifficulty.Level);
             Record(c, true, 1);
@@ -79,7 +134,7 @@ public class QuestionCatalogTests
     public void Picks_only_current_level_without_fallback()
     {
         var c = Catalog();
-        c.SelectSection("algebra");
+        c.EnableOnly("algebra");
         Record(c, true, 4);
 
         Assert.Equal("b2", c.NextQuestion().Id);
@@ -93,56 +148,41 @@ public class QuestionCatalogTests
     }
 
     [Fact]
-    public void Select_section_keeps_its_independent_used_ids()
+    public void Sections_keep_independent_used_ids()
     {
         var c = Catalog(geometryExtraL1: 2);
-        c.SelectSection("geometry");
+        c.EnableOnly("geometry");
         var first = c.NextQuestion().Id;
         var second = c.NextQuestion().Id;
 
-        c.SelectSection("arithmetic");
+        c.EnableOnly("arithmetic");
         Assert.Equal("arithmetic", c.ActivePack.Section.Id);
         Assert.Equal("a1", c.NextQuestion().Id);
 
-        c.SelectSection("geometry");
-        Assert.Equal("geometry", c.SelectedSectionId);
+        c.EnableOnly("geometry");
         var third = c.NextQuestion().Id;
         Assert.Equal(3, new[] { first, second, third }.Distinct().Count());
     }
 
     [Fact]
-    public void Select_random_restarts_cycle_from_first_section()
+    public void Enable_only_makes_section_active()
     {
         var c = Catalog();
-        c.NextQuestion();
-        c.NextQuestion();
-        c.SelectSection("analysis");
-        Assert.Equal("d1", c.NextQuestion().Id);
-
-        c.SelectRandom();
-        Assert.Null(c.SelectedSectionId);
-        Assert.Equal("a1", c.NextQuestion().Id);
-        Assert.Equal("b1", c.NextQuestion().Id);
-    }
-
-    [Fact]
-    public void Specific_section_does_not_move_random_cursor()
-    {
-        var c = Catalog();
-        c.SelectSection("geometry");
-        c.NextQuestion();
-        c.NextQuestion();
-        c.SelectRandom();
-        Assert.Equal("a1", c.NextQuestion().Id);
-    }
-
-    [Fact]
-    public void Find_active_searches_only_active_pack()
-    {
-        var c = Catalog();
-        c.SelectSection("algebra");
+        c.EnableOnly("algebra");
+        Assert.Equal(new[] { "algebra" }, c.EnabledSectionIds);
+        Assert.Equal("algebra", c.ActivePack.Section.Id);
         Assert.Equal("b2", c.FindActive("b2")!.Id);
         Assert.Null(c.FindActive("a1"));
+    }
+
+    [Fact]
+    public void Section_outside_defaults_can_be_enabled()
+    {
+        var c = new QuestionCatalog(Config, Packs(), new[] { "algebra" }, new Random(1));
+        Assert.Equal(new[] { "algebra" }, c.EnabledSectionIds);
+        Assert.False(c.IsEnabled("geometry"));
+        Assert.True(c.SetEnabled("geometry", true));
+        Assert.Equal(new[] { "algebra", "geometry" }, c.EnabledSectionIds);
     }
 
     [Fact]
@@ -153,7 +193,9 @@ public class QuestionCatalogTests
         Assert.Throws<ArgumentException>(() => new QuestionCatalog(Config, Packs(), Array.Empty<string>(), rng));
         Assert.Throws<ArgumentException>(() => new QuestionCatalog(Config, Packs(), new[] { "algebra", "algebra" }, rng));
         Assert.Throws<ArgumentException>(() => new QuestionCatalog(Config, Packs(), new[] { "algebra", "topology" }, rng));
-        Assert.Throws<ArgumentException>(() => Catalog().SelectSection("topology"));
+        Assert.Throws<ArgumentException>(() => Catalog().SetEnabled("topology", true));
+        Assert.Throws<ArgumentException>(() => Catalog().IsEnabled("topology"));
+        Assert.Throws<ArgumentException>(() => Catalog().EnableOnly("topology"));
     }
 
     private static IReadOnlyDictionary<int, IReadOnlyList<string>> Used(params (int Level, string[] Ids)[] items)
@@ -165,17 +207,18 @@ public class QuestionCatalogTests
     public void Capture_and_restore_round_trip()
     {
         var c = Catalog(geometryExtraL1: 3);
-        c.SelectSection("geometry");
+        c.EnableOnly("geometry");
         c.NextQuestion();
         c.NextQuestion();
         Record(c, true, 4);
         c.NextQuestion();
         Record(c, true, 2);
-        c.SelectSection("algebra");
+        c.EnableOnly("algebra");
         Record(c, false, 2);
+        c.SetEnabled("analysis", true);
 
         var snapshot = c.CaptureProgress();
-        Assert.Equal("algebra", snapshot.SelectedSectionId);
+        Assert.Equal(new[] { "algebra", "analysis" }, snapshot.EnabledSectionIds);
         var geometry = Section(snapshot, "geometry");
         Assert.Equal((2, 2, 0), (geometry.Level, geometry.CorrectStreak, geometry.WrongStreak));
         Assert.Equal(2, geometry.UsedQuestionIdsByLevel[1].Count);
@@ -185,11 +228,11 @@ public class QuestionCatalogTests
 
         var restored = Catalog(geometryExtraL1: 3, seed: 9);
         restored.RestoreProgress(snapshot);
-        Assert.Equal("algebra", restored.SelectedSectionId);
+        Assert.Equal(new[] { "algebra", "analysis" }, restored.EnabledSectionIds);
         Assert.Equal("algebra", restored.ActivePack.Section.Id);
         Assert.Equivalent(snapshot, restored.CaptureProgress(), strict: true);
 
-        restored.SelectSection("geometry");
+        restored.EnableOnly("geometry");
         Assert.Equal(2, restored.ActiveDifficulty.Level);
         Record(restored, true, 2);
         Assert.Equal(3, restored.ActiveDifficulty.Level);
@@ -200,26 +243,23 @@ public class QuestionCatalogTests
     }
 
     [Fact]
-    public void Restore_random_selection()
+    public void Snapshot_without_enabled_list_enables_defaults_and_keeps_levels()
     {
-        var c = Catalog();
-        c.SelectSection("analysis");
-        c.SelectRandom();
-        var snapshot = c.CaptureProgress();
-        Assert.Null(snapshot.SelectedSectionId);
-
         var restored = Catalog();
-        restored.SelectSection("algebra");
-        restored.RestoreProgress(snapshot);
-        Assert.Null(restored.SelectedSectionId);
-        Assert.Equal("a1", restored.NextQuestion().Id);
+        restored.EnableOnly("algebra");
+        restored.RestoreProgress(new QuizProgressSnapshot(null, new[] { new SectionProgressSnapshot("geometry", 3, 0, 0, Used()) }));
+
+        Assert.Equal(Order, restored.EnabledSectionIds);
+        Assert.Equal(3, Section(restored.CaptureProgress(), "geometry").Level);
     }
 
     public static IEnumerable<object?[]> InvalidSnapshots()
     {
         var ok = new SectionProgressSnapshot("algebra", 2, 1, 0, Used((1, new[] { "b1" })));
         yield return new object?[] { null };
-        yield return new object?[] { new QuizProgressSnapshot("topology", new[] { ok }) };
+        yield return new object?[] { new QuizProgressSnapshot(new[] { "topology" }, new[] { ok }) };
+        yield return new object?[] { new QuizProgressSnapshot(Array.Empty<string>(), new[] { ok }) };
+        yield return new object?[] { new QuizProgressSnapshot(new[] { "algebra", "algebra" }, new[] { ok }) };
         yield return new object?[] { new QuizProgressSnapshot(null, new[] { ok, ok }) };
         yield return new object?[] { new QuizProgressSnapshot(null, new[] { ok, ok with { SectionId = "topology" } }) };
         yield return new object?[] { new QuizProgressSnapshot(null, new[] { ok with { Level = 4 } }) };
@@ -233,32 +273,33 @@ public class QuestionCatalogTests
     public void Invalid_snapshot_restores_defaults(QuizProgressSnapshot? snapshot)
     {
         var c = Catalog();
-        c.SelectSection("geometry");
+        c.EnableOnly("geometry");
         Record(c, true, 4);
         c.NextQuestion();
-        c.SelectSection("arithmetic");
+        c.EnableOnly("arithmetic");
         Record(c, false, 1);
 
         c.RestoreProgress(snapshot);
 
         Assert.Equivalent(Catalog().CaptureProgress(), c.CaptureProgress(), strict: true);
-        Assert.Null(c.SelectedSectionId);
-        Assert.Equal("a1", c.NextQuestion().Id);
+        Assert.Equal(Order, c.EnabledSectionIds);
+        Assert.Equal("arithmetic", c.ActivePack.Section.Id);
     }
 
     [Fact]
     public void Restore_accepts_thresholds_of_its_config_only()
     {
-        var snapshot = new QuizProgressSnapshot("geometry", new[] { new SectionProgressSnapshot("geometry", 2, 3, 0, Used()) });
+        var snapshot = new QuizProgressSnapshot(new[] { "geometry" }, new[] { new SectionProgressSnapshot("geometry", 2, 3, 0, Used()) });
         var c = Catalog();
         c.RestoreProgress(snapshot);
+        Assert.Equal(new[] { "geometry" }, c.EnabledSectionIds);
         Assert.Equal((2, 3), (c.ActiveDifficulty.Level, c.ActiveDifficulty.CorrectStreak));
         Record(c, true, 1);
         Assert.Equal(3, c.ActiveDifficulty.Level);
 
         var strict = new QuestionCatalog(GameConfig.Default, Packs(), Order, new Random(1));
         strict.RestoreProgress(snapshot);
-        Assert.Null(strict.SelectedSectionId);
+        Assert.Equal(Order, strict.EnabledSectionIds);
         Assert.Equal(1, strict.ActiveDifficulty.Level);
     }
 
@@ -266,10 +307,10 @@ public class QuestionCatalogTests
     public void Restore_drops_unknown_ids_and_resets_missing_sections()
     {
         var c = Catalog();
-        c.SelectSection("algebra");
+        c.EnableOnly("algebra");
         Record(c, true, 4);
 
-        c.RestoreProgress(new QuizProgressSnapshot("geometry", new[]
+        c.RestoreProgress(new QuizProgressSnapshot(new[] { "geometry" }, new[]
         {
             new SectionProgressSnapshot("geometry", 1, 0, 0, Used((1, new[] { "c1", "gone" }), (2, new[] { "c1" }))),
         }));

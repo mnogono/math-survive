@@ -26,7 +26,7 @@ public sealed class ProgressFileStoreTests : IDisposable
     private static QuestionPack[] Packs() => new[] { "arithmetic", "geometry" }.Select(id => new QuestionPack(new SectionInfo(id, id, 3),
         Enumerable.Range(1, 3).Select(l => Q($"{id}-{l}", l)).ToList())).ToArray();
 
-    private static QuizProgressSnapshot Sample(int correctStreak = 2) => new("geometry", new[]
+    private static QuizProgressSnapshot Sample(int correctStreak = 2) => new(new[] { "geometry" }, new[]
     {
         new SectionProgressSnapshot("arithmetic", 1, 0, 0, new Dictionary<int, IReadOnlyList<string>>()),
         new SectionProgressSnapshot("geometry", 3, correctStreak, 0, new Dictionary<int, IReadOnlyList<string>>
