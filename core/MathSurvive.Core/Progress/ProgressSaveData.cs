@@ -5,8 +5,8 @@ namespace MathSurvive.Core.Progress;
 /// <summary>JSON-форма <c>save.json</c> (snake_case через <see cref="ProgressSaveCodec"/>).</summary>
 public sealed class ProgressSaveData
 {
-    public int Version { get; set; } = 1;
-    public string? SelectedSectionId { get; set; }
+    public int Version { get; set; } = 2;
+    public List<string>? EnabledSectionIds { get; set; }
     public List<SectionProgressSaveData>? Sections { get; set; }
 }
 

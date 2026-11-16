@@ -3,43 +3,57 @@ using System.Collections.Generic;
 
 namespace MathSurvive.Core.Layout;
 
+/// <summary>Табличка раздела и круглая монета-переключатель справа от неё; <see cref="Coin"/> — квадрат вокруг круга.</summary>
+public readonly record struct SectionSlot(PixelRect Plate, PixelRect Coin);
+
 /// <summary>
-/// Комната выбора раздела: стена внизу окна и пять иконок в ряд над головой персонажа.
-/// Размеры заданы в логических px и умножаются на scale; результат — физические px окна.
+/// Комната выбора разделов: стена внизу окна, пять колонок по 20 % ширины. В первой стоит персонаж,
+/// в остальных над его головой висят разделы. Размеры заданы в логических px и умножаются на scale;
+/// результат — физические px окна.
 /// </summary>
 public static class RoomLayout
 {
-    public const int IconCount = 5;
+    public const int SectionCount = 4;
 
-    private const double IconWidth = 128;
-    private const double IconHeight = 84;
-    private const double IconGap = 8;
-    /// <summary>От пола до низа иконки: выше персонажа и облачка «!» над ним.</summary>
-    private const double IconBottom = 108;
+    private const double PlateWidth = 128;
+    private const double PlateHeight = 84;
+    private const double CoinDiameter = 40;
+    private const double CoinGap = 6;
+    private const double SlotGap = 8;
+    /// <summary>Доля ширины колонки, которую монета может занять в узком окне.</summary>
+    private const double MaxCoinShare = 0.3;
+    /// <summary>От пола до низа таблички: выше персонажа и облачка «!» над ним.</summary>
+    private const double PlateBottom = 108;
     private const double WallHeight = 210;
 
-    /// <summary>Центр иконки по X в долях ширины окна: 10, 30, 50, 70, 90 %.</summary>
-    private static double CenterX(int windowW, int iconIndex) => windowW * (0.1 + 0.2 * iconIndex);
+    /// <summary>Центр колонки по X: 10, 30, 50, 70, 90 % ширины окна.</summary>
+    private static double ColumnCenterX(int windowW, int column) => windowW * (0.1 + 0.2 * column);
 
-    public static IReadOnlyList<PixelRect> IconRects(int windowW, int windowH, double scale)
+    public static IReadOnlyList<SectionSlot> SectionSlots(int windowW, int windowH, double scale)
     {
-        // В узком окне иконка сужается, чтобы между соседями оставался зазор.
-        var w = Math.Min(IconWidth * scale, windowW * 0.2 - IconGap * scale);
-        var h = IconHeight * scale;
-        var y = windowH - (IconBottom + IconHeight) * scale;
-        var rects = new PixelRect[IconCount];
-        for (var i = 0; i < IconCount; i++)
-            rects[i] = new PixelRect((int)Math.Round(CenterX(windowW, i) - w / 2), (int)Math.Round(y), (int)Math.Round(w), (int)Math.Round(h));
-        return rects;
+        // В узком окне монета и табличка сужаются, чтобы между соседями оставался зазор.
+        var available = windowW * 0.2 - SlotGap * scale;
+        var coin = Math.Min(CoinDiameter * scale, available * MaxCoinShare);
+        var gap = CoinGap * scale;
+        var plateW = Math.Min(PlateWidth * scale, available - gap - coin);
+        var plateH = PlateHeight * scale;
+        var plateY = windowH - (PlateBottom + PlateHeight) * scale;
+        var coinY = plateY + (plateH - coin) / 2;
+
+        var slots = new SectionSlot[SectionCount];
+        for (var i = 0; i < SectionCount; i++)
+        {
+            var left = ColumnCenterX(windowW, i + 1) - (plateW + gap + coin) / 2;
+            slots[i] = new SectionSlot(Rect(left, plateY, plateW, plateH), Rect(left + plateW + gap, coinY, coin, coin));
+        }
+        return slots;
     }
 
-    public static (double x, double y) PlayerFeet(int windowW, int windowH, double scale, int iconIndex)
-    {
-        if (iconIndex is < 0 or >= IconCount)
-            throw new ArgumentOutOfRangeException(nameof(iconIndex));
-        return (CenterX(windowW, iconIndex), windowH);
-    }
+    public static (double x, double y) PlayerFeet(int windowW, int windowH) => (ColumnCenterX(windowW, 0), windowH);
 
     /// <summary>Верх стены (физические px окна).</summary>
     public static double WallTop(int windowH, double scale) => windowH - WallHeight * scale;
+
+    private static PixelRect Rect(double x, double y, double w, double h)
+        => new((int)Math.Round(x), (int)Math.Round(y), (int)Math.Round(w), (int)Math.Round(h));
 }

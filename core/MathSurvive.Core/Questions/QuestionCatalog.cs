@@ -7,7 +7,7 @@ namespace MathSurvive.Core.Questions;
 
 /// <summary>
 /// Пакеты разделов с независимыми сложностью и историей показанных вопросов.
-/// Выбор <c>null</c> — случайный режим: вопросы по кругу из разделов <c>randomOrder</c>.
+/// Следующий вопрос — из случайного включённого раздела; последний включённый раздел выключить нельзя.
 /// </summary>
 public sealed class QuestionCatalog
 {
@@ -27,13 +27,16 @@ public sealed class QuestionCatalog
 
     private readonly Dictionary<string, SectionState> _sections = new();
     private readonly List<SectionState> _ordered = new();
-    private readonly IReadOnlyList<string> _randomOrder;
-    private int _randomCursor;
+    private readonly IReadOnlyList<string> _defaultEnabled;
+    private readonly HashSet<string> _enabled = new();
+    private readonly Random _rng;
     private SectionState _active;
 
-    public QuestionCatalog(GameConfig config, IReadOnlyList<QuestionPack> packs, IReadOnlyList<string> randomOrder, Random rng)
+    /// <param name="defaultEnabled">Разделы, включённые по умолчанию; остальные пакеты доступны через <see cref="SetEnabled"/>.</param>
+    public QuestionCatalog(GameConfig config, IReadOnlyList<QuestionPack> packs, IReadOnlyList<string> defaultEnabled, Random rng)
     {
         Config = config;
+        _rng = rng;
         foreach (var pack in packs)
         {
             if (_sections.ContainsKey(pack.Section.Id))
@@ -45,56 +48,59 @@ public sealed class QuestionCatalog
             _ordered.Add(state);
         }
 
-        if (randomOrder.Count == 0)
-            throw new ArgumentException("Пустой порядок случайного режима", nameof(randomOrder));
-        if (randomOrder.Distinct().Count() != randomOrder.Count)
-            throw new ArgumentException("Повтор раздела в порядке случайного режима", nameof(randomOrder));
-        var missing = randomOrder.FirstOrDefault(id => !_sections.ContainsKey(id));
+        if (defaultEnabled.Count == 0)
+            throw new ArgumentException("Нет разделов, включённых по умолчанию", nameof(defaultEnabled));
+        if (defaultEnabled.Distinct().Count() != defaultEnabled.Count)
+            throw new ArgumentException("Повтор раздела среди включённых по умолчанию", nameof(defaultEnabled));
+        var missing = defaultEnabled.FirstOrDefault(id => !_sections.ContainsKey(id));
         if (missing is not null)
-            throw new ArgumentException($"Нет раздела «{missing}»", nameof(randomOrder));
+            throw new ArgumentException($"Нет раздела «{missing}»", nameof(defaultEnabled));
 
-        _randomOrder = randomOrder.ToArray();
-        _active = _sections[_randomOrder[0]];
+        _defaultEnabled = defaultEnabled.ToArray();
+        _active = _sections[_defaultEnabled[0]];
+        EnableExactly(_defaultEnabled);
     }
 
     public GameConfig Config { get; }
 
-    /// <summary><c>null</c> — случайный режим.</summary>
-    public string? SelectedSectionId { get; private set; }
+    /// <summary>Включённые разделы в порядке пакетов.</summary>
+    public IReadOnlyList<string> EnabledSectionIds => Enabled().Select(s => s.Pack.Section.Id).ToArray();
 
+    /// <summary>Раздел последнего выданного вопроса (до первого — первый включённый).</summary>
     public QuestionPack ActivePack => _active.Pack;
     public DifficultyTracker ActiveDifficulty => _active.Difficulty;
 
+    public bool IsEnabled(string id) => _enabled.Contains(Require(id).Pack.Section.Id);
+
+    /// <returns><c>false</c>, если раздел уже в этом состоянии или это последний включённый раздел.</returns>
+    public bool SetEnabled(string id, bool enabled)
+    {
+        Require(id);
+        if (enabled) return _enabled.Add(id);
+        if (_enabled.Count == 1 || !_enabled.Remove(id)) return false;
+        return true;
+    }
+
+    /// <summary>Включить только этот раздел и сделать его активным.</summary>
+    public void EnableOnly(string id)
+    {
+        var state = Require(id);
+        EnableExactly(new[] { id });
+        _active = state;
+    }
+
     public Question NextQuestion()
     {
-        if (SelectedSectionId is null)
-        {
-            _active = _sections[_randomOrder[_randomCursor]];
-            _randomCursor = (_randomCursor + 1) % _randomOrder.Count;
-        }
+        var enabled = Enabled().ToList();
+        _active = enabled[_rng.Next(enabled.Count)];
         var level = _active.Difficulty.Level;
         return _active.Picker.NextAtLevel(level, _active.UsedAt(level));
     }
 
     public Question? FindActive(string id) => _active.Picker.Find(id);
 
-    public void SelectSection(string id)
-    {
-        if (!_sections.TryGetValue(id, out var state))
-            throw new ArgumentException($"Нет раздела «{id}»", nameof(id));
-        SelectedSectionId = id;
-        _active = state;
-    }
-
-    public void SelectRandom()
-    {
-        SelectedSectionId = null;
-        _randomCursor = 0;
-        _active = _sections[_randomOrder[0]];
-    }
-
-    /// <summary>Выбор, сложность и показанные ID всех разделов; текущий вопрос и курсор случайного режима не входят.</summary>
-    public QuizProgressSnapshot CaptureProgress() => new(SelectedSectionId, _ordered.Select(s =>
+    /// <summary>Включённые разделы, сложность и показанные ID всех разделов; текущий вопрос не входит.</summary>
+    public QuizProgressSnapshot CaptureProgress() => new(EnabledSectionIds, _ordered.Select(s =>
         new SectionProgressSnapshot(s.Pack.Section.Id, s.Difficulty.Level, s.Difficulty.CorrectStreak, s.Difficulty.WrongStreak,
             s.Used.Where(kv => kv.Value.Count > 0)
                 .ToDictionary(kv => kv.Key, kv => (IReadOnlyList<string>)kv.Value.Order(StringComparer.Ordinal).ToArray())))
@@ -103,6 +109,7 @@ public sealed class QuestionCatalog
     /// <summary>
     /// Применить snapshot целиком. <c>null</c> или недопустимый snapshot — значения по умолчанию.
     /// Разделы, которых нет в snapshot, начинают заново; ID, которых больше нет на уровне, отбрасываются.
+    /// Без списка включённых разделов (старый формат) включаются разделы по умолчанию.
     /// </summary>
     public void RestoreProgress(QuizProgressSnapshot? snapshot)
     {
@@ -125,7 +132,18 @@ public sealed class QuestionCatalog
             }
         }
 
-        if (valid && snapshot!.SelectedSectionId is { } id) SelectSection(id);
-        else SelectRandom();
+        EnableExactly(valid && snapshot!.EnabledSectionIds is { } enabled ? enabled : _defaultEnabled);
+        _active = Enabled().First();
     }
+
+    private IEnumerable<SectionState> Enabled() => _ordered.Where(s => _enabled.Contains(s.Pack.Section.Id));
+
+    private void EnableExactly(IEnumerable<string> ids)
+    {
+        _enabled.Clear();
+        _enabled.UnionWith(ids);
+    }
+
+    private SectionState Require(string id)
+        => _sections.TryGetValue(id, out var state) ? state : throw new ArgumentException($"Нет раздела «{id}»", nameof(id));
 }

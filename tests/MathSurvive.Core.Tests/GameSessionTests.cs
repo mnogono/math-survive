@@ -302,79 +302,133 @@ public class GameSessionTests
         return s.Pack.Section.Id;
     }
 
+    /// <summary>Оставить включённым только раздел <paramref name="id"/> через переключатели.</summary>
+    private static void Only(GameSession s, string id)
+    {
+        if (!s.IsSectionEnabled(id)) Assert.True(s.ToggleSection(id));
+        foreach (var other in Sections.Where(o => o != id && s.IsSectionEnabled(o)))
+            Assert.True(s.ToggleSection(other));
+    }
+
     [Fact]
-    public void Select_section_drops_open_question_but_keeps_run()
+    public void All_sections_start_enabled()
     {
         var s = SectionSession();
-        s.OpenQuiz();
+        Assert.Equal(Sections, s.EnabledSectionIds);
+        Assert.True(s.CanToggleSections);
+    }
+
+    [Fact]
+    public void Toggling_other_section_keeps_open_question_and_run()
+    {
+        var s = SectionSession();
+        var section = OpenSection(s);
+        var quiz = s.CurrentQuiz;
         s.Tick(TimeSpan.FromMinutes(5), T0);
-        var (run, combat, pause, clock) = (s.Run, s.Combat, s.Pause, s.Clock);
-        var ammo = combat.Ammo;
+        var (run, combat, clock, ammo) = (s.Run, s.Combat, s.Clock, s.Combat.Ammo);
+        var other = Sections.First(id => id != section);
 
-        Assert.True(s.SelectSection("geometry"));
+        Assert.True(s.ToggleSection(other));
+        Assert.False(s.IsSectionEnabled(other));
+        Assert.Equal(GameMode.QuizOpen, s.Mode);
+        Assert.Same(quiz, s.CurrentQuiz);
 
-        Assert.Equal(GameMode.Idle, s.Mode);
-        Assert.Null(s.CurrentQuiz);
-        Assert.Null(s.LastAnswer);
-        Assert.Equal("geometry", s.SelectedSectionId);
+        Assert.True(s.ToggleSection(other));
+        Assert.True(s.IsSectionEnabled(other));
+        Assert.Same(quiz, s.CurrentQuiz);
         Assert.Same(run, s.Run);
         Assert.Same(combat, s.Combat);
-        Assert.Same(pause, s.Pause);
         Assert.Same(clock, s.Clock);
         Assert.Equal(ammo, s.Combat.Ammo);
         Assert.Equal(TimeSpan.FromMinutes(5), s.Clock.Elapsed);
-        Assert.Equal(0, s.Run.Correct + s.Run.Wrong);
-        Assert.Equal("geometry", OpenSection(s));
     }
 
     [Fact]
-    public void Repeated_selection_is_ignored()
+    public void Disabling_section_of_open_question_replaces_it_without_answer()
+    {
+        var s = SectionSession(seed: 2);
+        var section = OpenSection(s);
+        var quiz = s.CurrentQuiz;
+        var modes = new List<GameMode>();
+        s.ModeChanged += modes.Add;
+
+        Assert.True(s.ToggleSection(section));
+
+        Assert.Equal(GameMode.QuizOpen, s.Mode);
+        Assert.Empty(modes);
+        Assert.NotNull(s.CurrentQuiz);
+        Assert.NotSame(quiz, s.CurrentQuiz);
+        Assert.NotEqual(section, s.Pack.Section.Id);
+        Assert.StartsWith(s.Pack.Section.Id, s.CurrentQuiz!.Question.Id);
+        Assert.Equal(0, s.Run.Correct + s.Run.Wrong);
+    }
+
+    [Fact]
+    public void Disabling_section_of_collapsed_question_drops_it()
     {
         var s = SectionSession();
-        Assert.Null(s.SelectedSectionId);
-        Assert.False(s.SelectRandom());
+        var section = OpenSection(s);
+        s.CollapseQuiz();
 
+        Assert.True(s.ToggleSection(section));
+        Assert.Equal(GameMode.Idle, s.Mode);
+        Assert.Null(s.CurrentQuiz);
+
+        Assert.NotEqual(section, OpenSection(s));
+    }
+
+    [Fact]
+    public void Last_enabled_section_cannot_be_disabled()
+    {
+        var s = SectionSession();
+        Only(s, "geometry");
         s.OpenQuiz();
         var quiz = s.CurrentQuiz;
-        Assert.False(s.SelectRandom());
-        Assert.Same(quiz, s.CurrentQuiz);
-        AnswerCorrect(s);
-        s.Tick(s.Config.FeedbackDuration, T0);
-        Assert.Equal("algebra", OpenSection(s));
 
-        Assert.True(s.SelectSection("analysis"));
-        s.OpenQuiz();
-        quiz = s.CurrentQuiz;
-        Assert.False(s.SelectSection("analysis"));
+        Assert.False(s.ToggleSection("geometry"));
+        Assert.Equal(new[] { "geometry" }, s.EnabledSectionIds);
         Assert.Same(quiz, s.CurrentQuiz);
     }
 
     [Fact]
-    public void Selection_is_blocked_outside_idle_and_quiz()
+    public void New_questions_come_only_from_enabled_sections()
+    {
+        var s = SectionSession(seed: 5);
+        Assert.True(s.ToggleSection("arithmetic"));
+        Assert.True(s.ToggleSection("analysis"));
+        var seen = new HashSet<string>();
+        for (var i = 0; i < 12; i++)
+        {
+            seen.Add(OpenSection(s));
+            AnswerCorrect(s);
+            s.Tick(s.Config.FeedbackDuration, T0);
+        }
+        Assert.Equal(new HashSet<string> { "algebra", "geometry" }, seen);
+    }
+
+    [Fact]
+    public void Toggling_is_blocked_outside_idle_and_quiz()
     {
         void AssertBlocked(GameSession s, GameMode mode)
         {
             Assert.Equal(mode, s.Mode);
-            Assert.False(s.CanChangeSection);
-            Assert.False(s.SelectSection("geometry"));
-            Assert.False(s.SelectRandom());
+            Assert.False(s.CanToggleSections);
+            Assert.False(s.ToggleSection("geometry"));
+            Assert.True(s.IsSectionEnabled("geometry"));
             Assert.Equal(mode, s.Mode);
         }
 
         var feedback = SectionSession();
-        feedback.SelectSection("algebra");
         feedback.OpenQuiz();
         AnswerCorrect(feedback);
         AssertBlocked(feedback, GameMode.Feedback);
 
         var paused = SectionSession();
-        paused.SelectSection("algebra");
         paused.OpenQuiz();
         paused.StartPause(T0);
         AssertBlocked(paused, GameMode.Paused);
 
         var horde = SectionSession();
-        horde.SelectSection("algebra");
         horde.ForceHordeNow();
         AssertBlocked(horde, GameMode.Horde);
 
@@ -382,7 +436,6 @@ public class GameSessionTests
         AssertBlocked(horde, GameMode.HordeSummary);
 
         var over = SectionSession();
-        over.SelectSection("algebra");
         over.ForceHordeNow();
         over.FinishHorde(survived: false, killed: 0);
         AssertBlocked(over, GameMode.GameOver);
@@ -392,18 +445,20 @@ public class GameSessionTests
     public void Each_section_keeps_its_own_difficulty()
     {
         var s = SectionSession();
-        s.SelectSection("arithmetic");
+        Only(s, "arithmetic");
         for (var i = 0; i < 3; i++) SolveOne(s);
         Assert.Equal(2, s.Difficulty.Level);
 
-        s.SelectSection("algebra");
+        Only(s, "algebra");
+        s.OpenQuiz();
         Assert.Equal(1, s.Difficulty.Level);
-        s.OpenQuiz();
         Assert.Equal(1, s.CurrentQuiz!.Question.Level);
+        AnswerCorrect(s);
+        s.Tick(s.Config.FeedbackDuration, T0);
 
-        s.SelectSection("arithmetic");
-        Assert.Equal(2, s.Difficulty.Level);
+        Only(s, "arithmetic");
         s.OpenQuiz();
+        Assert.Equal(2, s.Difficulty.Level);
         Assert.Equal(2, s.CurrentQuiz!.Question.Level);
     }
 
@@ -414,7 +469,7 @@ public class GameSessionTests
         var s = SectionSession(config);
         foreach (var id in Sections)
         {
-            s.SelectSection(id);
+            Only(s, id);
             for (var i = 0; i < 3; i++) SolveOne(s);
             Assert.Equal(1, s.Difficulty.Level);
             SolveOne(s);
@@ -423,12 +478,11 @@ public class GameSessionTests
     }
 
     [Fact]
-    public void Collapse_and_horde_do_not_advance_random_cycle()
+    public void Collapse_and_horde_keep_current_question()
     {
         var s = SectionSession();
-        s.OpenQuiz();
+        var section = OpenSection(s);
         var quiz = s.CurrentQuiz;
-        Assert.Equal("arithmetic", s.Pack.Section.Id);
 
         s.CollapseQuiz();
         s.OpenQuiz();
@@ -439,28 +493,40 @@ public class GameSessionTests
         s.Tick(s.Config.HordeSummaryDuration, T0);
         s.OpenQuiz();
         Assert.Same(quiz, s.CurrentQuiz);
-        Assert.Equal("arithmetic", s.Pack.Section.Id);
+        Assert.Equal(section, s.Pack.Section.Id);
 
         AnswerCorrect(s);
-        Assert.Equal("arithmetic", s.Run.Sections.Keys.Single());
-        s.Tick(s.Config.FeedbackDuration, T0);
-        Assert.Equal("algebra", OpenSection(s));
+        Assert.Equal(section, s.Run.Sections.Keys.Single());
     }
 
     [Fact]
-    public void Switching_collapse_and_horde_keep_progress_snapshot()
+    public void Enable_only_section_is_for_startup()
+    {
+        var s = SectionSession();
+        s.EnableOnlySection("analysis");
+        Assert.Equal(new[] { "analysis" }, s.EnabledSectionIds);
+        s.OpenQuiz("analysis-L1-3");
+        Assert.Equal("analysis-L1-3", s.CurrentQuiz!.Question.Id);
+
+        s.CollapseQuiz();
+        s.EnableOnlySection("algebra");
+        Assert.Equal(new[] { "analysis" }, s.EnabledSectionIds);
+    }
+
+    [Fact]
+    public void Toggling_collapse_and_horde_keep_progress_snapshot()
     {
         var catalog = Catalog(GameConfig.Default);
         var s = new GameSession(GameConfig.Default, catalog, new Random(1));
-        s.SelectSection("geometry");
+        Only(s, "geometry");
         SolveOne(s);
         SolveOne(s);
         s.OpenQuiz();
         var before = catalog.CaptureProgress();
 
         s.CollapseQuiz();
-        s.SelectSection("algebra");
-        s.SelectSection("geometry");
+        s.ToggleSection("algebra");
+        s.ToggleSection("algebra");
         s.ForceHordeNow();
         s.FinishHorde(survived: true, killed: 3);
         s.Tick(s.Config.HordeSummaryDuration, T0);

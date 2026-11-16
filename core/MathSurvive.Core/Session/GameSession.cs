@@ -35,13 +35,13 @@ public sealed class GameSession
     }
 
     public GameConfig Config { get; }
-    /// <summary>Пакет текущего вопроса (в случайном режиме — последнего выданного).</summary>
+    /// <summary>Пакет текущего (последнего выданного) вопроса.</summary>
     public QuestionPack Pack => _catalog.ActivePack;
 
-    /// <summary><c>null</c> — случайный режим.</summary>
-    public string? SelectedSectionId => _catalog.SelectedSectionId;
+    /// <summary>Включённые разделы: новый вопрос берётся из случайного из них.</summary>
+    public IReadOnlyList<string> EnabledSectionIds => _catalog.EnabledSectionIds;
 
-    public bool CanChangeSection => Mode is GameMode.Idle or GameMode.QuizOpen;
+    public bool CanToggleSections => Mode is GameMode.Idle or GameMode.QuizOpen;
     public GameMode Mode { get; private set; } = GameMode.Idle;
     public bool CanForceHordeNow => Mode is GameMode.Idle or GameMode.QuizOpen;
     public QuizView? CurrentQuiz { get; private set; }
@@ -69,37 +69,44 @@ public sealed class GameSession
         if (CurrentQuiz == null)
         {
             var forced = forcedQuestionId == null ? null : _catalog.FindActive(forcedQuestionId);
-            var question = forced ?? _catalog.NextQuestion();
-            CurrentQuiz = new QuizView(question, ShuffledOrder(question.Options.Count));
-            _questionTime = TimeSpan.Zero;
+            NewQuiz(forced ?? _catalog.NextQuestion());
         }
         SetMode(GameMode.QuizOpen);
     }
 
-    /// <summary>Выбрать раздел; неотвеченный вопрос сбрасывается, бой и статистика не меняются.</summary>
-    /// <returns><c>false</c>, если режим уже выбран или менять раздел сейчас нельзя.</returns>
-    public bool SelectSection(string id)
+    public bool IsSectionEnabled(string id) => _catalog.IsEnabled(id);
+
+    /// <summary>
+    /// Включить или выключить раздел; бой, часы и статистика не меняются. Неотвеченный вопрос выключенного раздела
+    /// сбрасывается без записи ответа: открытый квиз сразу получает вопрос из включённых разделов.
+    /// </summary>
+    /// <returns><c>false</c>, если менять разделы сейчас нельзя или это последний включённый раздел.</returns>
+    public bool ToggleSection(string id)
     {
-        if (!CanChangeSection || SelectedSectionId == id) return false;
-        _catalog.SelectSection(id);
-        DropQuestion();
+        if (!CanToggleSections) return false;
+        var enable = !_catalog.IsEnabled(id);
+        if (!_catalog.SetEnabled(id, enable)) return false;
+        if (!enable && CurrentQuiz != null && Pack.Section.Id == id)
+        {
+            CurrentQuiz = null;
+            LastAnswer = null;
+            _questionTime = TimeSpan.Zero;
+            if (Mode == GameMode.QuizOpen) NewQuiz(_catalog.NextQuestion());
+        }
         return true;
     }
 
-    public bool SelectRandom()
+    /// <summary>Отладка (<c>--question</c>): включить только этот раздел до начала игры.</summary>
+    public void EnableOnlySection(string id)
     {
-        if (!CanChangeSection || SelectedSectionId is null) return false;
-        _catalog.SelectRandom();
-        DropQuestion();
-        return true;
+        if (Mode != GameMode.Idle || CurrentQuiz != null) return;
+        _catalog.EnableOnly(id);
     }
 
-    private void DropQuestion()
+    private void NewQuiz(Question question)
     {
-        CurrentQuiz = null;
-        LastAnswer = null;
+        CurrentQuiz = new QuizView(question, ShuffledOrder(question.Options.Count));
         _questionTime = TimeSpan.Zero;
-        SetMode(GameMode.Idle);
     }
 
     public void CollapseQuiz()
@@ -245,11 +252,7 @@ public sealed class GameSession
     }
 
     private static QuestionCatalog SinglePackCatalog(GameConfig config, QuestionPack pack, Random rng)
-    {
-        var catalog = new QuestionCatalog(config, new[] { pack }, new[] { pack.Section.Id }, rng);
-        catalog.SelectSection(pack.Section.Id);
-        return catalog;
-    }
+        => new(config, new[] { pack }, new[] { pack.Section.Id }, rng);
 
     private IReadOnlyList<int> ShuffledOrder(int count)
     {
