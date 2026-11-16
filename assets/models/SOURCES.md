@@ -1,6 +1,6 @@
-# 3D model sources
+# Asset sources
 
-Bundled models are not all under the same license. See each entry below; source URLs are retained for provenance.
+Bundled models and sprites are not all under the same license. See each entry below; source URLs are retained for provenance.
 
 ## Kenney — Graveyard Kit
 
@@ -31,3 +31,10 @@ Bundled models are not all under the same license. See each entry below; source 
 - At runtime, a local duplicate of `walk` without the root position track plays as `walk_in_place`; the shared animation and its other tracks are unchanged.
 - The source pack has no death animation. Death uses a procedural fall and the existing blood effect.
 - `polyart/manifest.json` records clip durations and GLB sizes.
+
+## Tom L — RPGmaker-style doors
+
+- Source: https://opengameart.org/content/rpgmaker-style-doors (file `door_6.png`, created for the EasyRPG RTP replacement)
+- Author: Tom L, https://opengameart.org/users/tom-l
+- License: CC0 1.0, https://creativecommons.org/publicdomain/zero/1.0/
+- `../door.png` — the wooden panel door column of `door_6.png`, cropped to 16×96: three 16×32 frames, top to bottom open, ajar, closed. No other changes.
